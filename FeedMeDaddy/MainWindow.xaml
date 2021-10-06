@@ -5,8 +5,57 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FeedMeDaddy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Height="700" Width="1400"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Border Background="#2E8B57"
+            CornerRadius="20">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="100"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="FeedMeDaddy"
+                   FontWeight="Bold"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   Foreground="White"
+                   Margin="20, 0, 0, 0"
+                   FontSize="35"/>
+
+            <StackPanel Grid.Row="1" Margin="0,100,0,0">
+                <RadioButton Content="Home"
+                             IsChecked="True"
+                             Height="75"
+                             Foreground="White"
+                             FontSize="20"
+                             Style="{StaticResource MenuButtonTheme}"/>
+                
+                <RadioButton Content="Planning"
+                             Height="75"
+                             Foreground="White"
+                             FontSize="20"
+                             Style="{StaticResource MenuButtonTheme}"/>
+
+                <RadioButton Content="Shopping List"
+                             Height="75"
+                             Foreground="White"
+                             FontSize="20"
+                             Style="{StaticResource MenuButtonTheme}"/>
+
+                <RadioButton Content="Recipes"
+                             Height="75"
+                             Foreground="White"
+                             FontSize="20"
+                             Style="{StaticResource MenuButtonTheme}"/>
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>
