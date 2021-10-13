@@ -3,13 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:FeedMeDaddy.ViewModel"
         xmlns:local="clr-namespace:FeedMeDaddy"
         mc:Ignorable="d"
         Height="700" Width="1400"
-        WindowStyle="None"
+        WindowStyle="SingleBorderWindow"
         ResizeMode="NoResize"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="False">
+
+    <Window.DataContext>
+        <viewModel:MainViewModel />
+    </Window.DataContext>
+    
     <Border Background="#2E8B57"
             CornerRadius="20">
         <Grid>
@@ -25,9 +31,8 @@
             <TextBlock Text="FeedMeDaddy"
                    FontWeight="Bold"
                    VerticalAlignment="Center"
-                   HorizontalAlignment="Left"
+                   HorizontalAlignment="Center"
                    Foreground="White"
-                   Margin="20, 0, 0, 0"
                    FontSize="35"/>
 
             <StackPanel Grid.Row="1" Margin="0,100,0,0">
@@ -36,26 +41,36 @@
                              Height="75"
                              Foreground="White"
                              FontSize="20"
-                             Style="{StaticResource MenuButtonTheme}"/>
-                
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding HomeViewCommand}"/>
+
                 <RadioButton Content="Planning"
                              Height="75"
                              Foreground="White"
                              FontSize="20"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding PlanningViewCommand}"/>
 
                 <RadioButton Content="Shopping List"
                              Height="75"
                              Foreground="White"
                              FontSize="20"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding ShoppingViewCommand}"/>
 
                 <RadioButton Content="Recipes"
                              Height="75"
                              Foreground="White"
                              FontSize="20"
-                             Style="{StaticResource MenuButtonTheme}"/>
+                             Style="{StaticResource MenuButtonTheme}"
+                             Command="{Binding RecipesViewCommand}"/>
             </StackPanel>
+
+            <ContentControl Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="1"
+                            Margin="10, 0, 10, 10"
+                            Content="{Binding CurrentView}"/>
         </Grid>
     </Border>
 </Window>
