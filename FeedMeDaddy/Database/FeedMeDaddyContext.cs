@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using FeedMeDaddy.Secure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -34,7 +35,7 @@ namespace FeedMeDaddy.Database
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["FMD_Database"].ConnectionString);
+                optionsBuilder.UseSqlServer(ConfigDB.ToString());
             }
         }
 

@@ -206,6 +206,7 @@
     <Compile Include="Database\UnitWeight.cs" />
     <Compile Include="Database\User.cs" />
     <Compile Include="Model\HomeModel.cs" />
+    <Compile Include="Secure\ConfigDB.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PlanningViewModel.cs" />
