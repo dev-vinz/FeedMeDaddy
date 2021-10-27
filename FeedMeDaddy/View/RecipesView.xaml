@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FeedMeDaddy.View"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-
+             FocusManager.FocusedElement="{Binding ElementName=recipeComboBox}"
              mc:Ignorable="d" 
              d:DesignHeight="690" d:DesignWidth="1080">
     <!-- General Grid -->
@@ -31,11 +31,15 @@
                    Grid.ColumnSpan="2"/>
         
         <!-- Left Grid -->
-        <Grid Grid.Column="0" Grid.Row="1">
+        <Grid Grid.Column="0" Grid.Row="1" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
             <ListBox Name="recipeListBox"  Grid.Column="0" Grid.Row="0" Margin="5">
                 <ListBox.Resources>
@@ -53,10 +57,21 @@
                 <ListBoxItem Content="Recipe test 1"/>
                 <ListBoxItem Content="Recipe test 2"/>
                 <ListBoxItem Content="Recipe test 3"/>
-            </ListBox>
 
+            </ListBox>
+            <ComboBox Name="recipeComboBox" 
+                      Grid.Column="1"
+                      Width="200"
+                      Height="30"
+                      IsEditable="True"
+                      Text="Already know what you want ?"
+                      
+                      >
+            
+            </ComboBox>
             <RichTextBox Name="recipeDescription"
                          Grid.Row="1"
+                         Grid.ColumnSpan="3"
                          Margin="5"
                          IsReadOnly="True">
                 <FlowDocument>
@@ -94,7 +109,7 @@
             <xctk:IntegerUpDown Name="myUpDownControl"
                                 Minimum="1"
                                 Maximum="12"
-                                Height="50"
+                                Height="30"
                                 Width="50"
                                 Margin="5"
                                 HorizontalAlignment="Left"
