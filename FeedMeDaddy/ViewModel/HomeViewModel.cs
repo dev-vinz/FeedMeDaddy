@@ -14,6 +14,7 @@ namespace FeedMeDaddy.ViewModel
 
         public HomeViewModel()
         {
+            var ctx = new FeedMeDaddyContext();
         }
     }
 }
