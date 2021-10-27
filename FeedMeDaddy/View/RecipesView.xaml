@@ -65,9 +65,12 @@
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
             <TextBlock Name="recipeName" 
                        Text="Recipe Name"
@@ -75,14 +78,16 @@
                        VerticalAlignment="Center"
                        FontSize="30"
                        Foreground="White"
+                       Grid.Column="0"
                        Grid.Row="0"/>
             <xctk:IntegerUpDown Name="myUpDownControl"
                                 Minimum="1"
                                 Height="50"
                                 Margin="5"
                                 Text="4"
-                                Grid.Column="1" Grid.Row="1">
-                                <xctk:IntegerUpDown.Resources>
+                                Grid.Column="1"
+                                Grid.Row="0">
+                <xctk:IntegerUpDown.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="10"/>
                                     </Style>
@@ -90,9 +95,16 @@
             </xctk:IntegerUpDown>
             <RichTextBox Name="ingredientList"
                          Grid.Row="2"
+                         Grid.ColumnSpan="2"
                          Margin="5"
                          IsReadOnly="True">
-                        <RichTextBox.Resources>
+                <FlowDocument>
+                    <Paragraph> Ingredient 1
+                    </Paragraph>
+                    
+
+                </FlowDocument>
+                <RichTextBox.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
