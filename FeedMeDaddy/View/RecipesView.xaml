@@ -4,8 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FeedMeDaddy.View"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+
              mc:Ignorable="d" 
              d:DesignHeight="690" d:DesignWidth="1080">
+    <!-- General Grid -->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -15,14 +18,89 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="90" />
             <RowDefinition />
+            
         </Grid.RowDefinitions>
 
-
+        <!-- Window title -->
         <TextBlock Text="Recipes"
                    FontSize="40"
                    Foreground="White"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
+                   
                    Grid.ColumnSpan="2"/>
+        
+        <!-- Left Grid -->
+        <Grid Grid.Column="0" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+
+            <ListBox Name="recipeListBox"  Grid.Column="0" Grid.Row="0" Margin="5">
+                <ListBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </ListBox.Resources>
+                <ListBoxItem Content="Recipe test 1"/>
+                <ListBoxItem Content="Recipe test 2"/>
+                <ListBoxItem Content="Recipe test 3"/>
+            </ListBox>
+
+            <RichTextBox Name="recipeDescription"
+                         Grid.Row="1"
+                         Margin="5"
+                         IsReadOnly="True">
+                <RichTextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </RichTextBox.Resources>
+            </RichTextBox>
+
+        </Grid>
+
+        <!-- Right Grid -->
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Name="recipeName" 
+                       Text="Recipe Name"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="30"
+                       Foreground="White"
+                       Grid.Row="0"/>
+            <xctk:IntegerUpDown Name="myUpDownControl"
+                                Minimum="1"
+                                Height="50"
+                                Margin="5"
+                                Text="4"
+                                Grid.Column="1" Grid.Row="1">
+                                <xctk:IntegerUpDown.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                    </Style>
+                                </xctk:IntegerUpDown.Resources>
+            </xctk:IntegerUpDown>
+            <RichTextBox Name="ingredientList"
+                         Grid.Row="2"
+                         Margin="5"
+                         IsReadOnly="True">
+                        <RichTextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </RichTextBox.Resources>
+            </RichTextBox>
+
+        </Grid>
+
+
     </Grid>
 </UserControl>
