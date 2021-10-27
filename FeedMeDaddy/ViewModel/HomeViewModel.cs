@@ -1,4 +1,5 @@
 ﻿using FeedMeDaddy.Core;
+using FeedMeDaddy.Database;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,6 @@ namespace FeedMeDaddy.ViewModel
 
         public HomeViewModel()
         {
-            
         }
     }
 }
