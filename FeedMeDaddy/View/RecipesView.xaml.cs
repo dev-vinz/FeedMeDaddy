@@ -24,5 +24,11 @@ namespace FeedMeDaddy.View
         {
             InitializeComponent();
         }
+
+
+        private void quantityChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            
+        }
     }
 }

@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FeedMeDaddy.View"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:viewmodel="clr-namespace:FeedMeDaddy.ViewModel"
              FocusManager.FocusedElement="{Binding ElementName=recipeComboBox}"
+             d:DataContext="{d:DesignInstance Type=viewmodel:RecipesViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="690" d:DesignWidth="1080">
     <!-- General Grid -->
@@ -41,7 +43,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox Name="recipeListBox"  Grid.Column="0" Grid.Row="0" Margin="5">
+            <ListBox Name="recipeListBox" ItemsSource="{Binding recipeList}" Grid.Column="0" Grid.Row="0" Margin="5">
                 <ListBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -54,9 +56,7 @@
                         </Style.Resources>
                     </Style>
                 </ListBox.Resources>
-                <ListBoxItem Content="Recipe test 1"/>
-                <ListBoxItem Content="Recipe test 2"/>
-                <ListBoxItem Content="Recipe test 3"/>
+                
 
             </ListBox>
             <ComboBox Name="recipeComboBox" 
@@ -65,17 +65,16 @@
                       Height="30"
                       IsEditable="True"
                       Text="Already know what you want ?"
-                      
                       >
-            
             </ComboBox>
+            <!--
             <RichTextBox Name="recipeDescription"
                          Grid.Row="1"
                          Grid.ColumnSpan="3"
                          Margin="5"
                          IsReadOnly="True">
                 <FlowDocument>
-                    <Paragraph>Recipe description
+                    <Paragraph>"{Binding recipeName}"
                     </Paragraph>
                 </FlowDocument>
                 <RichTextBox.Resources>
@@ -83,7 +82,18 @@
                         <Setter Property="CornerRadius" Value="10"/>
                     </Style>
                 </RichTextBox.Resources>
-            </RichTextBox>
+            </RichTextBox>-->
+            <TextBox  Name="recipeDescription"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="3"
+                        Margin="5"
+                        Text="{Binding recipeDescription}">
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
 
         </Grid>
 
@@ -99,13 +109,14 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Name="recipeName" 
-                       Text="Recipe Name"
+                       Text="{Binding recipeName}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="30"
                        Foreground="White"
                        Grid.Column="0"
                        Grid.Row="0"/>
+
             <xctk:IntegerUpDown Name="myUpDownControl"
                                 Minimum="1"
                                 Maximum="12"
@@ -115,14 +126,15 @@
                                 HorizontalAlignment="Left"
                                 Text="4"
                                 Grid.Column="1"
-                                Grid.Row="0">
+                                Grid.Row="0" ValueChanged="quantityChanged"
+                                >
                 <xctk:IntegerUpDown.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="10"/>
                                     </Style>
                                 </xctk:IntegerUpDown.Resources>
             </xctk:IntegerUpDown>
-            <RichTextBox Name="ingredientList"
+            <!--<RichTextBox Name="ingredientList"
                          Grid.Row="2"
                          Grid.ColumnSpan="2"
                          Margin="5"
@@ -138,8 +150,48 @@
                                 <Setter Property="CornerRadius" Value="10"/>
                             </Style>
                         </RichTextBox.Resources>
-            </RichTextBox>
+            </RichTextBox>-->
+            <!--<TextBox Name="ingredientList"
+                         Grid.Row="2"
+                         Grid.ColumnSpan="2"
+                         Margin="5"
+                         IsReadOnly="True"
+                         Text="{Binding recipeIngredients}">
 
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>-->
+            <ListView Name="ingredientList"
+                Grid.Row="2"
+                Margin="5" 
+                Grid.ColumnSpan="2" 
+                IsTextSearchEnabled="False"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Ingredient" DisplayMemberBinding="{Binding Ingredients}" Width="100" />
+                        <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="100" />
+                        <GridViewColumn Header="Units" DisplayMemberBinding="{Binding Units}" Width="100" >
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                <ListView.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius" Value="7"/>
+                            </Style>
+                        </Style.Resources>
+                    </Style>
+                </ListView.Resources>
+            </ListView>
         </Grid>
 
 

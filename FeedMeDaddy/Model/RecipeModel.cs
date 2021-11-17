@@ -6,15 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FeedMeDaddy.ViewModel
+namespace FeedMeDaddy.Model
 {
-    class HomeViewModel : ObservableObject
+    class RecipeModel
     {
-        public string Description { get; set; }
 
-        public HomeViewModel()
+
+        public RecipeModel()
         {
-            var ctx = new FeedMeDaddyContext();
+
         }
     }
 }
+
