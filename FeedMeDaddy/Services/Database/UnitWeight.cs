@@ -5,7 +5,7 @@ using System.Collections.Generic;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace FeedMeDaddy.Database
+namespace FeedMeDaddy.Services.Database
 {
     public partial class UnitWeight
     {
@@ -16,6 +16,7 @@ namespace FeedMeDaddy.Database
 
         public int Id { get; set; }
         public string Unit { get; set; }
+        public string Shortcut { get; set; }
 
         public virtual ICollection<Ingredient> Ingredient { get; set; }
     }

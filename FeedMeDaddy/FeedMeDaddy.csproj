@@ -195,18 +195,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Database\FeedMeDaddyContext.cs" />
-    <Compile Include="Database\FoodCategory.cs" />
-    <Compile Include="Database\Fridge.cs" />
-    <Compile Include="Database\Ingredient.cs" />
-    <Compile Include="Database\Menu.cs" />
-    <Compile Include="Database\Recipe.cs" />
-    <Compile Include="Database\ShoppingList.cs" />
-    <Compile Include="Database\TypeMenu.cs" />
-    <Compile Include="Database\UnitWeight.cs" />
-    <Compile Include="Database\User.cs" />
+    <Compile Include="Services\DatabaseExtensions.cs" />
     <Compile Include="Model\HomeModel.cs" />
+    <Compile Include="Model\ShoppingModel.cs" />
     <Compile Include="Secure\ConfigDB.cs" />
+    <Compile Include="Services\Database\FeedMeDaddyContext.cs" />
+    <Compile Include="Services\Database\FoodCategory.cs" />
+    <Compile Include="Services\Database\Fridge.cs" />
+    <Compile Include="Services\Database\Ingredient.cs" />
+    <Compile Include="Services\Database\Menu.cs" />
+    <Compile Include="Services\Database\Recipe.cs" />
+    <Compile Include="Services\Database\RecipeIngredient.cs" />
+    <Compile Include="Services\Database\ShoppingIngredient.cs" />
+    <Compile Include="Services\Database\ShoppingList.cs" />
+    <Compile Include="Services\Database\TypeMenu.cs" />
+    <Compile Include="Services\Database\UnitWeight.cs" />
+    <Compile Include="Services\Database\User.cs" />
+    <Compile Include="Services\DataContracts\DataContractsMapExtension.cs" />
+    <Compile Include="Services\DataContracts\FoodCategory.cs" />
+    <Compile Include="Services\DataContracts\Ingredient.cs" />
+    <Compile Include="Services\DataContracts\Menu.cs" />
+    <Compile Include="Services\DataContracts\Recipe.cs" />
+    <Compile Include="Services\DataContracts\ShoppingList.cs" />
+    <Compile Include="Services\DataContracts\TypeMenu.cs" />
+    <Compile Include="Services\DataContracts\UnitWeight.cs" />
+    <Compile Include="Services\DataContracts\User.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PlanningViewModel.cs" />

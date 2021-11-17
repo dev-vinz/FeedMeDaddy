@@ -24,5 +24,6 @@ namespace FeedMeDaddy.View
         {
             InitializeComponent();
         }
+
     }
 }

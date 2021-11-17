@@ -23,6 +23,12 @@ namespace FeedMeDaddy.View
         public ShoppingView()
         {
             InitializeComponent();
+            InitializeCalendarBlackout();
+        }
+
+        private void InitializeCalendarBlackout()
+        {
+            ingredient_expiration.BlackoutDates.AddDatesInPast();
         }
     }
 }

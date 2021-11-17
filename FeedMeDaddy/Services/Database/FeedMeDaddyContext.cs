@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using FeedMeDaddy.Secure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -8,12 +7,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace FeedMeDaddy.Database
+namespace FeedMeDaddy.Services.Database
 {
     public partial class FeedMeDaddyContext : DbContext
     {
         public FeedMeDaddyContext()
         {
+            this.Load();
         }
 
         public FeedMeDaddyContext(DbContextOptions<FeedMeDaddyContext> options)
@@ -26,6 +26,8 @@ namespace FeedMeDaddy.Database
         public virtual DbSet<Ingredient> Ingredient { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
         public virtual DbSet<Recipe> Recipe { get; set; }
+        public virtual DbSet<RecipeIngredient> RecipeIngredient { get; set; }
+        public virtual DbSet<ShoppingIngredient> ShoppingIngredient { get; set; }
         public virtual DbSet<ShoppingList> ShoppingList { get; set; }
         public virtual DbSet<TypeMenu> TypeMenu { get; set; }
         public virtual DbSet<UnitWeight> UnitWeight { get; set; }
@@ -123,10 +125,6 @@ namespace FeedMeDaddy.Database
 
                 entity.Property(e => e.Description).IsUnicode(false);
 
-                entity.Property(e => e.Ingredients)
-                    .IsRequired()
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .IsUnicode(false);
@@ -134,26 +132,51 @@ namespace FeedMeDaddy.Database
                 entity.HasOne(d => d.UserNavigation)
                     .WithMany(p => p.Recipe)
                     .HasForeignKey(d => d.User)
+                    .HasConstraintName("FK__Recipe__User__72910220");
+            });
+
+            modelBuilder.Entity<RecipeIngredient>(entity =>
+            {
+                entity.HasKey(e => new { e.RecipeId, e.IngredientId })
+                    .HasName("PK__RecipeIn__46336395885EBC33");
+
+                entity.HasOne(d => d.Ingredient)
+                    .WithMany(p => p.RecipeIngredient)
+                    .HasForeignKey(d => d.IngredientId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Recipe__User__68487DD7");
+                    .HasConstraintName("FK__RecipeIng__Ingre__793DFFAF");
+
+                entity.HasOne(d => d.Recipe)
+                    .WithMany(p => p.RecipeIngredient)
+                    .HasForeignKey(d => d.RecipeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__RecipeIng__Recip__7849DB76");
+            });
+
+            modelBuilder.Entity<ShoppingIngredient>(entity =>
+            {
+                entity.HasKey(e => new { e.ShoppingId, e.IngredientId })
+                    .HasName("PK__Shopping__35D01E3D9D16AE38");
+
+                entity.HasOne(d => d.Ingredient)
+                    .WithMany(p => p.ShoppingIngredient)
+                    .HasForeignKey(d => d.IngredientId)
+                    .HasConstraintName("FK__ShoppingI__Ingre__719CDDE7");
+
+                entity.HasOne(d => d.Shopping)
+                    .WithMany(p => p.ShoppingIngredient)
+                    .HasForeignKey(d => d.ShoppingId)
+                    .HasConstraintName("FK__ShoppingI__Shopp__70A8B9AE");
             });
 
             modelBuilder.Entity<ShoppingList>(entity =>
             {
-                entity.HasKey(e => e.User)
-                    .HasName("PK__Shopping__BD20C6F0906980DC");
-
-                entity.Property(e => e.User).ValueGeneratedNever();
-
-                entity.Property(e => e.Ingredients)
-                    .IsRequired()
-                    .IsUnicode(false);
+                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.HasOne(d => d.UserNavigation)
-                    .WithOne(p => p.ShoppingList)
-                    .HasForeignKey<ShoppingList>(d => d.User)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__ShoppingLi__User__72C60C4A");
+                    .WithMany(p => p.ShoppingList)
+                    .HasForeignKey(d => d.User)
+                    .HasConstraintName("FK__ShoppingLi__User__6DCC4D03");
             });
 
             modelBuilder.Entity<TypeMenu>(entity =>
@@ -168,6 +191,11 @@ namespace FeedMeDaddy.Database
             modelBuilder.Entity<UnitWeight>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Shortcut)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Unit)
                     .IsRequired()

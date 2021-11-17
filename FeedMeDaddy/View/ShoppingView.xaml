@@ -8,7 +8,7 @@
              d:DesignHeight="690" d:DesignWidth="1080">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1.75*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -17,12 +17,180 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-
+        <!-- Title -->
         <TextBlock Text="Shopping List"
                    FontSize="40"
                    Foreground="White"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Grid.ColumnSpan="2"/>
+
+        <!-- Shopping List -->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Margin="20, 10, 20, 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Foreground="White"
+                           FontSize="20"
+                           HorizontalAlignment="Center">
+                    Aliment
+                </TextBlock>
+                
+                <TextBlock Grid.Column="1"
+                           Foreground="White"
+                           FontSize="20"
+                           HorizontalAlignment="Center">
+                    Quantity
+                </TextBlock>
+
+                <TextBlock Grid.Column="2"
+                           Foreground="White"
+                           FontSize="20"
+                           HorizontalAlignment="Center">
+                    Menu Date
+                </TextBlock>
+
+
+            </Grid>
+            
+            <ListBox Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="20, 10, 20, 20"
+                    Background="Transparent"
+                    Foreground="White">
+            </ListBox>
+        </Grid>
+
+        <!-- Informations and Gestion -->
+        <Grid Grid.Column="1"
+              Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <!-- Gestion -->
+            <StackPanel Grid.Row="1"
+                        Margin="0,0,0,50"
+                        VerticalAlignment="Bottom">
+                
+                <!-- Gestion Informations -->
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Informations -->
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Bottom"
+                               Foreground="White"
+                               FontSize="15">
+                        Ingredient
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="1"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Bottom"
+                               Foreground="White"
+                               FontSize="15">
+                        Quantity
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="2"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Bottom"
+                               Foreground="White"
+                               FontSize="15">
+                        Unit
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="3"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Bottom"
+                               Foreground="White"
+                               FontSize="15">
+                        Expiration Date
+                    </TextBlock>
+
+                    <!-- Insertions -->
+                    <TextBox Grid.Row="1"
+                             Name="ingredient_name"
+                             Background="Transparent"
+                             Foreground="White"
+                             VerticalContentAlignment="Center"
+                             Margin="5"
+                             FontSize="12" />
+
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
+                             Name="ingredient_quantity"
+                             Background="Transparent"
+                             Foreground="White"
+                             TextAlignment="Right"
+                             VerticalContentAlignment="Center"
+                             Margin="5"
+                             FontSize="12" />
+
+                    <ComboBox Grid.Row="1"
+                             Grid.Column="2"
+                             Name="ingrediant_unit"
+                             Background="Transparent"
+                             Margin="5"
+                             FontSize="12">
+                        <ComboBoxItem>g</ComboBoxItem>
+                        <ComboBoxItem>kg</ComboBoxItem>
+                    </ComboBox>
+
+                    <DatePicker Name="ingredient_expiration"
+                                Grid.Row="1"
+                                Grid.Column="3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                VerticalContentAlignment="Center"
+                                FontSize="12"
+                                Margin="5"/>
+                </Grid>
+
+                <!-- Buttons -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Button IsEnabled="False"
+                            Content="Remove Ingredient"
+                            Height="30"
+                            Margin="5" />
+
+                    <Button Grid.Column="1"
+                            Content="Add Ingredient"
+                            Height="30"
+                            Margin="5" />
+                </Grid>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
