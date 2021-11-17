@@ -210,16 +210,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Database\FeedMeDaddyContext.cs" />
-    <Compile Include="Database\FoodCategory.cs" />
-    <Compile Include="Database\Fridge.cs" />
-    <Compile Include="Database\Ingredient.cs" />
-    <Compile Include="Database\Menu.cs" />
-    <Compile Include="Database\Recipe.cs" />
-    <Compile Include="Database\ShoppingList.cs" />
-    <Compile Include="Database\TypeMenu.cs" />
-    <Compile Include="Database\UnitWeight.cs" />
-    <Compile Include="Database\User.cs" />
+    <Compile Include="Services\Database\FeedMeDaddyContext.cs" />
+    <Compile Include="Services\Database\FoodCategory.cs" />
+    <Compile Include="Services\Database\Fridge.cs" />
+    <Compile Include="Services\Database\Ingredient.cs" />
+    <Compile Include="Services\Database\Menu.cs" />
+    <Compile Include="Services\Database\Recipe.cs" />
+    <Compile Include="Services\Database\ShoppingList.cs" />
+    <Compile Include="Services\Database\TypeMenu.cs" />
+    <Compile Include="Services\Database\UnitWeight.cs" />
+    <Compile Include="Services\Database\User.cs" />
     <Compile Include="Model\HomeModel.cs" />
     <Compile Include="Secure\ConfigDB.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />

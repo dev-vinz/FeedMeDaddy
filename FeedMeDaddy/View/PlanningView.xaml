@@ -10,7 +10,7 @@
             mc:Ignorable="d" 
             d:DesignHeight="690" d:DesignWidth="1080">
 
-    <Grid Name="global" Margin="0,0,0,-0.4">
+    <Grid Name="global" Margin="0,0,0,0">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -40,35 +40,35 @@
             </Grid.RowDefinitions>
             <Border BorderBrush="Black" BorderThickness="2">
                 <Grid Name="Menu" 
-              Grid.Row="0" 
+                Grid.Row="0" 
                   Margin="0,0,0,0" 
               >
 
 
                     <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                
-                    
-                    
-                <Border BorderBrush="Black" 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+
+
+                    <Border BorderBrush="Black" 
                         BorderThickness="1,0,0,1"
                         Grid.Column="1">
-                </Border>
-                <TextBlock Text="Breakfast"
+                    </Border>
+                    <TextBlock Text="Breakfast"
                            Grid.Row="0"
                            Grid.Column="1"
                            VerticalAlignment="Center"
@@ -84,7 +84,7 @@
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            />
-                    
+
                     <Border BorderBrush="Black" 
                         BorderThickness="1,0,0,1"
                         Grid.Column="3">
@@ -95,8 +95,8 @@
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            />
-                
-                <!--Must do a binding on the text to have the current day on the first colomn -->
+
+                    <!--Must do a binding on the text to have the current day on the first colomn -->
                     <Border BorderBrush="Black" 
                         BorderThickness="0,1,1,0"
                         Grid.Row="1">
@@ -174,200 +174,315 @@
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            />
-                <!--Breakfast -->
+                    <!--Breakfast -->
 
-                <ComboBox Grid.Row="1"
+                    <ComboBox Name="B0"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          IsEditable="True" 
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center" 
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                          />
+                    <ComboBox Name="B1"
+                              Grid.Row="2"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          
-                          />
-                <ComboBox Grid.Row="2"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                          IsTextSearchEnabled="True"
+                              />
+                    <ComboBox Name="B2"
+                        Grid.Row="3"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="3"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                          IsTextSearchEnabled="True"
+                              />
+                    <ComboBox Name="B3"
+                        Grid.Row="4"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="4"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                          IsTextSearchEnabled="True"
+                              />
+                    <ComboBox Name="B4"
+                        Grid.Row="5"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="5"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                          IsTextSearchEnabled="True"
+                              />
+                    <ComboBox Name="B5"
+                        Grid.Row="6"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="6"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                          IsTextSearchEnabled="True"
+                              />
+                    <ComboBox Name="B6"
+                        Grid.Row="7"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="7"
-                          Grid.Column="1"
-                          IsEditable="True" 
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          />
-                <!--Dinner -->
-                <ComboBox Grid.Row="1"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                          IsTextSearchEnabled="True"
+                              />
+                    <!--Dinner -->
+                    <ComboBox Name="D0"
+                              Grid.Row="1"
                           Grid.Column="2"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="2"
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                    <ComboBox Name="D1"
+                        Grid.Row="2"
                           Grid.Column="2"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="3"
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                    <ComboBox Name="D2"
+                        Grid.Row="3"
                           Grid.Column="2"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="4"
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                    <ComboBox Name="D3"
+                        Grid.Row="4"
                           Grid.Column="2"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="5"
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                    <ComboBox Name="D4"
+                        Grid.Row="5"
                           Grid.Column="2"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="6"
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                    <ComboBox Name="D5"
+                        Grid.Row="6"
                           Grid.Column="2"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="7"
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                    <ComboBox Name="D6"
+                        Grid.Row="7"
                           Grid.Column="2"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <!--Supper -->
-                <ComboBox Grid.Row="1"
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                    <!--Supper -->
+                    <ComboBox Name="S0"
+                        Grid.Row="1"
                           Grid.Column="3"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="2"
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                    <ComboBox Name="S1"
+                        Grid.Row="2"
                           Grid.Column="3"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="3"
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                    <ComboBox Name="S2"
+                        Grid.Row="3"
                           Grid.Column="3"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="4"
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                             />
+                    <ComboBox Name="S3"
+                        Grid.Row="4"
                           Grid.Column="3"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          Foreground="PeachPuff"
-                          />
-                <ComboBox Grid.Row="5"
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                    <ComboBox Name="S4"
+                        Grid.Row="5"
+                          Grid.Column="3"
+                          IsEditable="True" 
+                          HorizontalContentAlignment="Center"
+                          VerticalContentAlignment="Center" 
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                    <ComboBox Name="S5"
+                        Grid.Row="6"
                           Grid.Column="3"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="6"
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                    <ComboBox Name="S6"
+                        Grid.Row="7"
                           Grid.Column="3"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center"
-                          />
-                <ComboBox Grid.Row="7"
-                          Grid.Column="3"
-                          IsEditable="True" 
-                          HorizontalContentAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          />
-
-
-            </Grid>
+                          IsTextSearchEnabled="True"
+                          TextBoxBase.TextChanged="Combobox_TextChanged"
+                              />
+                </Grid>
             </Border>
-            <Button Content="Add ingredient to Shopping list" 
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*" />
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+
+
+                <Button Content="Add ingredient to Shopping list" 
                     Grid.Row="2"
-                    Width="180"
-                    Height="30"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Bottom"
-                    Margin="0,0,30,30" />
-            <Label Name="units"
-               Content="Kilogram"
-               Height="30"
-               Width="60"
-               Grid.Row="1"
-               VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    Margin="310,0,0,0"
+                        Grid.Column="4"
+                    Margin="0,10,63,0" Click="Button_Click" Grid.ColumnSpan="3" HorizontalAlignment="Right" Width="180" Height="30" VerticalAlignment="Top" />
+                <ComboBox Name="units"
+                      Text="default"
+                      Grid.Row="1"
+                      Grid.Column="4"
+                      VerticalContentAlignment="Center"
+                      HorizontalContentAlignment="Left"
+                      Margin="0,10.4,0,0"  HorizontalAlignment="left" Width="60" Height="30" VerticalAlignment="Top"
                
-               />
-            <!--Faire un formatage date -->
-            <TextBox Name="dueDate"
-                 Text="12.12.2021"
-                 Height="30"
-                 Width="90"
-                 
-                 Grid.Row="1"
-                VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    Margin="370,0,0,0"
-                 VerticalContentAlignment="Center"
-                 
-                 />
-            <TextBox Name="item"
+               >
+                    <ComboBoxItem>Kg
+                    </ComboBoxItem>
+                    <ComboBoxItem>g
+                    </ComboBoxItem>
+                    <ComboBoxItem>l
+                    </ComboBoxItem>
+                    <ComboBoxItem>pce
+                    </ComboBoxItem>
+                </ComboBox>
+                <!--Faire un formatage date -->
+                <DatePicker Name="dueDate"
+                        Text=" "
+                Width="147" 
+                Grid.Row="1"
+                Grid.Column="4"
+                HorizontalAlignment="Right"
+                Margin="0,10.4,97,0"
+                VerticalContentAlignment="Center" Grid.ColumnSpan="3" Height="30" VerticalAlignment="Top"
+                />
+
+                <TextBox Name="item"
+                    
                    Text="Milk"
-                   Height="30"
-                   Width="90"
+                   Width="132"
                    
                    Grid.Row="1"
-                  VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    Margin="120,0,0,0"
-                   VerticalContentAlignment="Center"
-                   
+                     Grid.Column="2"
+                    HorizontalAlignment="left"
+                    Margin="0.4,10.4,0,0"
+                   VerticalContentAlignment="Center" MaxLines="1" 
+                   TextChanged="item_TextChanged" Height="30" VerticalAlignment="Top" Grid.ColumnSpan="2"
                  />
 
-            <xctk:IntegerUpDown Name="quantity"
-                            Text="4"
-                            Grid.Row="1" 
-                            Width="100" 
-                            Height="30" 
-                            ValueChanged="Quantity_ValueChanged" 
-                            VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    Margin="210,0,0,0"
-                            VerticalContentAlignment="Center" 
-                            Minimum="1" 
-                            Maximum="100"
+                <xctk:DoubleUpDown Name="quantity"
+                            Value="4"
+                            Grid.Row="1"
+                               Grid.Column="3"
+                    Margin="0,10.4,0.2,0"
+                            Minimum="0.10" 
+                            Maximum="100" Increment="0.1" Text="4.0" ParsingNumberStyle="Float" Panel.ZIndex="1" FormatString="{}{0:#,#.0}" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="74"
                             
                             />
-
+                <TextBlock Text="Ingredient"
+                            Padding="1"
+                           FontSize="12"
+                Foreground="White"
+                           TextWrapping="Wrap"
+                           Grid.Row="0"
+                           Grid.Column="2"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="left" Margin="0,0,0,0"  Width="103" 
+                           />
+                <TextBlock Text="Quantity"
+                           Padding="1"
+                           TextWrapping="Wrap"
+                           Grid.Row="0"
+                           Grid.Column="3"
+                           FontSize="12"
+                Foreground="White"
+                           VerticalAlignment="Bottom" Margin="29,0,0,0" 
+                           />
+                <TextBlock Text="Units"
+                           Padding="1"
+                           TextWrapping="Wrap"
+                           Grid.Row="0"
+                           Grid.Column="4"
+                           FontSize="12"
+                Foreground="White"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Left"
+                           />
+                <TextBlock Text="Expiration date"
+                           Padding="1"
+                           TextWrapping="Wrap"
+                           FontSize="12"
+                Foreground="White"
+                           Grid.Row="0"
+                           Grid.Column="4"
+                           VerticalAlignment="Bottom"
+                           HorizontalAlignment="Center"  Margin="-40,0,0,0" Width="140" Grid.ColumnSpan="3"
+                           />
+            </Grid>
         </Grid>
         <Grid Name="Shopping"
               Grid.Column="2"
@@ -376,11 +491,10 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="9*"/>
-                
+                <RowDefinition Height="8*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+
             <TextBlock Text="Preview Shopping list"
                    Grid.Row="0"
                     HorizontalAlignment="Center"
@@ -399,9 +513,9 @@
                     </Style>
                 </ListBox.Resources>
             </ListBox>
-                
-                
-      
+
+
+
             <Button Content="Add Menu to Shopping list"
                 Grid.Column="1"
                 Grid.Row="2"
@@ -409,8 +523,8 @@
                 Height="30"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Margin="0" />
-            
+                Margin="0" Click="Button_Click_1" />
+
 
         </Grid>
 

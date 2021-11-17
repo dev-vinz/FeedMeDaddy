@@ -5,10 +5,16 @@ using System.Collections.Generic;
 // If you have enabled NRTs for your project, then un-comment the following line:
 // #nullable disable
 
-namespace FeedMeDaddy.Database
+namespace FeedMeDaddy.Services.Database
 {
     public partial class Ingredient
     {
+        public Ingredient()
+        {
+            RecipeIngredient = new HashSet<RecipeIngredient>();
+            ShoppingIngredient = new HashSet<ShoppingIngredient>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public double Quantity { get; set; }
@@ -18,5 +24,7 @@ namespace FeedMeDaddy.Database
 
         public virtual FoodCategory CategoryNavigation { get; set; }
         public virtual UnitWeight UnitNavigation { get; set; }
+        public virtual ICollection<RecipeIngredient> RecipeIngredient { get; set; }
+        public virtual ICollection<ShoppingIngredient> ShoppingIngredient { get; set; }
     }
 }
