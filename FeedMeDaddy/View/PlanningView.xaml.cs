@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
+
 namespace FeedMeDaddy.View
 {
     /// <summary>
@@ -30,9 +32,12 @@ namespace FeedMeDaddy.View
             InitializeBlackout();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void IngredientToShopping_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(item.Text==""? "Nothing" : "You added " + String.Format("{0:#,#.0}", quantity.Value)+" "+ units.Text + " of "+ item.Text + (dueDate.Text == "" ? " " :" for the date : " + dueDate.Text)); 
+            //MessageBox.Show(item.Text==""? "Nothing" : "You added " + String.Format("{0:#,#.0}", quantity.Value)+" "+ units.Text + " of "+ item.Text + (dueDate.Text == "" ? " " :" for the date : " + dueDate.Text));
+            //previewShopping.Items.Add(item.Text == "" ? "Nothing" : "You added " + String.Format("{0:#,#.0}", quantity.Value) + " " + units.Text + " of " + item.Text + (dueDate.Text == "" ? " " : " for the date : " + dueDate.Text));
+            var row = new { Ingredient = item.Text, Quantity = String.Format("{0:#,#.0}", quantity.Value), Units = units.Text, Expiration_date = dueDate.Text == "" ? "" : dueDate.Text };
+            previewShopping.Items.Add(row);
         }
 
         private void InitializeBlackout()
@@ -67,6 +72,9 @@ namespace FeedMeDaddy.View
             Supper.Add(S4);
             Supper.Add(S5);
             Supper.Add(S6);
+            var row = new{Ingredient = "product_1", Quantity="100", Units= "g", Expiration_date="12.12.2012" };
+            previewShopping.Items.Add(row);
+
         }
         private void Concat_ComboBox()
         {

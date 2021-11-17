@@ -13,6 +13,7 @@ namespace FeedMeDaddy.Services.Database
     {
         public FeedMeDaddyContext()
         {
+            this.Load();
         }
 
         public FeedMeDaddyContext(DbContextOptions<FeedMeDaddyContext> options)
@@ -124,10 +125,6 @@ namespace FeedMeDaddy.Services.Database
 
                 entity.Property(e => e.Description).IsUnicode(false);
 
-                entity.Property(e => e.Ingredients)
-                    .IsRequired()
-                    .IsUnicode(false);
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .IsUnicode(false);
@@ -135,8 +132,7 @@ namespace FeedMeDaddy.Services.Database
                 entity.HasOne(d => d.UserNavigation)
                     .WithMany(p => p.Recipe)
                     .HasForeignKey(d => d.User)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Recipe__User__68487DD7");
+                    .HasConstraintName("FK__Recipe__User__72910220");
             });
 
             modelBuilder.Entity<RecipeIngredient>(entity =>
@@ -147,12 +143,14 @@ namespace FeedMeDaddy.Services.Database
                 entity.HasOne(d => d.Ingredient)
                     .WithMany(p => p.RecipeIngredient)
                     .HasForeignKey(d => d.IngredientId)
-                    .HasConstraintName("FK__RecipeIng__Ingre__03F0984C");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__RecipeIng__Ingre__793DFFAF");
 
                 entity.HasOne(d => d.Recipe)
                     .WithMany(p => p.RecipeIngredient)
                     .HasForeignKey(d => d.RecipeId)
-                    .HasConstraintName("FK__RecipeIng__Recip__02FC7413");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__RecipeIng__Recip__7849DB76");
             });
 
             modelBuilder.Entity<ShoppingIngredient>(entity =>
