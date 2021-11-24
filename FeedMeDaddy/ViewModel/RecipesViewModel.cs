@@ -13,38 +13,48 @@ namespace FeedMeDaddy.ViewModel
     class RecipesViewModel : ObservableObject
     {
 
-        public List<string>recipeList { get; set; }
-        public string recipeName { get; set; }
-        public string recipeDescription { get; set; }
-        public string recipeIngredients { get; set; }
+        public Services.DataContracts.Recipe[] Recipes { get; set; }
+        public List<string> RecipeList { get; set; }
+        public string RecipeName { get; set; }
+        public string RecipeDescription { get; set; }
+        public Services.DataContracts.Ingredient[] RecipeIngredients { get; set; }
+        public Services.DataContracts.Recipe ActiveRecipe { get; set; }
 
         public RecipesViewModel()
         {
-            /*
-            var db = new FeedMeDaddyContext();
-            var recipes = db.Recipe.Where(r => r.UserNavigation.Id == 1);
-            recipeList = recipes.FirstOrDefault().Name;
-            recipeName = recipes.FirstOrDefault().Name;
-            recipeDescription = string.Format(recipes.FirstOrDefault().Description);
-            db.Dispose();*/
+            LoadRecipes();
+            SetupRecipes();
+        }
 
-            var db = new FeedMeDaddyContext();
+        private void LoadRecipes()
+        {
+            FeedMeDaddyContext db = new FeedMeDaddyContext();
 
             var recipes = db.Recipe.Fetch().Where(r => r.User.Id == 1);
-            recipeName = recipes.ElementAt(0).Name;
-            recipeDescription = recipes.ElementAt(0).Description;
-            recipeList = new List<string>();
-            
-            foreach(var r in recipes)
-            {
-                recipeList.Add(r.Name);
-            }
-            
+
+            Recipes = new Services.DataContracts.Recipe[recipes.Count()];
+            Array.Copy(recipes.ToArray(), Recipes, recipes.Count());
+
             db.Dispose();
+        }
+
+        void SetupRecipes()
+        {
+            ActiveRecipe = Recipes.ElementAt(0);
+
+            RecipeName = ActiveRecipe.Name;
+            RecipeDescription = ActiveRecipe.Description;
+
+            RecipeList = new List<string>();
+            //RecipeIngredients = new Services.DataContracts.Ingredient[ActiveRecipe.Ingredients.Count()];
+            //Array.Copy(ActiveRecipe.Ingredients.ToArray(), RecipeIngredients, ActiveRecipe.Ingredients.Count());
+            foreach (var r in Recipes)
+            {
+                RecipeList.Add(r.Name);
+            }
 
 
         }
-
 
     }
 }

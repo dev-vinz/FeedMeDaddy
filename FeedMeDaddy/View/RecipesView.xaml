@@ -43,7 +43,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <ListBox Name="recipeListBox" ItemsSource="{Binding recipeList}" Grid.Column="0" Grid.Row="0" Margin="5">
+            <ListBox Name="recipeListBox" ItemsSource="{Binding RecipeList}" Grid.Column="0" Grid.Row="0" Margin="5" SelectionChanged="RecipeListBox_SelectionChanged">
                 <ListBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -60,11 +60,12 @@
 
             </ListBox>
             <ComboBox Name="recipeComboBox" 
+                      ItemsSource="{Binding RecipeList}"
                       Grid.Column="1"
                       Width="200"
                       Height="30"
                       IsEditable="True"
-                      Text="Already know what you want ?"
+                      Text="Already know what you want ?" SelectionChanged="Combobox_selectionChanged"
                       >
             </ComboBox>
             <!--
@@ -87,7 +88,7 @@
                         Grid.Row="1"
                         Grid.ColumnSpan="3"
                         Margin="5"
-                        Text="{Binding recipeDescription}">
+                        Text="{Binding RecipeDescription}">
                 <TextBox.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="10"/>
@@ -109,7 +110,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Name="recipeName" 
-                       Text="{Binding recipeName}"
+                       Text="{Binding RecipeName}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="30"
@@ -117,7 +118,7 @@
                        Grid.Column="0"
                        Grid.Row="0"/>
 
-            <xctk:IntegerUpDown Name="myUpDownControl"
+            <xctk:IntegerUpDown Name="qtyUpDown"
                                 Minimum="1"
                                 Maximum="12"
                                 Height="30"
@@ -126,7 +127,7 @@
                                 HorizontalAlignment="Left"
                                 Text="4"
                                 Grid.Column="1"
-                                Grid.Row="0" ValueChanged="quantityChanged"
+                                Grid.Row="0" ValueChanged="QuantityChanged"
                                 >
                 <xctk:IntegerUpDown.Resources>
                                     <Style TargetType="Border">
@@ -167,15 +168,16 @@
             <ListView Name="ingredientList"
                 Grid.Row="2"
                 Margin="5" 
-                Grid.ColumnSpan="2" 
+                Grid.ColumnSpan="2"
+                ItemsSource="{Binding RecipeIngredients}"
                 IsTextSearchEnabled="False"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  >
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Ingredient" DisplayMemberBinding="{Binding Ingredients}" Width="100" />
+                        <GridViewColumn Header="Ingredient" DisplayMemberBinding="{Binding Name}" Width="100" />
                         <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="100" />
-                        <GridViewColumn Header="Units" DisplayMemberBinding="{Binding Units}" Width="100" >
+                        <GridViewColumn Header="Units" DisplayMemberBinding="{Binding Unit.Shortcut}" Width="100" >
                         </GridViewColumn>
                     </GridView>
                 </ListView.View>

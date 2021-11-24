@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FeedMeDaddy.Services.Database;
+using FeedMeDaddy.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,15 +22,52 @@ namespace FeedMeDaddy.View
     /// </summary>
     public partial class RecipesView : UserControl
     {
+        private RecipesViewModel ViewModel { get; set; }
+
         public RecipesView()
         {
             InitializeComponent();
+
+            ViewModel = this.DataContext as RecipesViewModel;
         }
 
 
-        private void quantityChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void QuantityChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            
+            /*
+            int qty = (int)qtyUpDown.Value;
+
+            List<Ingredient> list = (List<Ingredient>)ingredientList.ItemsSource;
+            foreach (Ingredient i in list)
+            {
+                i.Quantity = i.Quantity / 4 * qty;
+            }
+            */
         }
+
+        private void RecipeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel = this.DataContext as RecipesViewModel;
+
+            int index = (sender as ListBox).SelectedIndex;
+            ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
+
+            recipeComboBox.SelectedIndex = index;
+            recipeName.Text = (string)recipeListBox.SelectedItem;
+            recipeDescription.Text = ViewModel.ActiveRecipe.Description;
+            ingredientList.Items.Clear();
+            foreach (var i in ViewModel.ActiveRecipe.Ingredients)
+            {
+                ingredientList.Items.Add(i);
+            }
+        }
+
+        private void Combobox_selectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = (sender as ComboBox).SelectedIndex;
+            recipeListBox.SelectedIndex = index;
+        }
+
+
     }
 }
