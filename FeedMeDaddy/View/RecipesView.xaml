@@ -67,7 +67,33 @@
                       IsEditable="True"
                       Text="Already know what you want ?" SelectionChanged="Combobox_selectionChanged"
                       >
+
+
+
             </ComboBox>
+            <Grid Grid.Row="0"
+                  Grid.Column="1" Height="200" VerticalAlignment="Bottom">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button Name="newBtn"
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Width="200"
+                        Height="40"
+                        Background="White"
+                        Content="Add new Recipe" Click="addNewRecipe"
+                    >
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+
             <!--
             <RichTextBox Name="recipeDescription"
                          Grid.Row="1"
@@ -88,6 +114,7 @@
                         Grid.Row="1"
                         Grid.ColumnSpan="3"
                         Margin="5"
+                        Focusable="False"
                         Text="{Binding RecipeDescription}">
                 <TextBox.Resources>
                     <Style TargetType="Border">
@@ -169,7 +196,6 @@
                 Grid.Row="2"
                 Margin="5" 
                 Grid.ColumnSpan="2"
-                ItemsSource="{Binding RecipeIngredients}"
                 IsTextSearchEnabled="False"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  >

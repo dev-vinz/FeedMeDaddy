@@ -40,10 +40,10 @@ namespace FeedMeDaddy.ViewModel
 
         void SetupRecipes()
         {
-            ActiveRecipe = Recipes.ElementAt(0);
+            //ActiveRecipe = Recipes.ElementAt(0);
 
-            RecipeName = ActiveRecipe.Name;
-            RecipeDescription = ActiveRecipe.Description;
+            RecipeName = "";
+            RecipeDescription ="";
 
             RecipeList = new List<string>();
             //RecipeIngredients = new Services.DataContracts.Ingredient[ActiveRecipe.Ingredients.Count()];

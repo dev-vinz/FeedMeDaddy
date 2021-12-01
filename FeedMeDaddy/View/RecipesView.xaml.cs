@@ -27,22 +27,27 @@ namespace FeedMeDaddy.View
         public RecipesView()
         {
             InitializeComponent();
-
-            ViewModel = this.DataContext as RecipesViewModel;
         }
 
 
         private void QuantityChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            /*
-            int qty = (int)qtyUpDown.Value;
+            ViewModel = this.DataContext as RecipesViewModel;
 
-            List<Ingredient> list = (List<Ingredient>)ingredientList.ItemsSource;
-            foreach (Ingredient i in list)
+            int qty = (int)qtyUpDown.Value;
+            newQuantity(qty);
+
+        }
+
+        private void newQuantity(int qty)
+        {
+            ingredientList?.Items.Clear();
+            List<Services.DataContracts.Ingredient> list = ViewModel?.ActiveRecipe?.Ingredients.ToList() ?? new List<Services.DataContracts.Ingredient>();
+            foreach (Services.DataContracts.Ingredient i in list)
             {
                 i.Quantity = i.Quantity / 4 * qty;
+                ingredientList.Items.Add(i);
             }
-            */
         }
 
         private void RecipeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,24 +55,34 @@ namespace FeedMeDaddy.View
             ViewModel = this.DataContext as RecipesViewModel;
 
             int index = (sender as ListBox).SelectedIndex;
+            
             ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
 
             recipeComboBox.SelectedIndex = index;
-            recipeName.Text = (string)recipeListBox.SelectedItem;
+            recipeName.Text = ViewModel.ActiveRecipe.Name;
             recipeDescription.Text = ViewModel.ActiveRecipe.Description;
-            ingredientList.Items.Clear();
+
+            newQuantity((int)qtyUpDown.Value);
+            /*ingredientList.Items.Clear();
             foreach (var i in ViewModel.ActiveRecipe.Ingredients)
             {
                 ingredientList.Items.Add(i);
-            }
+            }*/
         }
 
         private void Combobox_selectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int index = (sender as ComboBox).SelectedIndex;
-            recipeListBox.SelectedIndex = index;
+            if(recipeComboBox.Text == "")
+            {
+                int index = (sender as ComboBox).SelectedIndex;
+                recipeListBox.SelectedIndex = index;
+            }
+
         }
 
+        private void addNewRecipe(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }
