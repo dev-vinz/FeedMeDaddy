@@ -96,7 +96,6 @@
                            HorizontalAlignment="Center"
                            />
 
-                    <!--Must do a binding on the text to have the current day on the first colomn -->
                     <Border BorderBrush="Black" 
                         BorderThickness="0,1,1,0"
                         Grid.Row="1">
@@ -177,16 +176,22 @@
                     <!--Breakfast -->
 
                     <ComboBox Name="B0"
+                          ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                           Grid.Row="1"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
                           VerticalContentAlignment="Center" 
-                          IsTextSearchEnabled="True"
                           TextBoxBase.TextChanged="Combobox_TextChanged"
+
+                         
+                              
                           />
                     <ComboBox Name="B1"
-                              Grid.Row="2"
+                          ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
+                          Grid.Row="2"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
@@ -195,7 +200,9 @@
                           IsTextSearchEnabled="True"
                               />
                     <ComboBox Name="B2"
-                        Grid.Row="3"
+                          ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
+                          Grid.Row="3"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
@@ -204,7 +211,9 @@
                           IsTextSearchEnabled="True"
                               />
                     <ComboBox Name="B3"
-                        Grid.Row="4"
+                          ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
+                          Grid.Row="4"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
@@ -213,7 +222,9 @@
                           IsTextSearchEnabled="True"
                               />
                     <ComboBox Name="B4"
-                        Grid.Row="5"
+                          ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
+                          Grid.Row="5"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
@@ -222,7 +233,9 @@
                           IsTextSearchEnabled="True"
                               />
                     <ComboBox Name="B5"
-                        Grid.Row="6"
+                          ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
+                          Grid.Row="6"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
@@ -231,7 +244,9 @@
                           IsTextSearchEnabled="True"
                               />
                     <ComboBox Name="B6"
-                        Grid.Row="7"
+                          ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
+                          Grid.Row="7"
                           Grid.Column="1"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
@@ -241,7 +256,9 @@
                               />
                     <!--Dinner -->
                     <ComboBox Name="D0"
-                              Grid.Row="1"
+                          ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
+                          Grid.Row="1"
                           Grid.Column="2"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
@@ -250,6 +267,8 @@
                           TextBoxBase.TextChanged="Combobox_TextChanged"
                               />
                     <ComboBox Name="D1"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="2"
                           Grid.Column="2"
                           IsEditable="True" 
@@ -259,6 +278,8 @@
                           TextBoxBase.TextChanged="Combobox_TextChanged"
                               />
                     <ComboBox Name="D2"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="3"
                           Grid.Column="2"
                           IsEditable="True" 
@@ -268,6 +289,8 @@
                           TextBoxBase.TextChanged="Combobox_TextChanged"
                               />
                     <ComboBox Name="D3"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="4"
                           Grid.Column="2"
                           IsEditable="True" 
@@ -277,6 +300,8 @@
                           TextBoxBase.TextChanged="Combobox_TextChanged"
                               />
                     <ComboBox Name="D4"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="5"
                           Grid.Column="2"
                           IsEditable="True" 
@@ -286,6 +311,8 @@
                           TextBoxBase.TextChanged="Combobox_TextChanged"
                               />
                     <ComboBox Name="D5"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="6"
                           Grid.Column="2"
                           IsEditable="True" 
@@ -295,6 +322,8 @@
                           TextBoxBase.TextChanged="Combobox_TextChanged"
                               />
                     <ComboBox Name="D6"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="7"
                           Grid.Column="2"
                           IsEditable="True" 
@@ -305,6 +334,8 @@
                               />
                     <!--Supper -->
                     <ComboBox Name="S0"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="1"
                           Grid.Column="3"
                           IsEditable="True" 
@@ -314,6 +345,8 @@
                           TextBoxBase.TextChanged="Combobox_TextChanged"
                               />
                     <ComboBox Name="S1"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="2"
                           Grid.Column="3"
                           IsEditable="True" 
@@ -323,6 +356,8 @@
                           TextBoxBase.TextChanged="Combobox_TextChanged"
                               />
                     <ComboBox Name="S2"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="3"
                           Grid.Column="3"
                           IsEditable="True" 
@@ -332,6 +367,8 @@
                           TextBoxBase.TextChanged="Combobox_TextChanged"
                              />
                     <ComboBox Name="S3"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="4"
                           Grid.Column="3"
                           IsEditable="True" 
@@ -341,6 +378,8 @@
                           TextBoxBase.TextChanged="Combobox_TextChanged"
                               />
                     <ComboBox Name="S4"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="5"
                           Grid.Column="3"
                           IsEditable="True" 
@@ -350,6 +389,8 @@
                           TextBoxBase.TextChanged="Combobox_TextChanged"
                               />
                     <ComboBox Name="S5"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="6"
                           Grid.Column="3"
                           IsEditable="True" 
@@ -359,6 +400,8 @@
                           TextBoxBase.TextChanged="Combobox_TextChanged"
                               />
                     <ComboBox Name="S6"
+                              ItemsSource="{Binding MenuSelection}"
+                              DisplayMemberPath="Name"
                         Grid.Row="7"
                           Grid.Column="3"
                           IsEditable="True" 
@@ -393,7 +436,8 @@
                         Grid.Column="4"
                     Margin="0,10,63,0" Click="IngredientToShopping_Click" Grid.ColumnSpan="3" HorizontalAlignment="Right" Width="180" Height="30" VerticalAlignment="Top" />
                 <ComboBox Name="units"
-                      Text="default"
+                      ItemsSource="{Binding UnitsSelection}"
+                      DisplayMemberPath="Shortcut"
                       Grid.Row="1"
                       Grid.Column="4"
                       VerticalContentAlignment="Center"
@@ -401,16 +445,9 @@
                       Margin="0,10.4,0,0"  HorizontalAlignment="left" Width="60" Height="30" VerticalAlignment="Top"
                
                >
-                    <ComboBoxItem>Kg
-                    </ComboBoxItem>
-                    <ComboBoxItem>g
-                    </ComboBoxItem>
-                    <ComboBoxItem>l
-                    </ComboBoxItem>
-                    <ComboBoxItem>pce
-                    </ComboBoxItem>
+
                 </ComboBox>
-                <!--Faire un formatage date -->
+                
                 <DatePicker Name="dueDate"
                         Text=" "
                 Width="147" 
@@ -437,10 +474,10 @@
                 <xctk:DoubleUpDown Name="quantity"
                             Value="4"
                             Grid.Row="1"
-                               Grid.Column="3"
-                    Margin="0,10.4,0.2,0"
+                            Grid.Column="3"
+                            Margin="0,10.4,0.2,0"
                             Minimum="0.10" 
-                            Maximum="100" Increment="0.1" Text="4.0" ParsingNumberStyle="Float" Panel.ZIndex="1" FormatString="{}{0:#,#.0}" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="74"
+                            Maximum="1000" Increment="0.1" Text="4.0" ParsingNumberStyle="Float" Panel.ZIndex="1" FormatString="{}{0:#,#.0}" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Width="74"
                             
                             />
                 <TextBlock Text="Ingredient"
@@ -490,7 +527,7 @@
               >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-               
+
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -508,75 +545,51 @@
                    FontSize="20"
                     Foreground="White" Grid.ColumnSpan="2" Grid.RowSpan="2"
                    />
-<!--
-            <ListBox Grid.IsSharedSizeScope="True"
-                     Name="previewShopping"
-                Grid.Row="2"
-                Margin="10" Grid.ColumnSpan="2" IsTextSearchEnabled="False">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" SharedSizeGroup="Ingredient"/>
-                                <ColumnDefinition Width="*" SharedSizeGroup="Quantity"/>
-                                <ColumnDefinition Width="*" SharedSizeGroup="Units"/>
-                                <ColumnDefinition Width="*" SharedSizeGroup="Expiration date"/>
-                            </Grid.ColumnDefinitions>
-                            
-                            <TextBlock Grid.Column="0" Text="{Binding ColumnOneText}"/>
-                            <TextBlock Grid.Column="1" Text="{Binding ColumnTwoText}"/>
-                            <TextBlock Grid.Column="2" Text="{Binding ColumnThreeText}"/>
-                            <Button Content="ClickMe" Command="{Binding ButtonExecutionCommand}"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                <ListBox.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                    <Style TargetType="ListBoxItem">
-                        <Style.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="7"/>
-                            </Style>
-                        </Style.Resources>
-                    </Style>
-                </ListBox.Resources>
-            </ListBox>-->
+            <Grid Grid.Row="2"
+                Margin="5" 
+                Grid.ColumnSpan="2">
 
-            <ListView Name="previewShopping"
+                <ListView Name="previewShopping"
                 Grid.Row="2"
                 Margin="5" 
                 Grid.ColumnSpan="2" 
                 IsTextSearchEnabled="False"
-                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                
-                 >
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Ingredient" DisplayMemberBinding="{Binding Ingredient}" Width="80" />
-                        <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="80" />
-                        <GridViewColumn Header="Units" DisplayMemberBinding="{Binding Units}" Width="80" />
-                        <GridViewColumn Header="Expiration date" DisplayMemberBinding="{Binding Expiration_date}" Width="95">
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-                <ListView.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                    <Style TargetType="ListBoxItem">
-                        <Style.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="7"/>
-                            </Style>
-                        </Style.Resources>
-                    </Style>
-                </ListView.Resources>
-            </ListView>
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.View>
+                        <GridView AllowsColumnReorder="False">
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="IsEnabled" Value="False"/>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" Value="Black"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Header="Ingredient" DisplayMemberBinding="{Binding Name}" Width="80" />
+                            <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity, StringFormat='{}{0:#,#.0}'}" Width="80" />
+                            <GridViewColumn Header="Units" DisplayMemberBinding="{Binding Unit.Shortcut}" Width="80" />
+                            <GridViewColumn Header="Expiration date" DisplayMemberBinding="{Binding ExpirationDate, StringFormat='dd/MM/yyyy'}" Width="95" />
+                        </GridView>
+
+                    </ListView.View>
+                    <ListView.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                        <Style TargetType="ListBoxItem">
+                            <Style.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="7"/>
+                                </Style>
+                            </Style.Resources>
+                        </Style>
+                    </ListView.Resources>
+                </ListView>
 
 
-
+            </Grid>
             <Button Content="Add Menu to Shopping list"
                 Grid.Row="3"
                 Width="160"

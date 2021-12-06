@@ -232,8 +232,13 @@
     <Compile Include="Services\DataContracts\Recipe.cs" />
     <Compile Include="Services\DataContracts\ShoppingList.cs" />
     <Compile Include="Services\DataContracts\TypeMenu.cs" />
+    <Compile Include="Services\DataContracts\UnitType.cs" />
     <Compile Include="Services\DataContracts\UnitWeight.cs" />
     <Compile Include="Services\DataContracts\User.cs" />
+    <Compile Include="Services\Utils\IWeightConverter.cs" />
+    <Compile Include="Services\Utils\UnitTransform.cs" />
+    <Compile Include="Services\Utils\WeightConverter.cs" />
+    <Compile Include="Services\Utils\WeightConverterExtensions.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PlanningViewModel.cs" />

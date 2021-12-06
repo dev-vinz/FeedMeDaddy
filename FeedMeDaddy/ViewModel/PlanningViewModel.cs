@@ -1,4 +1,7 @@
 ﻿using FeedMeDaddy.Core;
+using FeedMeDaddy.Services;
+using FeedMeDaddy.Services.Database;
+using FeedMeDaddy.Services.DataContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +46,33 @@ namespace FeedMeDaddy.ViewModel
             DateTime[] weekdays = GetWeekdays();
             return weekdays[current].ToString("dd/MM/yyyy");
         }
+        private static Services.DataContracts.UnitWeight[] GetUnitsSelection()
+        {
+            FeedMeDaddyContext db = new FeedMeDaddyContext();
+
+            var units = db.UnitWeight.Fetch();
+            var unitWeight = new Services.DataContracts.UnitWeight[units.Count()];
+
+            Array.Copy(units.ToArray(), unitWeight, units.Count());
+            db.Dispose();
+            return unitWeight;
+        }
+
+        private static Services.DataContracts.Recipe[] GetMenuSelection()
+        {
+
+            FeedMeDaddyContext db = new FeedMeDaddyContext();
+
+            var recipies = db.Recipe.Fetch();
+            var recipiesName = new Services.DataContracts.Recipe[recipies.Count()];
+
+            Array.Copy(recipies.ToArray(), recipiesName, recipies.Count());
+            db.Dispose();
+            return recipiesName;
+            
+        }
+        public Services.DataContracts.UnitWeight[] UnitsSelection { get; set;} = GetUnitsSelection();
+        public Services.DataContracts.Recipe[] MenuSelection { get; set; } = GetMenuSelection();
         public string DateZeo { get; set; } = $"{GetDate(0)}";
         public string DayZero { get; set; } = $"{GetDay(0)} {GetDate(0)}";
         public string DayOne { get; set; } = $"{GetDay(1)} {GetDate(1)}";

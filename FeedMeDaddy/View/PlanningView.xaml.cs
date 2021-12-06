@@ -1,17 +1,12 @@
-﻿using System;
+﻿using FeedMeDaddy.Services.DataContracts;
+using FeedMeDaddy.Services.Units;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 
 
@@ -34,10 +29,69 @@ namespace FeedMeDaddy.View
 
         private void IngredientToShopping_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show(item.Text==""? "Nothing" : "You added " + String.Format("{0:#,#.0}", quantity.Value)+" "+ units.Text + " of "+ item.Text + (dueDate.Text == "" ? " " :" for the date : " + dueDate.Text));
-            //previewShopping.Items.Add(item.Text == "" ? "Nothing" : "You added " + String.Format("{0:#,#.0}", quantity.Value) + " " + units.Text + " of " + item.Text + (dueDate.Text == "" ? " " : " for the date : " + dueDate.Text));
-            var row = new { Ingredient = item.Text, Quantity = String.Format("{0:#,#.0}", quantity.Value), Units = units.Text, Expiration_date = dueDate.Text == "" ? "" : dueDate.Text };
-            previewShopping.Items.Add(row);
+
+            var ing = new Ingredient
+            {
+                Name = item.Text,
+                Quantity = (double)quantity.Value,
+                Unit = (UnitWeight)units.SelectedItem,
+                ExpirationDate = dueDate.SelectedDate
+            };
+
+            //Il faut faire un controle pour savoir si il y a déjà l'ingredient dans la liste de course
+            int previewSize = previewShopping.Items.Count;
+            bool inList = false;
+            WeightConverter converter = new WeightConverter();
+            for (int i = 0; i < previewSize; i++)
+            {
+                var myIng = previewShopping.Items.GetItemAt(i) as Ingredient;
+
+                if (myIng.Name.Equals(ing.Name))
+                {
+                    if (myIng.ExpirationDate == ing.ExpirationDate)
+                    {
+                        //Si l'unité est la même on peut juste additionner
+                        if (myIng.Unit.Shortcut.Equals(ing.Unit.Shortcut))
+                        {
+
+                            previewShopping.Items.Remove(myIng);
+                            myIng.Quantity += ing.Quantity;
+                            previewShopping.Items.Add(myIng);
+                            inList = true;
+
+
+                        }
+                        else //si l'unité est différente il faut faire une conversion
+                        {
+                            double tempQuantity = 0;
+                            bool sameType = true;
+                            try
+                            {
+                                tempQuantity = converter.Convert(myIng.Unit, ing.Quantity, ing.Unit);
+                            }
+                            catch
+                            {
+                                sameType = false;
+                            }
+                            if (sameType)
+                            {
+                                previewShopping.Items.Remove(myIng);
+                                myIng.Quantity += tempQuantity;
+                                previewShopping.Items.Add(myIng);
+                                inList = true;
+                            }
+
+                        }
+                    }
+                }
+            }
+            if (!inList)
+            {
+
+                previewShopping.Items.Add(ing);
+            }
+
+
         }
 
         private void InitializeBlackout()
@@ -51,6 +105,7 @@ namespace FeedMeDaddy.View
         }
         private void Initialize()
         {
+
             Breakfast.Add(B0);
             Breakfast.Add(B1);
             Breakfast.Add(B2);
@@ -72,39 +127,57 @@ namespace FeedMeDaddy.View
             Supper.Add(S4);
             Supper.Add(S5);
             Supper.Add(S6);
-            var row = new{Ingredient = "product_1", Quantity="100", Units= "g", Expiration_date="12.12.2012" };
-            previewShopping.Items.Add(row);
-
+            units.SelectedIndex = 0;
         }
         private void Concat_ComboBox()
         {
+            string pattern = @"[^A-Za-z ]";
+            RegexOptions options = RegexOptions.IgnoreCase;
             foreach (var item in Breakfast)
-            {
-                item.Text = string.Concat(item.Text.Where(char.IsLetter));
+                {
+                    
+                    if (item.Text.Any(char.IsDigit) || item.Text.Any(char.IsPunctuation) || item.Text.Any(char.IsControl) || item.Text.Any(char.IsSymbol))
+                    {
+                    Console.WriteLine(Regex.Replace(item.Text, pattern, "", options));
+                    item.Text = Regex.Replace(item.Text, pattern, "", options);
+
+
+                    }
+                }
+                foreach (var item in Dinner)
+                {
+                    if (item.Text.Any(char.IsDigit) || item.Text.Any(char.IsPunctuation) || item.Text.Any(char.IsControl) || item.Text.Any(char.IsSymbol))
+                    {
+                    item.Text = Regex.Replace(item.Text, pattern, "", options);
+
+
+
+                }
             }
-            foreach (var item in Dinner)
-            {
-                item.Text = string.Concat(item.Text.Where(char.IsLetter));
-            }
-            foreach (var item in Supper)
-            {
-                item.Text = string.Concat(item.Text.Where(char.IsLetter));
+                foreach (var item in Supper)
+                {
+                    if (item.Text.Any(char.IsDigit) || item.Text.Any(char.IsPunctuation) || item.Text.Any(char.IsControl) || item.Text.Any(char.IsSymbol))
+                    {
+                    item.Text = Regex.Replace(item.Text, pattern, "", options);
+
+
+                }
             }
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
-        {            
+        {
             string test = "";
             foreach (var item in Breakfast)
             {
-                if(item.Text=="")
+                if (item.Text == "")
                 {
 
                 }
                 else
                 {
-                    test += item.Name + ": "+item.Text + " ";
+                    test += item.Name + ": " + item.Text + " ";
                 }
-                
+
             }
             foreach (var item in Dinner)
             {
@@ -129,7 +202,7 @@ namespace FeedMeDaddy.View
                 }
 
 
-                
+
             }
             MessageBox.Show(test);
         }
