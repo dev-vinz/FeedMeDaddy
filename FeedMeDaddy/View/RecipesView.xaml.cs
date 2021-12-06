@@ -82,7 +82,7 @@ namespace FeedMeDaddy.View
 
         private void addNewRecipe(object sender, RoutedEventArgs e)
         {
-
+            int i = 0;
         }
     }
 }
