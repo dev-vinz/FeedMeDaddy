@@ -68,7 +68,7 @@ namespace FeedMeDaddy.Services.DataContracts
         public static ShoppingList ToDataContract(this Database.ShoppingList shoppingList) => new ShoppingList
         {
             User = shoppingList.UserNavigation.ToDataContract(),
-            Ingredients = shoppingList.ShoppingIngredient.Select(si => si.Ingredient.ToDataContract())
+            Ingredients = shoppingList.ShoppingIngredient.Select(si => si.Ingredient.ToDataContract()).ToList()
         };
 
         public static Database.ShoppingList ToDatabase(this ShoppingList shoppingList) => new Database.ShoppingList

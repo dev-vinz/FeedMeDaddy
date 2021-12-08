@@ -17,6 +17,7 @@ namespace FeedMeDaddy.ViewModel
         public List<string> RecipeList { get; set; }
         public string RecipeName { get; set; }
         public string RecipeDescription { get; set; }
+
         public Services.DataContracts.Ingredient[] RecipeIngredients { get; set; }
         public Services.DataContracts.Recipe ActiveRecipe { get; set; }
 
@@ -37,7 +38,6 @@ namespace FeedMeDaddy.ViewModel
 
             db.Dispose();
         }
-
         void SetupRecipes()
         {
             //ActiveRecipe = Recipes.ElementAt(0);

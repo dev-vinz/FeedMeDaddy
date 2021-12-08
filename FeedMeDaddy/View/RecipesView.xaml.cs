@@ -1,5 +1,6 @@
 ﻿using FeedMeDaddy.Services.Database;
 using FeedMeDaddy.ViewModel;
+using FeedMeDaddy.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,7 +83,9 @@ namespace FeedMeDaddy.View
 
         private void addNewRecipe(object sender, RoutedEventArgs e)
         {
-            int i = 0;
+            AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel();
+            AddRecipeWindow addRecipeWindow = new AddRecipeWindow();
+            addRecipeWindow.ShowDialog();
         }
     }
 }
