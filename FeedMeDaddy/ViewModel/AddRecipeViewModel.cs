@@ -19,6 +19,7 @@ namespace FeedMeDaddy.ViewModel
         public AddRecipeViewModel()
         {
             LoadUnits();
+            
         }
 
         private void LoadUnits()
@@ -29,9 +30,11 @@ namespace FeedMeDaddy.ViewModel
             unitList = new Services.DataContracts.UnitWeight[units.Count()];
             Array.Copy(units.ToArray(), unitList, units.Count());
 
+            db.Dispose();
+
             AddRecipeModel = new AddRecipeModel(unitList);
 
-            db.Dispose();
+            
         }
     }
 }

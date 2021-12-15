@@ -115,7 +115,7 @@
                                 Grid.Row="1"
                                 >
             </xctk:DoubleUpDown>
-            <ComboBox Name="UnityCombobox"
+            <ComboBox Name="UnitCombobox"
                       Grid.Column="2"
                       Grid.Row="1"
                       Margin="5"
@@ -149,14 +149,14 @@
                     Content="Add Ingredient"
                     Margin="5"
                     Grid.Row="0"
-                    Grid.Column="0">
+                    Grid.Column="0" Click="AddIngredient">
                 
             </Button>
             <Button Name="RemoveIngredientButton"
                     Content="Remove Ingredient"
                     Margin="5"
                     Grid.Row="0"
-                    Grid.Column="1">
+                    Grid.Column="1" Click="RemoveIngredient">
 
             </Button>
 
@@ -183,7 +183,7 @@
                     Content="Add Recipe"
                     Margin="5"
                     Grid.Row="4"
-                    Grid.Column="1">
+                    Grid.Column="1" Click="AddRecipe">
 
         </Button>
         

@@ -9,7 +9,14 @@ namespace FeedMeDaddy.Services.Database
 {
     public partial class TypeMenu
     {
+        public TypeMenu()
+        {
+            Menu = new HashSet<Menu>();
+        }
+
         public int Id { get; set; }
         public string Type { get; set; }
+
+        public virtual ICollection<Menu> Menu { get; set; }
     }
 }
