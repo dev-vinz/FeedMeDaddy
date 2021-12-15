@@ -11,6 +11,7 @@ namespace FeedMeDaddy.Services.Database
     {
         public Recipe()
         {
+            Menu = new HashSet<Menu>();
             RecipeIngredient = new HashSet<RecipeIngredient>();
         }
 
@@ -21,6 +22,7 @@ namespace FeedMeDaddy.Services.Database
         public int NbPersons { get; set; }
 
         public virtual User UserNavigation { get; set; }
+        public virtual ICollection<Menu> Menu { get; set; }
         public virtual ICollection<RecipeIngredient> RecipeIngredient { get; set; }
     }
 }

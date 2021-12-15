@@ -33,30 +33,30 @@ namespace FeedMeDaddy.ViewModel
 
         public MainViewModel()
         {
-            HomeVM = new HomeViewModel();
+            /*HomeVM = new HomeViewModel();
             PlanningVM = new PlanningViewModel();
             RecipesVM = new RecipesViewModel();
-            ShoppingVM = new ShoppingViewModel();
+            ShoppingVM = new ShoppingViewModel();*/
 
-            CurrentView = HomeVM;
+            CurrentView = new HomeViewModel();
 
             // TODO
             // Potential Warning
 
             HomeViewCommand = new RelayCommand(o => {
-                CurrentView = HomeVM;
+                CurrentView = new HomeViewModel();
             });
             
             PlanningViewCommand = new RelayCommand(o => {
-                CurrentView = PlanningVM;
+                CurrentView = new PlanningViewModel();
             });
             
             RecipesViewCommand = new RelayCommand(o => {
-                CurrentView = RecipesVM;
+                CurrentView = new RecipesViewModel();
             });
             
             ShoppingViewCommand = new RelayCommand(o => {
-                CurrentView = ShoppingVM;
+                CurrentView = new ShoppingViewModel();
             });
         }
 

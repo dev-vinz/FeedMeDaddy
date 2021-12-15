@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace FeedMeDaddy.Services.DataContracts
 {
-    public class ShoppingList
+    public enum UnitType
     {
-        public User User { get; set; }
-        public List<Ingredient> Ingredients { get; set; }
+        Weight,
+        Volume,
+        Piece,
+        Pinch,
+        Teaspoon
     }
 }

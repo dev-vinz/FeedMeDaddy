@@ -3,12 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:FeedMeDaddy.View"
+             xmlns:viewmodel="clr-namespace:FeedMeDaddy.ViewModel"
+			 xmlns:c="clr-namespace:FeedMeDaddy.Templates.Validators"
+			 d:DataContext="{d:DesignInstance Type=viewmodel:ShoppingViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="690" d:DesignWidth="1080">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1.75*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -26,49 +30,31 @@
                    Grid.ColumnSpan="2"/>
 
         <!-- Shopping List -->
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <Grid Margin="20, 10, 20, 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Foreground="White"
-                           FontSize="20"
-                           HorizontalAlignment="Center">
-                    Aliment
-                </TextBlock>
-                
-                <TextBlock Grid.Column="1"
-                           Foreground="White"
-                           FontSize="20"
-                           HorizontalAlignment="Center">
-                    Quantity
-                </TextBlock>
-
-                <TextBlock Grid.Column="2"
-                           Foreground="White"
-                           FontSize="20"
-                           HorizontalAlignment="Center">
-                    Menu Date
-                </TextBlock>
-
-
-            </Grid>
-            
-            <ListBox Grid.Row="1"
-                    Grid.Column="0"
-                    Margin="20, 10, 20, 20"
-                    Background="Transparent"
-                    Foreground="White">
-            </ListBox>
-        </Grid>
+        <ListView Grid.Row="1"
+                  Grid.Column="0"
+                  x:Name="shoppingList"
+                  SelectionChanged="ShoppingList_SelectionChanged"
+                  Margin="20, 10, 20, 20"
+                  IsTextSearchEnabled="False"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  BorderThickness="0"
+                  Background="Transparent"
+                  Foreground="White"
+                  DataContext="{Binding ShoppingList}"
+                  ItemsSource="{Binding Ingredients}">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False">
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn Header="Ingredient" Width="250" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn x:Name="test" Header="Quantity" Width="100" DisplayMemberBinding="{Binding FullUnit}" />
+                    <GridViewColumn Header="Menu Date" Width="150" DisplayMemberBinding="{Binding ExpirationDate, StringFormat='dd/MM/yyyy'}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
 
         <!-- Informations and Gestion -->
         <Grid Grid.Column="1"
@@ -82,19 +68,21 @@
             <StackPanel Grid.Row="1"
                         Margin="0,0,0,50"
                         VerticalAlignment="Bottom">
-                
+
                 <!-- Gestion Informations -->
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
+                        <RowDefinition Height="20" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1*"/>
                         <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
                     </Grid.ColumnDefinitions>
 
                     <!-- Informations -->
@@ -131,41 +119,111 @@
                                VerticalAlignment="Bottom"
                                Foreground="White"
                                FontSize="15">
+                        Category
+                    </TextBlock>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="4"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Bottom"
+                               Foreground="White"
+                               FontSize="15">
                         Expiration Date
                     </TextBlock>
 
+                    <!-- Error Labels -->
+                    <TextBlock Grid.Row="1"
+                               Name="ingredientNameError"
+                               Background="Transparent"
+                               Foreground="Red"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Right"
+                               Margin="0, 0, 5, 0"
+                               FontSize="10" />
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Name="ingredientQuantityError"
+                               Background="Transparent"
+                               Foreground="Red"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Right"
+                               Margin="0, 0, 5, 0"
+                               FontSize="10" />
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="3"
+                               Name="ingredientCategoryError"
+                               Background="Transparent"
+                               Foreground="Red"
+                               VerticalAlignment="Bottom"
+                               HorizontalAlignment="Right"
+                               Margin="0, 0, 5, 0"
+                               FontSize="10" />
+
                     <!-- Insertions -->
-                    <TextBox Grid.Row="1"
-                             Name="ingredient_name"
+                    <Border Grid.Row="2"
+                            Name="borderIngredientName"
+                            BorderThickness="1"
+                            BorderBrush="White"
+                            Margin="5">
+                        <TextBox Name="boxIngredientName"
                              Background="Transparent"
                              Foreground="White"
                              VerticalContentAlignment="Center"
-                             Margin="5"
+                             BorderThickness="0"
                              FontSize="12" />
+                    </Border>
 
-                    <TextBox Grid.Row="1"
-                             Grid.Column="1"
-                             Name="ingredient_quantity"
-                             Background="Transparent"
-                             Foreground="White"
-                             TextAlignment="Right"
-                             VerticalContentAlignment="Center"
-                             Margin="5"
-                             FontSize="12" />
+                    <Border Grid.Row="2"
+                            Grid.Column="1"
+                            Name="borderIngredientQuantity"
+                            BorderThickness="1"
+                            BorderBrush="White"
+                            Margin="5">
+                        <xctk:DoubleUpDown Name="upDownIngredientQuantity"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Minimum="0"
+                            Maximum="1000"
+                            Increment="0.1"
+                            Value="0.0"
+                            FormatString="{}{0:#,#.0}" />
+                    </Border>
 
-                    <ComboBox Grid.Row="1"
-                             Grid.Column="2"
-                             Name="ingrediant_unit"
-                             Background="Transparent"
-                             Margin="5"
-                             FontSize="12">
-                        <ComboBoxItem>g</ComboBoxItem>
-                        <ComboBoxItem>kg</ComboBoxItem>
+                    <ComboBox Grid.Row="2"
+                              Grid.Column="2"
+                              Background="Transparent"
+                              Name="boxIngredientUnit"
+                              Margin="5"
+                              FontSize="12"
+                              DataContext="{Binding ShoppingModel}"
+                              ItemsSource="{Binding Units}"
+                              SelectedValue="{Binding Units[0]}"
+                              DisplayMemberPath="Shortcut">
                     </ComboBox>
 
-                    <DatePicker Name="ingredient_expiration"
-                                Grid.Row="1"
-                                Grid.Column="3"
+                    <Border Name="borderIngredientCategory"
+                            Grid.Row="2"
+                            Grid.Column="3"
+                            BorderThickness="1"
+                            BorderBrush="White"
+                            Margin="5">
+                        <ComboBox Background="Transparent"
+                              Name="boxIngredientCategory"
+                              BorderThickness="0"
+                              FontSize="12"
+                              DataContext="{Binding ShoppingModel}"
+                              ItemsSource="{Binding Categories}" >
+                        </ComboBox>
+                    </Border>
+
+                    <DatePicker Name="dateIngredientExpiration"
+                                Loaded="DatePicker_Loaded"
+                                Grid.Row="2"
+                                Grid.Column="4"
+                                Width="100"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 VerticalContentAlignment="Center"
@@ -182,13 +240,16 @@
 
                     <Button IsEnabled="False"
                             Content="Remove Ingredient"
+                            Name="btnRemoveIngredient"
                             Height="30"
                             Margin="5" />
 
                     <Button Grid.Column="1"
                             Content="Add Ingredient"
+                            Name="btnAddIngredient"
+                            Click="BtnAddIngredient_Click"
                             Height="30"
-                            Margin="5" />
+                            Margin="5"/>
                 </Grid>
             </StackPanel>
         </Grid>
