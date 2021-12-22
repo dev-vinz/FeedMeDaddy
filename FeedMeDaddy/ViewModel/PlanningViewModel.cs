@@ -74,8 +74,18 @@ namespace FeedMeDaddy.ViewModel
 
         private static FoodCategory[] GetCategories()
         {
-            return Enum.GetValues(typeof(FoodCategory)).Cast<FoodCategory>().ToArray();
+            FoodCategory[] value = Enum.GetValues(typeof(FoodCategory)).Cast<FoodCategory>().ToArray();
+            for (int a = 7; a < value.Length - 1; a++)
+            {
+                // moving elements downwards, to fill the gap at [index]
+                value[a] = value[a + 1];
+            }
+            // finally, let's decrement Array's size by one
+            Array.Resize(ref value, value.Length - 1);
+            
+            return value;
         }
+
         public UnitWeight[] UnitsSelection { get; set;} = GetUnitsSelection();
         public FoodCategory[] CategorySelection { get; set; } = GetCategories();
         public Recipe[] MenuSelection { get; set; } = GetMenuSelection();

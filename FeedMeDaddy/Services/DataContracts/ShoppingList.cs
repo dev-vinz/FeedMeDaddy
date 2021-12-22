@@ -9,6 +9,6 @@ namespace FeedMeDaddy.Services.DataContracts
     public class ShoppingList
     {
         public User User { get; set; }
-        public IEnumerable<Ingredient> Ingredients { get; set; }
+        public List<Ingredient> Ingredients { get; set; }
     }
 }

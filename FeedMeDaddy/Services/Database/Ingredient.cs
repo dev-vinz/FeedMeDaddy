@@ -15,12 +15,12 @@ namespace FeedMeDaddy.Services.Database
             ShoppingIngredient = new HashSet<ShoppingIngredient>();
         }
 
-        public int Id { get; set; }
         public string Name { get; set; }
         public double Quantity { get; set; }
         public int Category { get; set; }
         public int Unit { get; set; }
         public DateTime? LimitDate { get; set; }
+        public int Id { get; set; }
 
         public virtual FoodCategory CategoryNavigation { get; set; }
         public virtual UnitWeight UnitNavigation { get; set; }

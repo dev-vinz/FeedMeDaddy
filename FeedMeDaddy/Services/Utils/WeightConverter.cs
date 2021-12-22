@@ -91,15 +91,19 @@ namespace FeedMeDaddy.Services.Units
                     switch (destUnit.Unit)
                     {
                         case UnitWeight.EUnit.Kilogram:
-                            return value * 1_000;
+                            return value / 1_000;
+                        case UnitWeight.EUnit.Gram:
+                            return value;
                         default:
                             throw new ArgumentOutOfRangeException(nameof(destUnit.Unit), destUnit.Unit, null);
                     }
                 case UnitWeight.EUnit.Kilogram:
                     switch (destUnit.Unit)
                     {
+                        case UnitWeight.EUnit.Kilogram:
+                            return value;
                         case UnitWeight.EUnit.Gram:
-                            return value / 1_000;
+                            return value * 1_000;
                         default:
                             throw new ArgumentOutOfRangeException(nameof(destUnit.Unit), destUnit.Unit, null);
                     }

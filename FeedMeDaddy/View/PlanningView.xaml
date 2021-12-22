@@ -100,6 +100,7 @@
                         BorderThickness="0,1,1,0"
                         Grid.Row="1">
                     </Border>
+                    
                     <TextBlock Text = "{Binding DayZero}"
                            TextWrapping="Wrap"
                            Grid.Row="1"
@@ -177,7 +178,7 @@
 
                     <ComboBox Name="B0"
                           ItemsSource="{Binding MenuSelection}"
-                              DisplayMemberPath="Name"
+                          DisplayMemberPath="Name"
                           Grid.Row="1"
                           Grid.Column="1"
                           IsEditable="True" 
@@ -334,9 +335,10 @@
                               />
                     <!--Supper -->
                     <ComboBox Name="S0"
+                              
                               ItemsSource="{Binding MenuSelection}"
                               DisplayMemberPath="Name"
-                        Grid.Row="1"
+                            Grid.Row="1"
                           Grid.Column="3"
                           IsEditable="True" 
                           HorizontalContentAlignment="Center"
@@ -600,9 +602,9 @@
                                     </Style.Triggers>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Header="Ingredient" DisplayMemberBinding="{Binding Name}" Width="80" />
+                            <GridViewColumn Header="Ingredient" DisplayMemberBinding="{Binding Name}" Width="120" />
                             <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity, StringFormat='{}{0:#,#.0}'}" Width="80" />
-                            <GridViewColumn Header="Units" DisplayMemberBinding="{Binding Unit.Shortcut}" Width="80" />
+                            <GridViewColumn Header="Units" DisplayMemberBinding="{Binding Unit.Shortcut}" Width="40" />
                             <GridViewColumn Header="Expiration date" DisplayMemberBinding="{Binding ExpirationDate, StringFormat='dd/MM/yyyy'}" Width="95" />
                         </GridView>
 

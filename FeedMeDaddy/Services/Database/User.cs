@@ -11,6 +11,7 @@ namespace FeedMeDaddy.Services.Database
     {
         public User()
         {
+            Menu = new HashSet<Menu>();
             Recipe = new HashSet<Recipe>();
             ShoppingList = new HashSet<ShoppingList>();
         }
@@ -20,6 +21,7 @@ namespace FeedMeDaddy.Services.Database
         public string Password { get; set; }
 
         public virtual Fridge Fridge { get; set; }
+        public virtual ICollection<Menu> Menu { get; set; }
         public virtual ICollection<Recipe> Recipe { get; set; }
         public virtual ICollection<ShoppingList> ShoppingList { get; set; }
     }

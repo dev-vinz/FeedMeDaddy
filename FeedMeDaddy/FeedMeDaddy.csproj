@@ -236,7 +236,6 @@
     <Compile Include="Services\DataContracts\UnitWeight.cs" />
     <Compile Include="Services\DataContracts\User.cs" />
     <Compile Include="Services\Utils\IWeightConverter.cs" />
-    <Compile Include="Services\Utils\UnitTransform.cs" />
     <Compile Include="Services\Utils\WeightConverter.cs" />
     <Compile Include="Services\Utils\WeightConverterExtensions.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />

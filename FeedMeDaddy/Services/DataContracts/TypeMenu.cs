@@ -9,7 +9,7 @@ namespace FeedMeDaddy.Services.DataContracts
     public enum TypeMenu
     {
         Breakfast = 1,
-        Lunch = 2,
-        Dinner = 3
+        Dinner = 2,
+        Supper = 3
     }
 }
