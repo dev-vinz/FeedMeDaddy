@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace FeedMeDaddy.ViewModel
 {
-    class AddRecipeViewModel : ObservableObject
+    internal class AddRecipeViewModel : ObservableObject
     {
         public Services.DataContracts.UnitWeight[] unitList { get; set; }
-        public AddRecipeModel AddRecipeModel { get; set; }
+        public AddRecipeModel addRecipeModel { get; set; }
 
         public AddRecipeViewModel()
         {
@@ -32,8 +32,7 @@ namespace FeedMeDaddy.ViewModel
 
             db.Dispose();
 
-            AddRecipeModel = new AddRecipeModel(unitList);
-
+            addRecipeModel = new AddRecipeModel(unitList);
             
         }
     }

@@ -73,26 +73,23 @@ namespace FeedMeDaddy.View
 
         private void Combobox_selectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (recipeComboBox.Text == "")
+
+            ViewModel = this.DataContext as RecipesViewModel;
+
+            int index = (sender as ComboBox).SelectedIndex;
+
+            if(index < 0)
             {
-                int index = (sender as ComboBox).SelectedIndex;
-                recipeListBox.SelectedIndex = index;
+                index = 0;
             }
-            else
-            {
-                ViewModel = this.DataContext as RecipesViewModel;
 
-                int index = (sender as ComboBox).SelectedIndex;
+            ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
 
-                ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
+            recipeListBox.SelectedIndex = index;
+            recipeName.Text = ViewModel.ActiveRecipe.Name;
+            recipeDescription.Text = ViewModel.ActiveRecipe.Description;
 
-                recipeListBox.SelectedIndex = index;
-                recipeName.Text = ViewModel.ActiveRecipe.Name;
-                recipeDescription.Text = ViewModel.ActiveRecipe.Description;
-
-                newQuantity((int)qtyUpDown.Value);
-
-            }
+            newQuantity((int)qtyUpDown.Value);
 
         }
 

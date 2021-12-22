@@ -1,4 +1,7 @@
-﻿using FeedMeDaddy.Services.DataContracts;
+﻿using FeedMeDaddy.Model;
+using FeedMeDaddy.Services;
+using FeedMeDaddy.Services.DataContracts;
+using FeedMeDaddy.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +23,29 @@ namespace FeedMeDaddy.Windows
     /// </summary>
     public partial class AddRecipeWindow : Window
     {
-        public List<Ingredient> ingredients {get;set;}
+        public List<Ingredient> ingredients { get; set; }
 
 
         public AddRecipeWindow()
         {
-            List<Ingredient> ingredients = new List<Ingredient>();
+            ingredients = new List<Ingredient>();
+
             InitializeComponent();
+
+            FillCombobox();
+        }
+
+        private void FillCombobox()
+        {
+            AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel();
+            foreach (var category in addRecipeViewModel.addRecipeModel.Categories)
+            {
+                CategoryCombobox.Items.Add(category);
+            }
+            foreach (UnitWeight unit in addRecipeViewModel.addRecipeModel.Units)
+            {
+                UnitCombobox.Items.Add(unit);
+            }
         }
 
         private void AddIngredient(object sender, RoutedEventArgs e)
@@ -46,7 +65,7 @@ namespace FeedMeDaddy.Windows
                 IngredientTextBox.BorderBrush = Brushes.Red;
                 IngredientTextBox.Focus();
                 return;
-                
+
             }
 
             if (ingredientQuantity == null || ingredientQuantity == 0)
@@ -54,7 +73,7 @@ namespace FeedMeDaddy.Windows
                 qtyUpDown.BorderBrush = Brushes.Red;
                 qtyUpDown.Focus();
                 return;
-               
+
             }
 
             if (!Enum.TryParse(CategoryCombobox.SelectedItem?.ToString(), out FoodCategory ingredientCategory))
@@ -74,8 +93,10 @@ namespace FeedMeDaddy.Windows
             };
 
             ingredients.Add(ingredient);
+
             IngredientListView.Items.Clear();
-            foreach(Ingredient i in ingredients)
+
+            foreach (Ingredient i in ingredients)
             {
                 IngredientListView.Items.Add(i);
             }
@@ -84,9 +105,19 @@ namespace FeedMeDaddy.Windows
 
         private void RemoveIngredient(object sender, RoutedEventArgs e)
         {
-            int i = IngredientListView.SelectedIndex;
+            /*int i = IngredientListView.SelectedIndex;
 
-            ingredients.RemoveAt(i);
+            ingredients.RemoveAt(i);*/
+            if (IngredientListView.SelectedItem != null)
+            {
+                ingredients.RemoveAt(IngredientListView.Items.IndexOf(IngredientListView.SelectedItem));
+                IngredientListView.Items.RemoveAt(IngredientListView.Items.IndexOf(IngredientListView.SelectedItem));
+
+            }
+            else
+            {
+                MessageBox.Show("No item selected");
+            }
         }
 
         private void AddRecipe(object sender, RoutedEventArgs e)
@@ -114,7 +145,19 @@ namespace FeedMeDaddy.Windows
                 IngredientTextBox.Focus();
                 return;
             }
-
+            Recipe recipe = new Recipe
+            {
+                Id = 0,
+                User = new User { Id = 1 },
+                Name = NameTextBox.Text,
+                Description = DescriptionTextBox.Text,
+                NbPersons = 4,
+                Ingredients = ingredients
+            };
+            Services.Database.FeedMeDaddyContext db = new Services.Database.FeedMeDaddyContext();
+            db.AddRecipe(recipe);
+            db.SaveChanges();
+            db.Dispose();
 
         }
     }

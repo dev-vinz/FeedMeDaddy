@@ -15,11 +15,11 @@ namespace FeedMeDaddy.Services.Database
             RecipeIngredient = new HashSet<RecipeIngredient>();
         }
 
-        public int Id { get; set; }
         public int User { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int NbPersons { get; set; }
+        public int Id { get; set; }
 
         public virtual User UserNavigation { get; set; }
         public virtual ICollection<Menu> Menu { get; set; }

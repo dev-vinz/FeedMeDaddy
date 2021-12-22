@@ -14,5 +14,13 @@ namespace FeedMeDaddy.Services.DataContracts
         public FoodCategory Category { get; set; }
         public UnitWeight Unit { get; set; }
         public DateTime? ExpirationDate { get; set; }
+        public string FullUnit
+        {
+            get
+            {
+                return $"{Quantity} {Unit.Shortcut}";
+            }
+        }
     }
+
 }

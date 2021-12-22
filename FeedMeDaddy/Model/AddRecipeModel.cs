@@ -19,7 +19,6 @@ namespace FeedMeDaddy.Model
             Categories = GetCategories();
         }
 
-
         private FoodCategory[] GetCategories()
         {
             return Enum.GetValues(typeof(FoodCategory)).Cast<FoodCategory>().ToArray();
