@@ -12,6 +12,7 @@ namespace FeedMeDaddy.Services.DataContracts
         Volume,
         Piece,
         Pinch,
-        Teaspoon
+        Teaspoon,
+        Can
     }
 }

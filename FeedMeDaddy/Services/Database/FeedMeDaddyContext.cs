@@ -72,8 +72,6 @@ namespace FeedMeDaddy.Services.Database
 
             modelBuilder.Entity<Ingredient>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.LimitDate).HasColumnType("date");
 
                 entity.Property(e => e.Name)
@@ -84,13 +82,13 @@ namespace FeedMeDaddy.Services.Database
                     .WithMany(p => p.Ingredient)
                     .HasForeignKey(d => d.Category)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Ingredien__Categ__6477ECF3");
+                    .HasConstraintName("FK__Ingredien__Categ__09746778");
 
                 entity.HasOne(d => d.UnitNavigation)
                     .WithMany(p => p.Ingredient)
                     .HasForeignKey(d => d.Unit)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Ingredient__Unit__656C112C");
+                    .HasConstraintName("FK__Ingredient__Unit__0A688BB1");
             });
 
             modelBuilder.Entity<Menu>(entity =>
@@ -105,7 +103,8 @@ namespace FeedMeDaddy.Services.Database
                 entity.HasOne(d => d.RecipeNavigation)
                     .WithMany(p => p.Menu)
                     .HasForeignKey(d => d.Recipe)
-                    .HasConstraintName("FK__Menu__Recipe__6D0D32F4");
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .HasConstraintName("FK__Menu__Recipe__1E6F845E");
 
                 entity.HasOne(d => d.TypeNavigation)
                     .WithMany(p => p.Menu)
@@ -122,8 +121,6 @@ namespace FeedMeDaddy.Services.Database
 
             modelBuilder.Entity<Recipe>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Description).IsUnicode(false);
 
                 entity.Property(e => e.Name)
@@ -144,23 +141,23 @@ namespace FeedMeDaddy.Services.Database
                 entity.HasOne(d => d.Ingredient)
                     .WithMany(p => p.RecipeIngredient)
                     .HasForeignKey(d => d.IngredientId)
-                    .HasConstraintName("FK__RecipeIng__Ingre__793DFFAF");
+                    .HasConstraintName("FK__RecipeIng__Ingre__078C1F06");
 
                 entity.HasOne(d => d.Recipe)
                     .WithMany(p => p.RecipeIngredient)
                     .HasForeignKey(d => d.RecipeId)
-                    .HasConstraintName("FK__RecipeIng__Recip__7849DB76");
+                    .HasConstraintName("FK__RecipeIng__Recip__1F63A897");
             });
 
             modelBuilder.Entity<ShoppingIngredient>(entity =>
             {
                 entity.HasKey(e => new { e.ShoppingId, e.IngredientId })
-                    .HasName("PK__Shopping__35D01E3D9D16AE38");
+                    .HasName("PK__Shopping__35D01E3DD53ADDAE");
 
                 entity.HasOne(d => d.Ingredient)
                     .WithMany(p => p.ShoppingIngredient)
                     .HasForeignKey(d => d.IngredientId)
-                    .HasConstraintName("FK__ShoppingI__Ingre__719CDDE7");
+                    .HasConstraintName("FK__ShoppingI__Ingre__0880433F");
 
                 entity.HasOne(d => d.Shopping)
                     .WithMany(p => p.ShoppingIngredient)

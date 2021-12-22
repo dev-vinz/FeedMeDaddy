@@ -93,6 +93,7 @@ namespace FeedMeDaddy.View
             {
                 ingredientNameError.Text = "Required";
                 borderIngredientName.BorderBrush = Brushes.Red;
+                boxIngredientName.Focus();
                 return;
             }
 
@@ -100,6 +101,7 @@ namespace FeedMeDaddy.View
             {
                 ingredientQuantityError.Text = "Required";
                 borderIngredientQuantity.BorderBrush = Brushes.Red;
+                upDownIngredientQuantity.Focus();
                 return;
             }
 
@@ -107,6 +109,7 @@ namespace FeedMeDaddy.View
             {
                 ingredientCategoryError.Text = "Required";
                 borderIngredientCategory.BorderBrush = Brushes.Red;
+                boxIngredientCategory.Focus();
                 return;
             }
 
@@ -121,8 +124,8 @@ namespace FeedMeDaddy.View
 
             ShoppingViewModel viewModel = DataContext as ShoppingViewModel;
 
-            viewModel.AddToShoppingList(ingredient);
             viewModel.AddToModel(ingredient);
+            viewModel.AddToShoppingList();
 
             Refresh_ShoppingList(viewModel);
         }
@@ -135,6 +138,10 @@ namespace FeedMeDaddy.View
         private void Refresh_ShoppingList(ShoppingViewModel viewModel)
         {
             shoppingList.ItemsSource = viewModel.ShoppingModel.Ingredients;
+            boxIngredientName.Clear();
+            upDownIngredientQuantity.Value = 0;
+            boxIngredientUnit.SelectedIndex = 0;
+            boxIngredientCategory.SelectedItem = null;
         }
     }
 }

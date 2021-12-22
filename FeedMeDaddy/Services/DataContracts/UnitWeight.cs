@@ -18,7 +18,8 @@ namespace FeedMeDaddy.Services.DataContracts
             Liter = 3,
             Piece = 4,
             Teaspoon = 5,
-            Pinch = 6
+            Pinch = 6,
+            Can = 7,
         };
     }
 }

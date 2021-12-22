@@ -22,6 +22,12 @@ namespace FeedMeDaddy.Services
             db.TypeMenu.Load();
             db.UnitWeight.Load();
             db.User.Load();
+
+            int nbIngredients = db.Ingredient.Count();
+            int nbRecipes = db.Recipe.Count();
+
+            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Ingredient', RESEED, {nbIngredients})");
+            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Recipe', RESEED, {nbRecipes})");
         }
 
         #region Fetch Extensions
@@ -74,6 +80,11 @@ namespace FeedMeDaddy.Services
         {
             EntityEntry<Database.Recipe> recipeAdded = db.Recipe.Add(recipe.ToDatabase());
 
+            int nbIngredients = db.Ingredient.Count();
+            int nbRecipes = db.Recipe.Count();
+            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Ingredient', RESEED, {nbIngredients})");
+            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Recipe', RESEED, {nbRecipes})");
+
             foreach (DataContracts.Ingredient ingredient in recipe.Ingredients)
             {
                 db.Ingredient.Add(ingredient.ToDatabase());
@@ -114,21 +125,33 @@ namespace FeedMeDaddy.Services
             IEnumerable<ShoppingIngredient> currentIngredients = db.ShoppingIngredient.Where(si => si.ShoppingId == shoppingId).AsEnumerable();
 
             foreach (ShoppingIngredient shoppingIngredient in currentIngredients)
-                db.ShoppingIngredient.Remove(shoppingIngredient);
+            {
+                Database.Ingredient ingredient = db.Ingredient.FirstOrDefault(i => i.Id == shoppingIngredient.IngredientId);
+                db.Ingredient.Remove(ingredient);
+            }
+
+            db.SaveChanges();
+
+            int nbIngredients = db.Ingredient.Count();
+            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Ingredient', RESEED, {nbIngredients})");
 
             foreach (DataContracts.Ingredient ingredient in shoppingList.Ingredients)
             {
-                if (!db.Ingredient.Any(i => i.Id == ingredient.Id))
-                    db.Ingredient.Add(ingredient.ToDatabase());
+                ingredient.Id = 0;
+                EntityEntry<Database.Ingredient> ingredientAdded = db.Ingredient.Add(ingredient.ToDatabase());
+                
+                db.SaveChanges();
 
                 ShoppingIngredient entity = new ShoppingIngredient
                 {
                     ShoppingId = shoppingId,
-                    IngredientId = ingredient.Id
+                    IngredientId = ingredientAdded.Entity.Id
                 };
 
                 db.ShoppingIngredient.Add(entity);
+                db.SaveChanges();
             }
+            
         }
 
         #endregion
@@ -146,6 +169,14 @@ namespace FeedMeDaddy.Services
             {
                 Database.Ingredient entity = db.Ingredient.FirstOrDefault(i => i.Id == recipeIngredient.IngredientId);
                 db.Ingredient.Remove(entity);
+            }
+        }
+
+        public static void RemoveRange(this DbSet<Database.Menu> menuSet, params DataContracts.Menu[] entities)
+        {
+            foreach (DataContracts.Menu menu in entities)
+            {
+                menuSet.Remove(menu.ToDatabase(menuSet));
             }
         }
 
