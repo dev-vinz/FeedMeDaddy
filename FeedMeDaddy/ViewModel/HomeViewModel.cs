@@ -8,6 +8,7 @@ namespace FeedMeDaddy.ViewModel
 
         public HomeViewModel()
         {
+
         }
     }
 }
