@@ -48,7 +48,7 @@ namespace FeedMeDaddy.Services.DataContracts
             User = menu.User.Id,
             Date = menu.Date,
             Type = (int)menu.Type,
-            Recipe = menu.Recipe.Id,
+            Recipe = menu.Recipe?.Id,
             CustomRecipe = menu.CustomRecipe
         };
 
