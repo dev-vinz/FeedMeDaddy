@@ -63,8 +63,8 @@
     <Reference Include="Microsoft.EntityFrameworkCore.Relational, Version=3.1.20.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.Relational.3.1.20\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.EntityFrameworkCore.SqlServer, Version=3.1.20.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.EntityFrameworkCore.SqlServer.3.1.20\lib\netstandard2.0\Microsoft.EntityFrameworkCore.SqlServer.dll</HintPath>
+    <Reference Include="Microsoft.EntityFrameworkCore.SqlServer, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.EntityFrameworkCore.SqlServer.3.1.19\lib\netstandard2.0\Microsoft.EntityFrameworkCore.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=3.1.20.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.3.1.20\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
@@ -176,6 +176,7 @@
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -212,6 +213,21 @@
     </ApplicationDefinition>
     <Compile Include="Extensions\CSharpExtensions.cs" />
     <Compile Include="Services\DatabaseExtensions.cs" />
+    <Compile Include="Model\AddRecipeModel.cs" />
+    <Compile Include="Model\RecipeModel.cs" />
+    <Compile Include="Services\DatabaseExtensions.cs" />
+    <Compile Include="Services\Database\FeedMeDaddyContext.cs" />
+    <Compile Include="Services\Database\FoodCategory.cs" />
+    <Compile Include="Services\Database\Fridge.cs" />
+    <Compile Include="Services\Database\Ingredient.cs" />
+    <Compile Include="Services\Database\Menu.cs" />
+    <Compile Include="Services\Database\Recipe.cs" />
+    <Compile Include="Services\Database\RecipeIngredient.cs" />
+    <Compile Include="Services\Database\ShoppingIngredient.cs" />
+    <Compile Include="Services\Database\ShoppingList.cs" />
+    <Compile Include="Services\Database\TypeMenu.cs" />
+    <Compile Include="Services\Database\UnitWeight.cs" />
+    <Compile Include="Services\Database\User.cs" />
     <Compile Include="Model\HomeModel.cs" />
     <Compile Include="Model\ShoppingModel.cs" />
     <Compile Include="Secure\ConfigDB.cs" />
@@ -241,6 +257,9 @@
     <Compile Include="Services\Units\WeightConverter.cs" />
     <Compile Include="Services\Units\WeightConverterExtensions.cs" />
     <Compile Include="Templates\Validators\ShoppingListValidationRule.cs" />
+    <Compile Include="Services\DataContracts\UnitWeight.cs" />
+    <Compile Include="Services\DataContracts\User.cs" />
+    <Compile Include="ViewModel\AddRecipeViewModel.cs" />
     <Compile Include="ViewModel\HomeViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PlanningViewModel.cs" />
@@ -257,6 +276,9 @@
     </Compile>
     <Compile Include="View\ShoppingView.xaml.cs">
       <DependentUpon>ShoppingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AddRecipeWindow.xaml.cs">
+      <DependentUpon>AddRecipeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -293,6 +315,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ShoppingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AddRecipeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

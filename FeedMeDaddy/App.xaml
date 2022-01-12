@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:FeedMeDaddy"
              xmlns:viewModel="clr-namespace:FeedMeDaddy.ViewModel"
              xmlns:view="clr-namespace:FeedMeDaddy.View"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
