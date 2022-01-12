@@ -1,4 +1,5 @@
 ﻿using FeedMeDaddy.Core;
+using FeedMeDaddy.Extensions;
 using FeedMeDaddy.Model;
 using FeedMeDaddy.Services;
 using FeedMeDaddy.Services.DataContracts;
@@ -45,15 +46,11 @@ namespace FeedMeDaddy.ViewModel
 		{
 			FeedMeDaddyContext db = new FeedMeDaddyContext();
 			ShoppingList = GetShoppingList();
-			IEnumerable<UnitWeight> units = db.UnitWeight.Fetch();
-
-			UnitWeight[] unitWeights = new UnitWeight[units.Count()];
-			Array.Copy(units.ToArray(), unitWeights, units.Count());
-
+			IEnumerable<UnitWeight> units = db.UnitWeight.Fetch().Clone();
 			db.Dispose();
 
-			ShoppingList.Ingredients = FetchIngredients();
-			ShoppingModel = new ShoppingModel(ShoppingList.Ingredients, unitWeights);
+			//ShoppingList.Ingredients = FetchIngredients();
+			ShoppingModel = new ShoppingModel(FetchIngredients(), units.ToArray());
 		}
 
 		public void AddToShoppingList()
@@ -67,10 +64,15 @@ namespace FeedMeDaddy.ViewModel
 
 		public void AddToModel(Ingredient ingredient)
 		{
-			List<Ingredient> ingredients = FetchIngredients(ingredient);
+			IEnumerable<Ingredient> ingredients = FetchIngredients(ingredient);
 
-			ShoppingModel.Ingredients = ingredients;
+			ShoppingModel.Ingredients = ingredients.Clone();
 			ShoppingList.Ingredients.Add(ingredient);
+		}
+
+		public void RemoveFromModel(Ingredient ingredient)
+		{
+			ShoppingModel.Ingredients = ShoppingModel.Ingredients.Where(i => i != ingredient);
 		}
 
 		private List<Ingredient> FetchIngredients(params Ingredient[] addIngredient)
@@ -81,13 +83,13 @@ namespace FeedMeDaddy.ViewModel
 			List<Ingredient> ingredients = new List<Ingredient>();
 			WeightConverter converter = new WeightConverter();
 
-			foreach (Ingredient ing in ShoppingList.Ingredients.Concat(addIngredient))
+			foreach (Ingredient ing in ShoppingList.Ingredients.Concat(addIngredient).Clone())
 			{
 				if (ing.Category == FoodCategory.ShouldNotFigureOnShoppingList) continue;
 
 				if (ingredients.Any(i => i.Name == ing.Name))
 				{
-					IEnumerable<Ingredient> possibleIngredients = ingredients.Where(i => i.Name == ing.Name);
+					IEnumerable<Ingredient> possibleIngredients = ingredients.Where(i => i.Name == ing.Name).Clone();
 
 					foreach (Ingredient possIng in possibleIngredients)
 					{
@@ -107,13 +109,13 @@ namespace FeedMeDaddy.ViewModel
 						}
 						else
 						{
-							ingredients.Add(ing);
+							ingredients.Add(new Ingredient(ing));
 						}
 					}
 				}
 				else
 				{
-					ingredients.Add(ing);
+					ingredients.Add(new Ingredient(ing));
 				}
 			}
 

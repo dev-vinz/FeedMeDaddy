@@ -23,11 +23,11 @@ namespace FeedMeDaddy.Services
             db.UnitWeight.Load();
             db.User.Load();
 
-            int nbIngredients = db.Ingredient.Count();
-            int nbRecipes = db.Recipe.Count();
+            /*int nbIngredients = db.Ingredient.OrderByDescending(i => i.Id).FirstOrDefault().Id;
+            int nbRecipes = db.Recipe.OrderByDescending(r => r.Id).FirstOrDefault().Id;
 
             db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Ingredient', RESEED, {nbIngredients})");
-            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Recipe', RESEED, {nbRecipes})");
+            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Recipe', RESEED, {nbRecipes})");*/
         }
 
         #region Fetch Extensions
@@ -80,10 +80,10 @@ namespace FeedMeDaddy.Services
         {
             EntityEntry<Database.Recipe> recipeAdded = db.Recipe.Add(recipe.ToDatabase());
 
-            int nbIngredients = db.Ingredient.Count();
-            int nbRecipes = db.Recipe.Count();
+            /*int nbIngredients = db.Ingredient.OrderByDescending(i => i.Id).FirstOrDefault().Id;
+            int nbRecipes = db.Recipe.OrderByDescending(r => r.Id).FirstOrDefault().Id;
             db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Ingredient', RESEED, {nbIngredients})");
-            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Recipe', RESEED, {nbRecipes})");
+            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Recipe', RESEED, {nbRecipes})");*/
 
             foreach (DataContracts.Ingredient ingredient in recipe.Ingredients)
             {
@@ -132,8 +132,8 @@ namespace FeedMeDaddy.Services
 
             db.SaveChanges();
 
-            int nbIngredients = db.Ingredient.Count();
-            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Ingredient', RESEED, {nbIngredients})");
+            /*int nbIngredients = db.Ingredient.OrderByDescending(i => i.Id).FirstOrDefault().Id;
+            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Ingredient', RESEED, {nbIngredients})");*/
 
             foreach (DataContracts.Ingredient ingredient in shoppingList.Ingredients)
             {
@@ -151,7 +151,6 @@ namespace FeedMeDaddy.Services
                 db.ShoppingIngredient.Add(entity);
                 db.SaveChanges();
             }
-            
         }
 
         #endregion
@@ -179,6 +178,18 @@ namespace FeedMeDaddy.Services
                 menuSet.Remove(menu.ToDatabase(menuSet));
             }
         }
+
+        #endregion
+
+        #region Remove Range Extensions
+
+        public static void RemoveRange(this DbSet<Database.Ingredient> table, IEnumerable<DataContracts.Ingredient> entities)
+		{
+            foreach (DataContracts.Ingredient entity in entities)
+			{
+                table.Remove(entity.ToDatabase(table));
+			}
+		}
 
         #endregion
     }

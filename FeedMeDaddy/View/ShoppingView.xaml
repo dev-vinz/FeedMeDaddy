@@ -13,8 +13,8 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="90" />
@@ -40,7 +40,7 @@
                   BorderThickness="0"
                   Background="Transparent"
                   Foreground="White"
-                  DataContext="{Binding ShoppingList}"
+                  DataContext="{Binding ShoppingModel}"
                   ItemsSource="{Binding Ingredients}">
             <ListView.View>
                 <GridView AllowsColumnReorder="False">
@@ -200,7 +200,7 @@
                               FontSize="12"
                               DataContext="{Binding ShoppingModel}"
                               ItemsSource="{Binding Units}"
-                              SelectedValue="{Binding Units[0]}"
+							  SelectedIndex="0"
                               DisplayMemberPath="Shortcut">
                     </ComboBox>
 
@@ -236,15 +236,24 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
                     <Button IsEnabled="False"
                             Content="Remove Ingredient"
                             Name="btnRemoveIngredient"
+							Click="BtnRemoveIngredient_Click"
                             Height="30"
                             Margin="5" />
 
-                    <Button Grid.Column="1"
+					<Button Grid.Column="1"
+                            Content="Remove All"
+                            Name="btnRemoveAllIngredient"
+							Click="BtnRemoveAllIngredient_Click"
+                            Height="30"
+                            Margin="5" />
+
+					<Button Grid.Column="2"
                             Content="Add Ingredient"
                             Name="btnAddIngredient"
                             Click="BtnAddIngredient_Click"

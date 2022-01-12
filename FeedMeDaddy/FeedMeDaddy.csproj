@@ -210,6 +210,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Extensions\CSharpExtensions.cs" />
     <Compile Include="Services\DatabaseExtensions.cs" />
     <Compile Include="Model\HomeModel.cs" />
     <Compile Include="Model\ShoppingModel.cs" />

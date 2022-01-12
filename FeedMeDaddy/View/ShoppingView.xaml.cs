@@ -1,5 +1,6 @@
 ﻿using FeedMeDaddy.Services;
 using FeedMeDaddy.Services.DataContracts;
+using FeedMeDaddy.Services.Units;
 using FeedMeDaddy.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -130,6 +131,42 @@ namespace FeedMeDaddy.View
             Refresh_ShoppingList(viewModel);
         }
 
+        private void BtnRemoveIngredient_Click(object sender, RoutedEventArgs e)
+        {
+            Ingredient ingredient = shoppingList.SelectedItem as Ingredient;
+            WeightConverter converter = new WeightConverter();
+
+            if (ingredient == null) return;
+
+			UnitType typeIng = converter.TypeFor(ingredient.Unit.Unit);
+
+            FeedMeDaddyContext db = new FeedMeDaddyContext();
+
+			IEnumerable<Ingredient> allIngredients = db.Ingredient.Fetch().Where(i => i.Name == ingredient.Name && converter.TypeFor(i.Unit.Unit) == typeIng);
+			IEnumerable<Recipe> allRecipes = db.Recipe.Fetch().Where(r => r.User.Id == 1);
+
+			IEnumerable<Ingredient> ingredientToDelete = allIngredients.Where(i => !allRecipes.Any(r => r.Ingredients.Any(ri => ri.Id == i.Id)));
+
+            db.Ingredient.RemoveRange(ingredientToDelete);
+            db.SaveChanges();
+            db.Dispose();
+
+            ShoppingViewModel viewModel = DataContext as ShoppingViewModel;
+
+            viewModel.RemoveFromModel(ingredient);
+
+            Refresh_ShoppingList(viewModel);
+        }
+
+        private void BtnRemoveAllIngredient_Click(object sender, RoutedEventArgs e)
+        {
+            for (int k = 0; k < shoppingList.Items.Count; k++)
+			{
+                shoppingList.SelectedIndex = k;
+                BtnRemoveIngredient_Click(sender, e);
+			}
+        }
+
         private void ShoppingList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             btnRemoveIngredient.IsEnabled = true;
@@ -143,5 +180,5 @@ namespace FeedMeDaddy.View
             boxIngredientUnit.SelectedIndex = 0;
             boxIngredientCategory.SelectedItem = null;
         }
-    }
+	}
 }
