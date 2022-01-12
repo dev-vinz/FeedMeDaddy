@@ -60,6 +60,7 @@
 
             </ListBox>
             <ComboBox Name="recipeComboBox" 
+                      VerticalContentAlignment="Center"
                       ItemsSource="{Binding RecipeList}"
                       Grid.Column="1"
                       Width="200"

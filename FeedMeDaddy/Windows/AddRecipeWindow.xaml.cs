@@ -160,6 +160,11 @@ namespace FeedMeDaddy.Windows
             db.Dispose();
             this.Close();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 
 

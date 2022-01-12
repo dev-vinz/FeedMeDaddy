@@ -23,6 +23,16 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <Button Click="Button_Click"
+                    Name="CloseButton"
+                    Content="Close"
+                    Width="100"
+                    Margin="5"
+                    Grid.Row="4"
+                    Grid.Column="0"
+                
+                />
+
             <TextBlock Text="Name"
                    FontSize="20"
                    Foreground="White"
@@ -45,12 +55,14 @@
                    Grid.Row="2"
                    Grid.Column="0"/>
             <TextBox Name="NameTextBox"
+                     VerticalContentAlignment ="Center"
                  Height="30"
                  Grid.Column="1"
                  Grid.Row="0"
                  Margin="5">
             </TextBox>
             <TextBox Name="DescriptionTextBox"
+                     VerticalContentAlignment="Center"
                  Height="30"
                  Grid.Column="1"
                  Grid.Row="1"
@@ -105,11 +117,13 @@
                    Grid.Row="0"
                    Grid.Column="3"/>
                 <TextBox Name="IngredientTextBox"
+                         VerticalContentAlignment="Center"
                      Grid.Column="0"
                      Grid.Row="1"
                      Margin="5">
                 </TextBox>
                 <xctk:DoubleUpDown Name="qtyUpDown"
+                                   VerticalContentAlignment="Center"
                                 Minimum="0"
                                 Maximum="1000"
                                 Margin="5"
@@ -118,6 +132,7 @@
                                 >
                 </xctk:DoubleUpDown>
                 <ComboBox Name="UnitCombobox"
+                          VerticalContentAlignment="Center"
                       Grid.Column="2"
                       Grid.Row="1"
                       Margin="5"
@@ -127,6 +142,7 @@
                       DisplayMemberPath="Shortcut">
                 </ComboBox>
                 <ComboBox Name="CategoryCombobox"
+                          VerticalContentAlignment="Center"
                       Grid.Column="3"
                       Grid.Row="1"
                       Margin="5"                      

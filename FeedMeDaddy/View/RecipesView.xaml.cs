@@ -56,7 +56,13 @@ namespace FeedMeDaddy.View
             ViewModel = this.DataContext as RecipesViewModel;
 
             int index = (sender as ListBox).SelectedIndex;
-            
+
+            if (index < 0)
+            {
+                index = 0;
+            }
+
+
             ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
 
             recipeComboBox.SelectedIndex = index;
