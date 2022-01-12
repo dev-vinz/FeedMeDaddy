@@ -22,12 +22,12 @@ namespace FeedMeDaddy.Services
             db.TypeMenu.Load();
             db.UnitWeight.Load();
             db.User.Load();
-
+            /*
             int nbIngredients = db.Ingredient.Count();
             int nbRecipes = db.Recipe.Count();
 
             db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Ingredient', RESEED, {nbIngredients})");
-            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Recipe', RESEED, {nbRecipes})");
+            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Recipe', RESEED, {nbRecipes})");*/
         }
 
         #region Fetch Extensions
@@ -80,10 +80,10 @@ namespace FeedMeDaddy.Services
         {
             EntityEntry<Database.Recipe> recipeAdded = db.Recipe.Add(recipe.ToDatabase());
 
-            int nbIngredients = db.Ingredient.Count();
+           /* int nbIngredients = db.Ingredient.Count();
             int nbRecipes = db.Recipe.Count();
             db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Ingredient', RESEED, {nbIngredients})");
-            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Recipe', RESEED, {nbRecipes})");
+            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Recipe', RESEED, {nbRecipes})");*/
 
             foreach (DataContracts.Ingredient ingredient in recipe.Ingredients)
             {
@@ -132,8 +132,8 @@ namespace FeedMeDaddy.Services
 
             db.SaveChanges();
 
-            int nbIngredients = db.Ingredient.Count();
-            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Ingredient', RESEED, {nbIngredients})");
+           /*int nbIngredients = db.Ingredient.Count();
+            db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Ingredient', RESEED, {nbIngredients})");*/
 
             foreach (DataContracts.Ingredient ingredient in shoppingList.Ingredients)
             {

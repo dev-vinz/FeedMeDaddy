@@ -42,7 +42,7 @@ namespace FeedMeDaddy.View
         }
         private void item_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string pattern = @"[^A-Za-z ]";
+            string pattern = @"[^A-Za-zÀ-ÖØ-öø-ÿ ]";
             RegexOptions options = RegexOptions.IgnoreCase;
             item.Text = Regex.Replace(item.Text, pattern, "", options);
             item.SelectionStart = item.Text.Length;
@@ -161,17 +161,14 @@ namespace FeedMeDaddy.View
         }
         private void Concat_ComboBox()
         {
-            string pattern = @"[^A-Za-z ]";
+            string pattern = @"[^A-Za-zÀ-ÖØ-öø-ÿ ]";
             RegexOptions options = RegexOptions.IgnoreCase;
             foreach (var item in Breakfast)
             {
 
                 if (item.Text.Any(char.IsDigit) || item.Text.Any(char.IsPunctuation) || item.Text.Any(char.IsControl) || item.Text.Any(char.IsSymbol))
                 {
-                    //Console.WriteLine(Regex.Replace(item.Text, pattern, "", options));
                     item.Text = Regex.Replace(item.Text, pattern, "", options);
-
-
                 }
             }
             foreach (var item in Dinner)
@@ -179,9 +176,6 @@ namespace FeedMeDaddy.View
                 if (item.Text.Any(char.IsDigit) || item.Text.Any(char.IsPunctuation) || item.Text.Any(char.IsControl) || item.Text.Any(char.IsSymbol))
                 {
                     item.Text = Regex.Replace(item.Text, pattern, "", options);
-
-
-
                 }
             }
             foreach (var item in Supper)
@@ -189,8 +183,6 @@ namespace FeedMeDaddy.View
                 if (item.Text.Any(char.IsDigit) || item.Text.Any(char.IsPunctuation) || item.Text.Any(char.IsControl) || item.Text.Any(char.IsSymbol))
                 {
                     item.Text = Regex.Replace(item.Text, pattern, "", options);
-
-
                 }
             }
         }
@@ -203,7 +195,7 @@ namespace FeedMeDaddy.View
                 Quantity = (double)quantity.Value,
                 Unit = (UnitWeight)units.SelectedItem,
                 ExpirationDate = dueDate.SelectedDate,
-                Category = (FoodCategory)Category.SelectedItem,
+                Category = (FoodCategory)Category.SelectedItem, 
             };
             //Adding ingredeint to the shopping list and the database
             IngredientToShoppingList(ing);
@@ -220,7 +212,7 @@ namespace FeedMeDaddy.View
             db.SaveChanges();
 
             Recipe[] recipes = GetRecipeSelection();
-            DateTime[] dates = GetWeekdays(); 
+            DateTime[] dates = GetWeekdays();
                      
 
             
@@ -563,8 +555,6 @@ namespace FeedMeDaddy.View
                         Type = TypeMenu.Supper
                     };
                     //Si la recette fait partie des recettes connue on ajoute dans Recipe, sinon dans customRecipe
-
-                    //Si la recette fait partie des recettes connue on ajoute dans Recipe, sinon dans customRecipe
                     if (recipes.Any(r => r.Name == combo.Text))
                     {
                         menu.Recipe = recipes.FirstOrDefault(r => r.Name == combo.Text);
@@ -574,7 +564,6 @@ namespace FeedMeDaddy.View
                     {
                         menu.CustomRecipe = combo.Text;
                     }
-
 
                     //SI Le menu existe déjà dans la base de donnée avec le meme nom et la meme date on ajoute pas les ingredient 
                     if ((menu.Recipe?.Name ?? menu.CustomRecipe).Equals(combo.Text))//deux ont le meme noms
