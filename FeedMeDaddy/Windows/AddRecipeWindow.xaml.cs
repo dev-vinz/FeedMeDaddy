@@ -24,7 +24,7 @@ namespace FeedMeDaddy.Windows
     public partial class AddRecipeWindow : Window
     {
         public List<Ingredient> ingredients { get; set; }
-
+        private RecipesViewModel ViewModel { get; set; }
 
         public AddRecipeWindow()
         {
@@ -158,7 +158,7 @@ namespace FeedMeDaddy.Windows
             db.AddRecipe(recipe);
             db.SaveChanges();
             db.Dispose();
-
+            this.Close();
         }
     }
 

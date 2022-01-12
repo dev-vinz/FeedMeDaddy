@@ -27,7 +27,7 @@ namespace FeedMeDaddy.ViewModel
             SetupRecipes();
         }
 
-        private void LoadRecipes()
+        public void LoadRecipes()
         {
             FeedMeDaddyContext db = new FeedMeDaddyContext();
 
@@ -38,7 +38,7 @@ namespace FeedMeDaddy.ViewModel
 
             db.Dispose();
         }
-        void SetupRecipes()
+        public void SetupRecipes()
         {
             //ActiveRecipe = Recipes.ElementAt(0);
 

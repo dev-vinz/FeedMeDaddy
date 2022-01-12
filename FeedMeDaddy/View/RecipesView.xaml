@@ -115,6 +115,7 @@
                         Grid.ColumnSpan="3"
                         Margin="5"
                         Focusable="False"
+                        TextWrapping="Wrap"
                         Text="{Binding RecipeDescription}">
                 <TextBox.Resources>
                     <Style TargetType="Border">

@@ -95,9 +95,15 @@ namespace FeedMeDaddy.View
 
         private void addNewRecipe(object sender, RoutedEventArgs e)
         {
+            
             AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel();
             AddRecipeWindow addRecipeWindow = new AddRecipeWindow();
-            addRecipeWindow.ShowDialog();
+            addRecipeWindow.ShowDialog(); 
+            ViewModel = this.DataContext as RecipesViewModel;
+            ViewModel.LoadRecipes();
+            ViewModel.SetupRecipes();
+            recipeListBox.ItemsSource = ViewModel.RecipeList;
+            recipeComboBox.ItemsSource = ViewModel.RecipeList;
         }
     }
 }
