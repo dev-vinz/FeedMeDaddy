@@ -5,9 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FeedMeDaddy.Windows" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit" xmlns:viewmodel="clr-namespace:FeedMeDaddy.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:AddRecipeViewModel}"
         mc:Ignorable="d"
-        Title="AddRecipeWindow" Height="450" Width="800">
-    <Border Background="#2E8B57"
-            CornerRadius="20">
+        Title="AddRecipeWindow" Height="450" Width="800"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True">
+	<Border Background="#2E8B57"
+			BorderBrush="Black"
+			BorderThickness="1"
+            CornerRadius="20"
+			MouseDown="Border_MouseDown">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
