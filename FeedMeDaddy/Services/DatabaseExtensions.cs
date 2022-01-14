@@ -85,17 +85,21 @@ namespace FeedMeDaddy.Services
             db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Ingredient', RESEED, {nbIngredients})");
             db.Database.ExecuteSqlRaw($"DBCC CHECKIDENT ('Recipe', RESEED, {nbRecipes})");*/
 
+            db.SaveChanges();
+
             foreach (DataContracts.Ingredient ingredient in recipe.Ingredients)
             {
-                db.Ingredient.Add(ingredient.ToDatabase());
+                EntityEntry<Database.Ingredient> ingredientAdded = db.Ingredient.Add(ingredient.ToDatabase());
+                db.SaveChanges();
 
                 RecipeIngredient entity = new RecipeIngredient
                 {
-                    RecipeId = recipe.Id,
-                    IngredientId = ingredient.Id
+                    RecipeId = recipeAdded.Entity.Id,
+                    IngredientId = ingredientAdded.Entity.Id
                 };
 
                 db.RecipeIngredient.Add(entity);
+                db.SaveChanges();
             }
 
             return recipeAdded;
