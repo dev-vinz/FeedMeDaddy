@@ -93,17 +93,53 @@ namespace FeedMeDaddy.View
 
 		}
 
-		private void addNewRecipe(object sender, RoutedEventArgs e)
-		{
+            int index = (sender as ListBox).SelectedIndex;
 
-			AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel();
-			AddRecipeWindow addRecipeWindow = new AddRecipeWindow();
-			addRecipeWindow.ShowDialog();
-			ViewModel = this.DataContext as RecipesViewModel;
-			ViewModel.LoadRecipes();
-			ViewModel.SetupRecipes();
-			recipeListBox.ItemsSource = ViewModel.RecipeList;
-			recipeComboBox.ItemsSource = ViewModel.RecipeList;
-		}
-	}
+            //Prevents problems in case combobox content is deleted or change of window
+            if (index >= 0)
+            {
+                ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
+                recipeComboBox.SelectedIndex = index;
+                recipeName.Text = ViewModel.ActiveRecipe.Name;
+                recipeDescription.Text = ViewModel.ActiveRecipe.Description;
+
+                newQuantity((int)qtyUpDown.Value);
+            }
+        
+        }
+
+        private void Combobox_selectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            ViewModel = this.DataContext as RecipesViewModel;
+            int index = (sender as ComboBox).SelectedIndex;
+
+            //Prevents problems in case combobox content is deleted or change of window
+            if (index >= 0)
+            {
+                ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
+
+                recipeListBox.SelectedIndex = index;
+                recipeName.Text = ViewModel.ActiveRecipe.Name;
+                recipeDescription.Text = ViewModel.ActiveRecipe.Description;
+
+                newQuantity((int)qtyUpDown.Value);
+            }
+
+        }
+
+        private void addNewRecipe(object sender, RoutedEventArgs e)
+        {
+            
+            AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel();
+            AddRecipeWindow addRecipeWindow = new AddRecipeWindow();
+            addRecipeWindow.ShowDialog(); 
+            //Refreshing combobox and listview to display new recipe
+            ViewModel = this.DataContext as RecipesViewModel;
+            ViewModel.LoadRecipes();
+            ViewModel.SetupRecipes();
+            recipeListBox.ItemsSource = ViewModel.RecipeList;
+            recipeComboBox.ItemsSource = ViewModel.RecipeList;
+        }
+    }
 }

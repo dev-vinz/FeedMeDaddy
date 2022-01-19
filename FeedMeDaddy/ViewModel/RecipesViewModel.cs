@@ -40,14 +40,12 @@ namespace FeedMeDaddy.ViewModel
         }
         public void SetupRecipes()
         {
-            //ActiveRecipe = Recipes.ElementAt(0);
 
             RecipeName = "";
             RecipeDescription ="";
 
             RecipeList = new List<string>();
-            //RecipeIngredients = new Services.DataContracts.Ingredient[ActiveRecipe.Ingredients.Count()];
-            //Array.Copy(ActiveRecipe.Ingredients.ToArray(), RecipeIngredients, ActiveRecipe.Ingredients.Count());
+
             foreach (var r in Recipes)
             {
                 RecipeList.Add(r.Name);
