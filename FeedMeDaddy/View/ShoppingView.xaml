@@ -35,6 +35,7 @@
                   Grid.Column="0"
                   x:Name="shoppingList"
                   SelectionChanged="ShoppingList_SelectionChanged"
+				  SelectionMode="Single"
                   Margin="20, 10, 20, 20"
                   IsTextSearchEnabled="False"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -73,6 +74,7 @@
 		<Button Grid.Row="2"
 				Content="Export shopping list to .txt"
 				Click="BtnExport_Click"
+				Style="{StaticResource ButtonTheme}"
 				Margin="70, 20" />
 
 		<!-- Informations and Gestion -->
@@ -262,6 +264,7 @@
                     <Button IsEnabled="False"
                             Content="Remove Ingredient"
                             Name="btnRemoveIngredient"
+							Style="{StaticResource ButtonTheme}"
 							Click="BtnRemoveIngredient_Click"
                             Height="30"
                             Margin="5" />
@@ -269,6 +272,7 @@
 					<Button Grid.Column="1"
                             Content="Remove All"
                             Name="btnRemoveAllIngredient"
+							Style="{StaticResource ButtonTheme}"
 							Click="BtnRemoveAllIngredient_Click"
                             Height="30"
                             Margin="5" />
@@ -276,6 +280,7 @@
 					<Button Grid.Column="2"
                             Content="Add Ingredient"
                             Name="btnAddIngredient"
+							Style="{StaticResource ButtonTheme}"
                             Click="BtnAddIngredient_Click"
                             Height="30"
                             Margin="5"/>

@@ -452,7 +452,8 @@
                         HorizontalAlignment="Right" 
                         Width="180" 
                         Height="30" 
-                        VerticalAlignment="Top">
+                        VerticalAlignment="Top"
+						Style="{StaticResource ButtonTheme}">
 
                     <Button.Resources>
                     <Style TargetType="Border">
@@ -678,7 +679,8 @@
                 VerticalAlignment="Center"
                 Margin="100,15" 
                 Click="MenuShopping_Click" 
-                Grid.ColumnSpan="2" >
+                Grid.ColumnSpan="2"
+			    Style="{StaticResource ButtonTheme}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>

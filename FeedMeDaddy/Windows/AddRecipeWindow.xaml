@@ -201,11 +201,16 @@
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   >
                 <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Ingredient" DisplayMemberBinding="{Binding Name}" Width="125"/>
-                        <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding FullUnit}" Width="125"/>
-                    </GridView>
-                </ListView.View>
+					<GridView AllowsColumnReorder="False">
+						<GridView.ColumnHeaderContainerStyle>
+							<Style TargetType="{x:Type GridViewColumnHeader}">
+								<Setter Property="IsEnabled" Value="False" />
+							</Style>
+						</GridView.ColumnHeaderContainerStyle>
+						<GridViewColumn Header="Ingredient" DisplayMemberBinding="{Binding Name}" Width="125"/>
+						<GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding FullUnit}" Width="125"/>
+					</GridView>
+				</ListView.View>
             </ListView>
 
 

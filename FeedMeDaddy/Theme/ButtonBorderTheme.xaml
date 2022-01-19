@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Style x:Key="ButtonBorderTheme" TargetType="Border">
+		<Setter Property="BorderThickness" Value="6" />
+		<Setter Property="BorderBrush" Value="#386F48" />
+
+		<Setter Property="HorizontalAlignment" Value="Left" />
+	</Style>
+</ResourceDictionary>

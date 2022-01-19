@@ -10,21 +10,21 @@
              d:DataContext="{d:DesignInstance Type=viewmodel:RecipesViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="690" d:DesignWidth="1080">
-    <!-- General Grid -->
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+	<!-- General Grid -->
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="90" />
-            <RowDefinition />
+		<Grid.RowDefinitions>
+			<RowDefinition Height="90" />
+			<RowDefinition />
 
-        </Grid.RowDefinitions>
+		</Grid.RowDefinitions>
 
-        <!-- Window title -->
-        <TextBlock Text="Recipes"
+		<!-- Window title -->
+		<TextBlock Text="Recipes"
                    FontSize="40"
                    Foreground="White"
                    HorizontalAlignment="Center"
@@ -32,40 +32,40 @@
                    
                    Grid.ColumnSpan="2"/>
 
-        <!-- Left Grid -->
-        <Grid Grid.Column="0" Grid.Row="1" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="2*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+		<!-- Left Grid -->
+		<Grid Grid.Column="0" Grid.Row="1" >
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="2*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
 
-            <ListBox Name="recipeListBox" 
+			<ListBox Name="recipeListBox" 
                      ItemsSource="{Binding RecipeList}" 
                      Grid.Column="0" 
                      Grid.Row="0" 
                      Margin="5" 
                      Background="White"
                      SelectionChanged="RecipeListBox_SelectionChanged">
-                <ListBox.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                    <Style TargetType="ListBoxItem">
-                        <Style.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="7"/>
-                            </Style>
-                        </Style.Resources>
-                    </Style>
-                </ListBox.Resources>
+				<ListBox.Resources>
+					<Style TargetType="Border">
+						<Setter Property="CornerRadius" Value="10"/>
+					</Style>
+					<Style TargetType="ListBoxItem">
+						<Style.Resources>
+							<Style TargetType="Border">
+								<Setter Property="CornerRadius" Value="7"/>
+							</Style>
+						</Style.Resources>
+					</Style>
+				</ListBox.Resources>
 
 
-            </ListBox>
-            <ComboBox Name="recipeComboBox" 
+			</ListBox>
+			<ComboBox Name="recipeComboBox" 
                       VerticalContentAlignment="Center"
                       ItemsSource="{Binding RecipeList}"
                       Grid.Column="1"
@@ -78,32 +78,26 @@
 
 
 
-            </ComboBox>
-            <Grid Grid.Row="0"
+			</ComboBox>
+			<Grid Grid.Row="0"
                   Grid.Column="1" Height="200" VerticalAlignment="Bottom">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Button Name="newBtn"
+				<Grid.RowDefinitions>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+					<RowDefinition Height="*"/>
+				</Grid.RowDefinitions>
+
+				<Button Name="newBtn"
                         Grid.Row="2"
                         Width="200"
                         Height="40"
                         Style="{StaticResource ButtonTheme}"
                         Content="Add new Recipe" 
-                        Click="addNewRecipe" 
-                        VerticalAlignment="Top"
-                    >
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-            </Grid>
+                        Click="addNewRecipe" >
+				</Button>
+			</Grid>
 
-            <TextBox  Name="recipeDescription"
+			<TextBox  Name="recipeDescription"
                         Grid.Row="1"
                         Grid.ColumnSpan="3"
                         Margin="5"
@@ -111,27 +105,27 @@
                         TextWrapping="Wrap"
                         Background="White"
                         Text="{Binding RecipeDescription}">
-                <TextBox.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                </TextBox.Resources>
-            </TextBox>
+				<TextBox.Resources>
+					<Style TargetType="Border">
+						<Setter Property="CornerRadius" Value="10"/>
+					</Style>
+				</TextBox.Resources>
+			</TextBox>
 
-        </Grid>
+		</Grid>
 
-        <!-- Right Grid -->
-        <Grid Grid.Column="1" Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="2*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+		<!-- Right Grid -->
+		<Grid Grid.Column="1" Grid.Row="1">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*"/>
+				<RowDefinition Height="2*"/>
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="3*"/>
+				<ColumnDefinition Width="*"/>
+			</Grid.ColumnDefinitions>
 
-            <TextBlock Name="recipeName" 
+			<TextBlock Name="recipeName" 
                        Text="{Binding RecipeName}"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -140,7 +134,7 @@
                        Grid.Column="0"
                        Grid.Row="0"/>
 
-            <xctk:IntegerUpDown Name="qtyUpDown"
+			<xctk:IntegerUpDown Name="qtyUpDown"
                                 Minimum="1"
                                 Maximum="12"
                                 Height="30"
@@ -152,14 +146,14 @@
                                 Background="White"
                                 Grid.Row="0" ValueChanged="QuantityChanged"
                                 >
-                <xctk:IntegerUpDown.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                </xctk:IntegerUpDown.Resources>
-            </xctk:IntegerUpDown>
+				<xctk:IntegerUpDown.Resources>
+					<Style TargetType="Border">
+						<Setter Property="CornerRadius" Value="10"/>
+					</Style>
+				</xctk:IntegerUpDown.Resources>
+			</xctk:IntegerUpDown>
 
-            <ListView Name="ingredientList"
+			<ListView Name="ingredientList"
                 Grid.Row="2"
                 Margin="5" 
                 Grid.ColumnSpan="2"
@@ -168,29 +162,33 @@
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 Background="White" 
                       >
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Ingredient" DisplayMemberBinding="{Binding Name}" Width="100" />
-                        <GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="100" />
-                        <GridViewColumn Header="Units" DisplayMemberBinding="{Binding Unit.Shortcut}" Width="100" >
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-                <ListView.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                    <Style TargetType="ListBoxItem">
-                        <Style.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="7"/>
-                            </Style>
-                        </Style.Resources>
-                    </Style>
-                </ListView.Resources>
-            </ListView>
-        </Grid>
+				<ListView.View>
+					<GridView AllowsColumnReorder="False">
+						<GridView.ColumnHeaderContainerStyle>
+							<Style TargetType="{x:Type GridViewColumnHeader}">
+								<Setter Property="IsEnabled" Value="False" />
+							</Style>
+						</GridView.ColumnHeaderContainerStyle>
+						<GridViewColumn Header="Ingredient" DisplayMemberBinding="{Binding Name}" Width="100" />
+						<GridViewColumn Header="Quantity" DisplayMemberBinding="{Binding Quantity}" Width="100" />
+						<GridViewColumn Header="Units" DisplayMemberBinding="{Binding Unit.Shortcut}" Width="100" />
+					</GridView>
+				</ListView.View>
+				<ListView.Resources>
+					<Style TargetType="Border">
+						<Setter Property="CornerRadius" Value="10"/>
+					</Style>
+					<Style TargetType="ListBoxItem">
+						<Style.Resources>
+							<Style TargetType="Border">
+								<Setter Property="CornerRadius" Value="7"/>
+							</Style>
+						</Style.Resources>
+					</Style>
+				</ListView.Resources>
+			</ListView>
+		</Grid>
 
 
-    </Grid>
+	</Grid>
 </UserControl>
