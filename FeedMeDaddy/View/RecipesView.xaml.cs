@@ -55,47 +55,41 @@ namespace FeedMeDaddy.View
         {
             ViewModel = this.DataContext as RecipesViewModel;
 
-            int index = (sender as ListBox).SelectedIndex;
+                int index = (sender as ListBox).SelectedIndex;
 
-            if (index < 0)
+            if (index >= 0)
             {
-                index = 0;
+                ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
+                recipeComboBox.SelectedIndex = index;
+                recipeName.Text = ViewModel.ActiveRecipe.Name;
+                recipeDescription.Text = ViewModel.ActiveRecipe.Description;
+
+                newQuantity((int)qtyUpDown.Value);
             }
-
-
-            ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
-
-            recipeComboBox.SelectedIndex = index;
-            recipeName.Text = ViewModel.ActiveRecipe.Name;
-            recipeDescription.Text = ViewModel.ActiveRecipe.Description;
-
-            newQuantity((int)qtyUpDown.Value);
             /*ingredientList.Items.Clear();
             foreach (var i in ViewModel.ActiveRecipe.Ingredients)
             {
                 ingredientList.Items.Add(i);
             }*/
+        
         }
 
         private void Combobox_selectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
             ViewModel = this.DataContext as RecipesViewModel;
-
             int index = (sender as ComboBox).SelectedIndex;
 
-            if(index < 0)
+            if (index >= 0)
             {
-                index = 0;
+                ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
+
+                recipeListBox.SelectedIndex = index;
+                recipeName.Text = ViewModel.ActiveRecipe.Name;
+                recipeDescription.Text = ViewModel.ActiveRecipe.Description;
+
+                newQuantity((int)qtyUpDown.Value);
             }
-
-            ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
-
-            recipeListBox.SelectedIndex = index;
-            recipeName.Text = ViewModel.ActiveRecipe.Name;
-            recipeDescription.Text = ViewModel.ActiveRecipe.Description;
-
-            newQuantity((int)qtyUpDown.Value);
 
         }
 
