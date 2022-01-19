@@ -195,6 +195,53 @@ namespace FeedMeDaddy.Services
 			}
 		}
 
-        #endregion
-    }
+		#endregion
+
+		#region Export Shopping List Extensions
+
+        public static string[] ExportToFile(this IEnumerable<DataContracts.Ingredient> ingredients)
+		{
+            IEnumerable<DataContracts.Ingredient> ingredientsOrdered = ingredients.OrderBy(i => i.Name).ThenBy(i => i.Unit.Shortcut);
+
+            List<string> lines = new List<string>();
+
+            IEnumerable<DataContracts.Ingredient> vegetable = ingredientsOrdered.Where(i => i.Category == DataContracts.FoodCategory.Vegetable);
+            IEnumerable<DataContracts.Ingredient> meat = ingredientsOrdered.Where(i => i.Category == DataContracts.FoodCategory.Meat);
+            IEnumerable<DataContracts.Ingredient> fish = ingredientsOrdered.Where(i => i.Category == DataContracts.FoodCategory.Fish);
+            IEnumerable<DataContracts.Ingredient> fruit = ingredientsOrdered.Where(i => i.Category == DataContracts.FoodCategory.Fruit);
+            IEnumerable<DataContracts.Ingredient> dairy = ingredientsOrdered.Where(i => i.Category == DataContracts.FoodCategory.Dairy);
+            IEnumerable<DataContracts.Ingredient> other = ingredientsOrdered.Where(i => i.Category == DataContracts.FoodCategory.Other);
+
+            IEnumerable<DataContracts.Ingredient>[] finalTab = new IEnumerable<DataContracts.Ingredient>[]
+			{
+                vegetable,
+                meat,
+                fish,
+                fruit,
+                dairy,
+                other,
+			};
+
+            foreach (IEnumerable<DataContracts.Ingredient> list in finalTab)
+			{
+                if (list.Count() < 1) continue;
+
+                DataContracts.FoodCategory category = list.ElementAt(0).Category;
+                string value = $"{category} :";
+
+                foreach (DataContracts.Ingredient ing in list)
+				{
+                    value += $"\n\t{ing.Name} {ing.FullUnit}";
+				}
+
+                value += "\n";
+
+                lines.Add(value);
+			}
+
+            return lines.ToArray();
+		}
+
+		#endregion
+	}
 }

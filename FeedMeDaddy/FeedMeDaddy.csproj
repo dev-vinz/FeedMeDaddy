@@ -212,7 +212,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Extensions\CSharpExtensions.cs" />
-    <Compile Include="Services\DatabaseExtensions.cs" />
     <Compile Include="Model\AddRecipeModel.cs" />
     <Compile Include="Model\RecipeModel.cs" />
     <Compile Include="Services\DatabaseExtensions.cs" />

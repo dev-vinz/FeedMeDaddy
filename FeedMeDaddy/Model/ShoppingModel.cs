@@ -71,7 +71,7 @@ namespace FeedMeDaddy.Model
             UpdateExpirationToMenuDate();
         }
 
-        private void UpdateExpirationToMenuDate()
+        public void UpdateExpirationToMenuDate()
         {
             FeedMeDaddyContext db = new FeedMeDaddyContext();
 

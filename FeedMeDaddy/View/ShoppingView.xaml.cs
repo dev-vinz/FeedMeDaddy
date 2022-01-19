@@ -4,6 +4,7 @@ using FeedMeDaddy.Services.Units;
 using FeedMeDaddy.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -23,8 +25,8 @@ namespace FeedMeDaddy.View
     /// <summary>
     /// Logique d'interaction pour ShoppingView.xaml
     /// </summary>
-    public partial class ShoppingView : UserControl
-    {
+    public partial class ShoppingView : System.Windows.Controls.UserControl
+	{
         public ShoppingView()
         {
             InitializeComponent();
@@ -179,6 +181,26 @@ namespace FeedMeDaddy.View
             upDownIngredientQuantity.Value = 0;
             boxIngredientUnit.SelectedIndex = 0;
             boxIngredientCategory.SelectedItem = null;
+        }
+
+		private void BtnExport_Click(object sender, RoutedEventArgs e)
+		{
+            ShoppingViewModel viewModel = DataContext as ShoppingViewModel;
+
+            IEnumerable<Ingredient> ingredients = viewModel.ShoppingModel.Ingredients;
+            string[] exportList = ingredients.ExportToFile();
+
+            SaveFileDialog dialog = new SaveFileDialog();
+
+            dialog.Filter = "Text Files|*.txt";
+            dialog.Title = "Save your shopping list";
+            dialog.FileName = $"ShoppingList_{DateTime.Now:ddMMyy}";
+            dialog.ShowDialog();
+
+            if (!string.IsNullOrWhiteSpace(dialog.FileName))
+			{
+                File.WriteAllLines(dialog.FileName, exportList);
+			}
         }
 	}
 }

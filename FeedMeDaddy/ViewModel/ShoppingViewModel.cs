@@ -68,11 +68,13 @@ namespace FeedMeDaddy.ViewModel
 
 			ShoppingModel.Ingredients = ingredients.Clone();
 			ShoppingList.Ingredients.Add(ingredient);
+			ShoppingModel.UpdateExpirationToMenuDate();
 		}
 
 		public void RemoveFromModel(Ingredient ingredient)
 		{
 			ShoppingModel.Ingredients = ShoppingModel.Ingredients.Where(i => i != ingredient);
+			ShoppingModel.UpdateExpirationToMenuDate();
 		}
 
 		private List<Ingredient> FetchIngredients(params Ingredient[] addIngredient)
@@ -89,28 +91,26 @@ namespace FeedMeDaddy.ViewModel
 
 				if (ingredients.Any(i => i.Name == ing.Name))
 				{
-					IEnumerable<Ingredient> possibleIngredients = ingredients.Where(i => i.Name == ing.Name).Clone();
+					Ingredient possibleIngredient = ingredients.Where(i => i.Name == ing.Name)
+						.Clone()
+						.FirstOrDefault(i => converter.TypeFor(i.Unit.Unit) == converter.TypeFor(ing.Unit.Unit));
 
-					foreach (Ingredient possIng in possibleIngredients)
+					if (possibleIngredient != null)
 					{
 						UnitType typeIng = converter.TypeFor(ing.Unit.Unit);
-						UnitType typePossIng = converter.TypeFor(possIng.Unit.Unit);
 
-						if (typeIng == typePossIng)
-						{
-							UnitWeight.EUnit strdUnit = converter.StandardUnit(typeIng);
-							UnitWeight strdWeight = db.UnitWeight.Fetch().FirstOrDefault(u => u.Unit == strdUnit);
+						UnitWeight.EUnit strdUnit = converter.StandardUnit(typeIng);
+						UnitWeight strdWeight = db.UnitWeight.Fetch().FirstOrDefault(u => u.Unit == strdUnit);
 
-							double result = converter.Add(ing.Unit, ing.Quantity, possIng.Unit, possIng.Quantity, strdWeight);
+						double result = converter.Add(ing.Unit, ing.Quantity, possibleIngredient.Unit, possibleIngredient.Quantity, strdWeight);
 
-							Ingredient ingToUpdate = ingredients.First(i => i.Equals(possIng));
-							ingToUpdate.Quantity = result;
-							ingToUpdate.Unit = strdWeight;
-						}
-						else
-						{
-							ingredients.Add(new Ingredient(ing));
-						}
+						Ingredient ingToUpdate = ingredients.First(i => i.Equals(possibleIngredient));
+						ingToUpdate.Quantity = result;
+						ingToUpdate.Unit = strdWeight;
+					}
+					else
+					{
+						ingredients.Add(new Ingredient(ing));
 					}
 				}
 				else
