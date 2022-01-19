@@ -55,8 +55,9 @@ namespace FeedMeDaddy.View
         {
             ViewModel = this.DataContext as RecipesViewModel;
 
-                int index = (sender as ListBox).SelectedIndex;
+            int index = (sender as ListBox).SelectedIndex;
 
+            //Prevents problems in case combobox content is deleted or change of window
             if (index >= 0)
             {
                 ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
@@ -66,11 +67,6 @@ namespace FeedMeDaddy.View
 
                 newQuantity((int)qtyUpDown.Value);
             }
-            /*ingredientList.Items.Clear();
-            foreach (var i in ViewModel.ActiveRecipe.Ingredients)
-            {
-                ingredientList.Items.Add(i);
-            }*/
         
         }
 
@@ -80,6 +76,7 @@ namespace FeedMeDaddy.View
             ViewModel = this.DataContext as RecipesViewModel;
             int index = (sender as ComboBox).SelectedIndex;
 
+            //Prevents problems in case combobox content is deleted or change of window
             if (index >= 0)
             {
                 ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
@@ -99,6 +96,7 @@ namespace FeedMeDaddy.View
             AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel();
             AddRecipeWindow addRecipeWindow = new AddRecipeWindow();
             addRecipeWindow.ShowDialog(); 
+            //Refreshing combobox and listview to display new recipe
             ViewModel = this.DataContext as RecipesViewModel;
             ViewModel.LoadRecipes();
             ViewModel.SetupRecipes();

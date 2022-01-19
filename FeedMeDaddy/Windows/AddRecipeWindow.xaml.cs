@@ -35,6 +35,7 @@ namespace FeedMeDaddy.Windows
             FillCombobox();
         }
 
+        //Manually fetching ingredients category and units because I couldn't make binding work...
         private void FillCombobox()
         {
             AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel();
@@ -48,8 +49,10 @@ namespace FeedMeDaddy.Windows
             }
         }
 
+        //Manages ingredient insertion in listview
         private void AddIngredient(object sender, RoutedEventArgs e)
         {
+            //Initialized here to set back if border was previously red
             IngredientTextBox.BorderBrush = Brushes.Gray;
             qtyUpDown.BorderBrush = Brushes.Gray;
             UnitCombobox.BorderBrush = Brushes.Gray;
@@ -57,6 +60,7 @@ namespace FeedMeDaddy.Windows
             IngredientListView.BorderBrush = Brushes.Gray;
 
             string ingredientName = IngredientTextBox.Text;
+            bool failure = false;
             double? ingredientQuantity = qtyUpDown.Value;
             UnitWeight ingredientUnit = UnitCombobox.SelectedItem as UnitWeight;
 
@@ -64,15 +68,14 @@ namespace FeedMeDaddy.Windows
             {
                 IngredientTextBox.BorderBrush = Brushes.Red;
                 IngredientTextBox.Focus();
-                return;
-
+                failure = true;
             }
 
             if (ingredientQuantity == null || ingredientQuantity == 0)
             {
                 qtyUpDown.BorderBrush = Brushes.Red;
                 qtyUpDown.Focus();
-                return;
+                failure = true;
 
             }
 
@@ -80,6 +83,11 @@ namespace FeedMeDaddy.Windows
             {
                 CategoryCombobox.BorderBrush = Brushes.Red;
                 CategoryCombobox.Focus();
+                failure = true;
+            }
+
+            if(failure)
+            {
                 return;
             }
 
@@ -94,8 +102,8 @@ namespace FeedMeDaddy.Windows
 
             ingredients.Add(ingredient);
 
+            //refreshing listview items
             IngredientListView.Items.Clear();
-
             foreach (Ingredient i in ingredients)
             {
                 IngredientListView.Items.Add(i);
@@ -105,14 +113,10 @@ namespace FeedMeDaddy.Windows
 
         private void RemoveIngredient(object sender, RoutedEventArgs e)
         {
-            /*int i = IngredientListView.SelectedIndex;
-
-            ingredients.RemoveAt(i);*/
             if (IngredientListView.SelectedItem != null)
             {
                 ingredients.RemoveAt(IngredientListView.Items.IndexOf(IngredientListView.SelectedItem));
                 IngredientListView.Items.RemoveAt(IngredientListView.Items.IndexOf(IngredientListView.SelectedItem));
-
             }
             else
             {
@@ -120,29 +124,38 @@ namespace FeedMeDaddy.Windows
             }
         }
 
+        //Manages recipe insertion into database
         private void AddRecipe(object sender, RoutedEventArgs e)
         {
+            //Initialized here to set back if border was previously red
             NameTextBox.BorderBrush = Brushes.Gray;
             IngredientListView.BorderBrush = Brushes.Gray;
             DescriptionTextBox.BorderBrush = Brushes.Gray;
+
+            bool failure = false;
 
             if (string.IsNullOrEmpty(NameTextBox.Text))
             {
                 NameTextBox.BorderBrush = Brushes.Red;
                 NameTextBox.Focus();
-                return;
+                failure = true;
             }
             if (string.IsNullOrEmpty(DescriptionTextBox.Text))
             {
                 DescriptionTextBox.BorderBrush = Brushes.Red;
                 DescriptionTextBox.Focus();
-                return;
+                failure = true;
 
             }
             if (IngredientListView.Items.Count == 0)
             {
                 IngredientListView.BorderBrush = Brushes.Red;
                 IngredientTextBox.Focus();
+                failure = true;
+            }
+
+            if(failure)
+            {
                 return;
             }
             Recipe recipe = new Recipe

@@ -95,22 +95,6 @@
                 </Button>
             </Grid>
 
-            <!--
-            <RichTextBox Name="recipeDescription"
-                         Grid.Row="1"
-                         Grid.ColumnSpan="3"
-                         Margin="5"
-                         IsReadOnly="True">
-                <FlowDocument>
-                    <Paragraph>"{Binding recipeName}"
-                    </Paragraph>
-                </FlowDocument>
-                <RichTextBox.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="10"/>
-                    </Style>
-                </RichTextBox.Resources>
-            </RichTextBox>-->
             <TextBox  Name="recipeDescription"
                         Grid.Row="1"
                         Grid.ColumnSpan="3"
