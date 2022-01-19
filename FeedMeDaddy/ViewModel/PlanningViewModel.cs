@@ -16,8 +16,8 @@ public enum DayOfWeek
     Tuesday = 2,
     Wednesday = 3,
     Thursday = 4,
-    Friday=5,
-    Saturday=6
+    Friday = 5,
+    Saturday = 6
 };
 
 namespace FeedMeDaddy.ViewModel
@@ -36,16 +36,20 @@ namespace FeedMeDaddy.ViewModel
             }
             return weekdays;
         }
+        //Return chosen day in a string, it's an offset from the current day
+
         private static string GetDay(int current)
         {
             DateTime[] weekdays = GetWeekdays();
             return weekdays[current].DayOfWeek.ToString();
         }
+        //Return chosen day as a date in a string, it's an offset from the current day
         private static string GetDate(int current)
         {
             DateTime[] weekdays = GetWeekdays();
             return weekdays[current].ToString("dd/MM/yyyy");
         }
+        //Get all units from the DB to show it in the combobox
         private static UnitWeight[] GetUnitsSelection()
         {
             FeedMeDaddyContext db = new FeedMeDaddyContext();
@@ -57,7 +61,7 @@ namespace FeedMeDaddy.ViewModel
             db.Dispose();
             return unitWeight;
         }
-
+        //Get menus from the DB to have preselection in combobox
         private static Recipe[] GetMenuSelection()
         {
 
@@ -69,9 +73,10 @@ namespace FeedMeDaddy.ViewModel
             Array.Copy(recipies.ToArray(), recipiesName, recipies.Count());
             db.Dispose();
             return recipiesName;
-            
+
         }
 
+        //Get the foodcategory from DB
         private static FoodCategory[] GetCategories()
         {
             FoodCategory[] value = Enum.GetValues(typeof(FoodCategory)).Cast<FoodCategory>().ToArray();
@@ -82,13 +87,15 @@ namespace FeedMeDaddy.ViewModel
             }
             // finally, let's decrement Array's size by one
             Array.Resize(ref value, value.Length - 1);
-            
+
             return value;
         }
 
-        public UnitWeight[] UnitsSelection { get; set;} = GetUnitsSelection();
+        public UnitWeight[] UnitsSelection { get; set; } = GetUnitsSelection();
         public FoodCategory[] CategorySelection { get; set; } = GetCategories();
         public Recipe[] MenuSelection { get; set; } = GetMenuSelection();
+
+        //Setting all the dates from the current day to show in the planning
         public string DateZeo { get; set; } = $"{GetDate(0)}";
         public string DayZero { get; set; } = $"{GetDay(0)} {GetDate(0)}";
         public string DayOne { get; set; } = $"{GetDay(1)} {GetDate(1)}";

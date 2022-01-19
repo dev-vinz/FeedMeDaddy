@@ -24,7 +24,7 @@ namespace FeedMeDaddy.View
         List<ComboBox> Dinner = new List<ComboBox>();
         List<ComboBox> Supper = new List<ComboBox>();
         ShoppingList shoppingList = GetShoppingListSelection();
-        
+
         public PlanningView()
         {
             InitializeComponent();
@@ -37,6 +37,7 @@ namespace FeedMeDaddy.View
 
         private void InitializeBlackout()
         {
+            //remove all date in the past forme the datepicker
             dueDate.BlackoutDates.AddDatesInPast();
             dueDate.BlackoutDates.Add(new CalendarDateRange(DateTime.Now.AddDays(-1)));
         }
@@ -64,6 +65,8 @@ namespace FeedMeDaddy.View
 
         private void Initialize()
         {
+            //We put all the combobox in a List, that correspond with when in the day is the meal
+            //it's easier to find them, the offset in the list, is the same for the date
             Breakfast.Add(B0);
             Breakfast.Add(B1);
             Breakfast.Add(B2);
@@ -87,6 +90,9 @@ namespace FeedMeDaddy.View
             Supper.Add(S4);
             Supper.Add(S5);
             Supper.Add(S6);
+            //Set default values for the combobox units and Category
+            units.SelectedIndex = 0;
+            Category.SelectedIndex = 5;
 
             FeedMeDaddyContext db = new FeedMeDaddyContext();
 
@@ -102,18 +108,20 @@ namespace FeedMeDaddy.View
 
             db.SaveChanges();
 
+
+            //Search in the DB already placed in the week
             //Compare each date of the breakfast in the menu and in the week
             foreach (Menu breakfast in menusBreakfast)
             {
                 int datei = 0;
-                
+
                 foreach (ComboBox combo in Breakfast)
-                {                    
-                    if(DateTime.Compare(breakfast.Date, GetDate(datei)) == 0)
+                {
+                    if (DateTime.Compare(breakfast.Date, GetDate(datei)) == 0)
                     {
 
-                        combo.Text = breakfast.Recipe?.Name ?? breakfast.CustomRecipe; 
-                         
+                        combo.Text = breakfast.Recipe?.Name ?? breakfast.CustomRecipe;
+
                     }
                     datei++;
                 }
@@ -145,20 +153,20 @@ namespace FeedMeDaddy.View
                     if (DateTime.Compare(supper.Date, GetDate(datei)) == 0)
                     {
 
-                        combo.Text = supper.Recipe?.Name ?? supper.CustomRecipe; 
+                        combo.Text = supper.Recipe?.Name ?? supper.CustomRecipe;
                     }
                     datei++;
                 }
             }
 
-            units.SelectedIndex = 0;
-            Category.SelectedIndex = 5;
+            //re-add all ingredient in shopping list
             foreach (Ingredient ingre in shoppingList.Ingredients)
             {
                 IngredientToShoppingList(ingre);
             }
             db.Dispose();
         }
+
         private void Concat_ComboBox()
         {
             string pattern = @"[^A-Za-zÀ-ÖØ-öø-ÿ ]";
@@ -195,16 +203,17 @@ namespace FeedMeDaddy.View
                 Quantity = (double)quantity.Value,
                 Unit = (UnitWeight)units.SelectedItem,
                 ExpirationDate = dueDate.SelectedDate,
-                Category = (FoodCategory)Category.SelectedItem, 
+                Category = (FoodCategory)Category.SelectedItem,
             };
-            //Adding ingredeint to the shopping list and the database
+            //Adding ingredient to the shopping list and the database
             IngredientToShoppingList(ing);
             addIngredientToDB(ing);
 
         }
-        
+
         private void MenuShopping_Click(object sender, RoutedEventArgs e)
         {
+            //Fetching all the menus from the DB, filtered by typeMenu
             FeedMeDaddyContext db = new FeedMeDaddyContext();
             var menusBreakfast = db.Menu.Fetch().Where(m => m.User.Id == 1 && m.Type == TypeMenu.Breakfast).OrderBy(m => m.Date);
             var menusDinner = db.Menu.Fetch().Where(m => m.User.Id == 1 && m.Type == TypeMenu.Dinner).OrderBy(m => m.Date);
@@ -213,20 +222,22 @@ namespace FeedMeDaddy.View
 
             Recipe[] recipes = GetRecipeSelection();
             DateTime[] dates = GetWeekdays();
-                     
 
-            
+
+
             foreach (ComboBox combo in Breakfast)
             {
-                if (!(combo.Text == ""))
+                if (!(string.IsNullOrWhiteSpace(combo.Text)))
                 {
-                    //SI Le menu existe déjà dans la base de donnée avec le meme nom et la meme date on ajoute pas les ingredient 
-                    if(menusBreakfast.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))//deux ont le meme noms
+                    //If the menu already existe in the DB with the same name 
+                    if (menusBreakfast.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))
                     {
-                        if (menusBreakfast.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0))) //Ils ont la meme date
+                        //If they have the same date
+                        if (menusBreakfast.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0)))
                         {
-                            //on fait rien
-                        }else//Sinon on ajoute les ingrédients
+                            //They are the same so we must not add the ingredients
+                        }
+                        else //They are the same meal but on a different day so we add the ingredients
                         {
                             GetIngredientFromMenu(recipes, combo);
                         }
@@ -241,20 +252,20 @@ namespace FeedMeDaddy.View
 
             }
 
-            
+
             foreach (ComboBox combo in Dinner)
             {
-                if (!(combo.Text == ""))
+                if (!string.IsNullOrWhiteSpace(combo.Text))
                 {
-
-                    //SI Le menu existe déjà dans la base de donnée avec le meme nom et la meme date on ajoute pas les ingredient 
-                    if (menusDinner.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))//deux ont le meme noms
+                    //If the menu already existe in the DB with the same name 
+                    if (menusDinner.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))
                     {
+                        //If they have the same date
                         if (menusDinner.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0))) //Ils ont la meme date
                         {
-                            //on fait rien
+                            //They are the same so we must not add the ingredients
                         }
-                        else//Sinon on ajoute les ingrédients
+                        else //They are the same meal but on a different day so we add the ingredients
                         {
                             GetIngredientFromMenu(recipes, combo);
                         }
@@ -266,31 +277,31 @@ namespace FeedMeDaddy.View
 
                 }
             }
-            
+
             foreach (ComboBox combo in Supper)
             {
-                    if (!(combo.Text == ""))
+                if (!string.IsNullOrWhiteSpace(combo.Text))
+                {
+
+                    //If the menu already existe in the DB with the same name 
+                    if (menusSupper.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))//deux ont le meme noms
                     {
-
-                        //SI Le menu existe déjà dans la base de donnée avec le meme nom et la meme date on ajoute pas les ingredient 
-                        if (menusSupper.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))//deux ont le meme noms
+                        //If they have the same date
+                        if (menusSupper.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0)))
                         {
-
-                            if (menusSupper.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0))) //Ils ont la meme date
-                            {
-                                //on fait rien
-                            }
-                            else//Sinon on ajoute les ingrédients
-                            {
-                                GetIngredientFromMenu(recipes, combo);
-                            }
+                            //They are the same so we must not add the ingredients
+                        }
+                        else //They are the same meal but on a different day so we add the ingredients
+                        {
+                            GetIngredientFromMenu(recipes, combo);
+                        }
                     }
                     else
                     {
                         GetIngredientFromMenu(recipes, combo);
                     }
 
-                    }
+                }
             }
             GetMenuFromCombobox();
         }
@@ -310,7 +321,7 @@ namespace FeedMeDaddy.View
         }
         private void GetIngredientFromMenu(Recipe[] recipes, ComboBox combo)
         {
-            //Si la recette fait partie des recettes il faut ajouter les ingredients dans la liste de courses
+            //If the recipe is from the DB we need to add the ingredients to the shopping list, else its a custom recipe with no ingredients
             for (int i = 0; i < recipes.Length; i++)
             {
 
@@ -318,7 +329,7 @@ namespace FeedMeDaddy.View
                 {
                     foreach (Ingredient ingredient in recipes[i].Ingredients)
                     {
-                        //Adding ingredient to the Db and to the shopping list
+                        //Adding ingredient to the DB and to the shopping list
                         IngredientToShoppingList(ingredient);
                         addIngredientToDB(ingredient);
                     }
@@ -333,14 +344,16 @@ namespace FeedMeDaddy.View
             {
                 return;
             }
-            if (ing.Name == "")
+            if (string.IsNullOrWhiteSpace(ing.Name))
             {
                 IngredientRequired.Visibility = Visibility.Visible;
+                item.BorderBrush = Brushes.Red;
             }
             else
             {
                 IngredientRequired.Visibility = Visibility.Collapsed;
-                //Il faut faire un controle pour savoir si il y a déjà l'ingredient dans la liste de course
+                item.BorderBrush = Brushes.Gray;
+                //Need to check if ingredient already existe in the shopping list
                 int previewSize = previewShopping.Items.Count;
                 bool inList = false;
                 WeightConverter converter = new WeightConverter();
@@ -349,10 +362,9 @@ namespace FeedMeDaddy.View
                     Ingredient myIng = previewShopping.Items.GetItemAt(i) as Ingredient;
                     double quantitiyMyIng = myIng.Quantity;
 
-                    if (myIng.Name.Equals(ing.Name) && (!inList))
+                    if (myIng.Name.Equals(ing.Name) && (!inList)) //They have the same name
                     {
-
-                        //Si l'unité est la même on peut juste additionner
+                        //If the unit is the same we can just add them together before adding them in the shopping list
                         if (myIng.Unit.Shortcut.Equals(ing.Unit.Shortcut))
                         {
 
@@ -362,7 +374,7 @@ namespace FeedMeDaddy.View
                             inList = true;
 
                         }
-                        else //si l'unité est différente il faut faire une conversion
+                        else //if the unit is different but still in the same Weight (kg -> g or g -> Kg) we can convert
                         {
                             double tempQuantity = 0;
                             bool sameType = true;
@@ -387,7 +399,7 @@ namespace FeedMeDaddy.View
 
                     }
                 }
-                if (!inList)
+                if (!inList) //if it's not in the list we can simply add it
                 {
 
                     previewShopping.Items.Add(ing);
@@ -397,12 +409,15 @@ namespace FeedMeDaddy.View
         }
         private void addIngredientToDB(Ingredient ing)
         {
-            FeedMeDaddyContext db = new FeedMeDaddyContext();
-            var list = db.ShoppingList.Fetch().FirstOrDefault(s => s.User.Id == 1);
-            list.Ingredients.Add(ing);
-            db.UpdateShoppingList(list);
-            
-            db.Dispose();
+            if (!string.IsNullOrWhiteSpace(ing.Name))
+            {
+                FeedMeDaddyContext db = new FeedMeDaddyContext();
+                var list = db.ShoppingList.Fetch().FirstOrDefault(s => s.User.Id == 1);
+                list.Ingredients.Add(ing);
+                db.UpdateShoppingList(list);
+
+                db.Dispose();
+            }
         }
         private static DateTime[] GetWeekdays()
         {
@@ -435,7 +450,7 @@ namespace FeedMeDaddy.View
         }
         private void GetMenuFromCombobox()
         {
-           
+
             Recipe[] recipes = GetRecipeSelection();
             var menus = GetMenuSelection();
             int b = 0;
@@ -455,7 +470,7 @@ namespace FeedMeDaddy.View
                         Date = GetDate(b),
                         Type = TypeMenu.Breakfast
                     };
-                    //Si la recette fait partie des recettes connue on ajoute dans Recipe, sinon dans customRecipe
+                    //If the recipe is known it's a recipe, if it's not known it's a customRecipe
                     if (recipes.Any(r => r.Name == combo.Text))
                     {
                         menu.Recipe = recipes.FirstOrDefault(r => r.Name == combo.Text);
@@ -466,27 +481,26 @@ namespace FeedMeDaddy.View
                     }
 
 
-                    if ((menu.Recipe?.Name ?? menu.CustomRecipe).Equals(combo.Text))//deux ont le meme noms
+                    if ((menu.Recipe?.Name ?? menu.CustomRecipe).Equals(combo.Text))//same Name
                     {
 
-                        if (menus.Any(da => DateTime.Compare(menu.Date, da.Date) == 0)) //Ils ont la meme date
+                        if (!(menus.Any(da => DateTime.Compare(menu.Date, da.Date) == 0))) //Same Date
                         {
-                            //on fait rien
-                        }
-                        else//Sinon on ajoute le menu
-                        {
+
                             addMenuToDB(menu);
+
                         }
-                    }else
+                    }
+                    else
                     {
                         addMenuToDB(menu);
                     }
-               
+
                 }
 
                 b++;
             }
-            
+
             int d = 0;
             foreach (ComboBox combo in Dinner)
             {
@@ -502,9 +516,7 @@ namespace FeedMeDaddy.View
                         Date = GetDate(d),
                         Type = TypeMenu.Dinner
                     };
-                    //Si la recette fait partie des recettes connue on ajoute dans Recipe, sinon dans customRecipe
 
-                    //Si la recette fait partie des recettes connue on ajoute dans Recipe, sinon dans customRecipe
                     if (recipes.Any(r => r.Name == combo.Text))
                     {
                         menu.Recipe = recipes.FirstOrDefault(r => r.Name == combo.Text);
@@ -516,18 +528,14 @@ namespace FeedMeDaddy.View
                     }
 
 
-                    //SI Le menu existe déjà dans la base de donnée avec le meme nom et la meme date on ajoute pas les ingredient 
-                    if ((menu.Recipe?.Name ?? menu.CustomRecipe).Equals(combo.Text))//deux ont le meme noms
+                    if ((menu.Recipe?.Name ?? menu.CustomRecipe).Equals(combo.Text))
                     {
 
-                        if (menus.Any(da => DateTime.Compare(menu.Date, da.Date) == 0)) //Ils ont la meme date
-                        {
-                            //on fait rien
-                        }
-                        else//Sinon on ajoute les ingrédients
+                        if (!(menus.Any(da => DateTime.Compare(menu.Date, da.Date) == 0)))
                         {
                             addMenuToDB(menu);
                         }
+
                     }
                     else
                     {
@@ -549,12 +557,11 @@ namespace FeedMeDaddy.View
                     {
                         User = new User
                         {
-                            Id= 1
+                            Id = 1
                         },
                         Date = GetDate(s),
                         Type = TypeMenu.Supper
                     };
-                    //Si la recette fait partie des recettes connue on ajoute dans Recipe, sinon dans customRecipe
                     if (recipes.Any(r => r.Name == combo.Text))
                     {
                         menu.Recipe = recipes.FirstOrDefault(r => r.Name == combo.Text);
@@ -565,18 +572,14 @@ namespace FeedMeDaddy.View
                         menu.CustomRecipe = combo.Text;
                     }
 
-                    //SI Le menu existe déjà dans la base de donnée avec le meme nom et la meme date on ajoute pas les ingredient 
-                    if ((menu.Recipe?.Name ?? menu.CustomRecipe).Equals(combo.Text))//deux ont le meme noms
+                    if ((menu.Recipe?.Name ?? menu.CustomRecipe).Equals(combo.Text))
                     {
 
-                        if (menus.Any(da => DateTime.Compare(menu.Date, da.Date) == 0)) //Ils ont la meme date
-                        {
-                            //on fait rien
-                        }
-                        else//Sinon on ajoute les ingrédients
+                        if (!(menus.Any(da => DateTime.Compare(menu.Date, da.Date) == 0)))
                         {
                             addMenuToDB(menu);
                         }
+
                     }
                     else
                     {
@@ -589,7 +592,7 @@ namespace FeedMeDaddy.View
             }
 
         }
-    
+
 
         private void addMenuToDB(Menu menu)
         {
@@ -602,18 +605,18 @@ namespace FeedMeDaddy.View
         private void Combobox_TextChanged(object sender, TextChangedEventArgs e)
         {
             Concat_ComboBox();
-           /* ComboBox MyCombo = sender as ComboBox;
+            /* ComboBox MyCombo = sender as ComboBox;
 
-            if (MyCombo != null)
-            {
-                TextBox text = MyCombo.Template.FindName("PART_EditableTextBox", MyCombo) as TextBox;
+             if (MyCombo != null)
+             {
+                 TextBox text = MyCombo.Template.FindName("PART_EditableTextBox", MyCombo) as TextBox;
 
-                if (null != text)
-                {
-                    text.Select(text.Text.Length, 0);
-                }
-            }
-            */
+                 if (null != text)
+                 {
+                     text.Select(text.Text.Length, 0);
+                 }
+             }
+             */
         }
         private void DatePicker_Loaded(object sender, RoutedEventArgs e)
         {
