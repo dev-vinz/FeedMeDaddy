@@ -18,80 +18,42 @@ using System.Windows.Shapes;
 
 namespace FeedMeDaddy.View
 {
-	/// <summary>
-	/// Logique d'interaction pour RecipesView.xaml
-	/// </summary>
-	public partial class RecipesView : UserControl
-	{
-		private RecipesViewModel ViewModel { get; set; }
+    /// <summary>
+    /// Logique d'interaction pour RecipesView.xaml
+    /// </summary>
+    public partial class RecipesView : UserControl
+    {
+        private RecipesViewModel ViewModel { get; set; }
 
-		public RecipesView()
-		{
-			InitializeComponent();
-		}
+        public RecipesView()
+        {
+            InitializeComponent();
+        }
 
 
-		private void QuantityChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-		{
-			ViewModel = this.DataContext as RecipesViewModel;
+        private void QuantityChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            ViewModel = this.DataContext as RecipesViewModel;
 
-			int qty = (int)qtyUpDown.Value;
-			newQuantity(qty);
+            int qty = (int)qtyUpDown.Value;
+            newQuantity(qty);
 
-		}
+        }
 
-		private void newQuantity(int qty)
-		{
-			ingredientList?.Items.Clear();
-			List<Services.DataContracts.Ingredient> list = ViewModel?.ActiveRecipe?.Ingredients.ToList() ?? new List<Services.DataContracts.Ingredient>();
-			foreach (Services.DataContracts.Ingredient i in list)
-			{
-				i.Quantity = i.Quantity / 4 * qty;
-				ingredientList.Items.Add(i);
-			}
-		}
-
-		private void RecipeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			ViewModel = this.DataContext as RecipesViewModel;
-
-			int index = (sender as ListBox).SelectedIndex;
-
-			if (index >= 0)
-			{
-				ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
-				recipeComboBox.SelectedIndex = index;
-				recipeName.Text = ViewModel.ActiveRecipe.Name;
-				recipeDescription.Text = ViewModel.ActiveRecipe.Description;
-
-				newQuantity((int)qtyUpDown.Value);
-			}
-			/*ingredientList.Items.Clear();
-            foreach (var i in ViewModel.ActiveRecipe.Ingredients)
+        private void newQuantity(int qty)
+        {
+            ingredientList?.Items.Clear();
+            List<Services.DataContracts.Ingredient> list = ViewModel?.ActiveRecipe?.Ingredients.ToList() ?? new List<Services.DataContracts.Ingredient>();
+            foreach (Services.DataContracts.Ingredient i in list)
             {
+                i.Quantity = i.Quantity / 4 * qty;
                 ingredientList.Items.Add(i);
-            }*/
+            }
+        }
 
-		}
-
-		private void Combobox_selectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-
-			ViewModel = this.DataContext as RecipesViewModel;
-			int index = (sender as ComboBox).SelectedIndex;
-
-			if (index >= 0)
-			{
-				ViewModel.ActiveRecipe = ViewModel.Recipes.ElementAt(index);
-
-				recipeListBox.SelectedIndex = index;
-				recipeName.Text = ViewModel.ActiveRecipe.Name;
-				recipeDescription.Text = ViewModel.ActiveRecipe.Description;
-
-				newQuantity((int)qtyUpDown.Value);
-			}
-
-		}
+        private void RecipeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ViewModel = this.DataContext as RecipesViewModel;
 
             int index = (sender as ListBox).SelectedIndex;
 
@@ -105,7 +67,7 @@ namespace FeedMeDaddy.View
 
                 newQuantity((int)qtyUpDown.Value);
             }
-        
+
         }
 
         private void Combobox_selectionChanged(object sender, SelectionChangedEventArgs e)
@@ -130,10 +92,10 @@ namespace FeedMeDaddy.View
 
         private void addNewRecipe(object sender, RoutedEventArgs e)
         {
-            
+
             AddRecipeViewModel addRecipeViewModel = new AddRecipeViewModel();
             AddRecipeWindow addRecipeWindow = new AddRecipeWindow();
-            addRecipeWindow.ShowDialog(); 
+            addRecipeWindow.ShowDialog();
             //Refreshing combobox and listview to display new recipe
             ViewModel = this.DataContext as RecipesViewModel;
             ViewModel.LoadRecipes();
