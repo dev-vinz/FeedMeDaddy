@@ -37,6 +37,7 @@
                     Margin="5"
                     Grid.Row="4"
                     Grid.Column="0"
+                    Style="{StaticResource RecipeCloseButtonTheme}"
                 
                 />
 
@@ -174,6 +175,7 @@
                     Content="Add Ingredient"
                     Margin="5"
                     Grid.Row="0"
+                    Style="{StaticResource ButtonTheme}"
                     Grid.Column="0" Click="AddIngredient">
 
                 </Button>
@@ -181,6 +183,7 @@
                     Content="Remove Ingredient"
                     Margin="5"
                     Grid.Row="0"
+                    Style="{StaticResource RecipeCloseButtonTheme}"
                     Grid.Column="1" Click="RemoveIngredient">
 
                 </Button>
@@ -193,6 +196,7 @@
                   Grid.Row="3"
                   Grid.Column="1"
                   Margin="5"
+                  Foreground="Black"
                   SelectionMode="Single"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                   >
@@ -209,9 +213,8 @@
                     Content="Add Recipe"
                     Margin="5"
                     Grid.Row="4"
-                    Grid.Column="1" Click="AddRecipe">
-
-            </Button>
+                    Style="{StaticResource ButtonTheme}"
+                    Grid.Column="1" Click="AddRecipe"/>
 
         </Grid>
     </Border>
