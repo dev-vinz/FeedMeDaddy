@@ -108,9 +108,9 @@ namespace FeedMeDaddy.View
 
             db.SaveChanges();
 
+            //Search in the DB if the menu is already placed in the week
 
-            //Search in the DB already placed in the week
-            //Compare each date of the breakfast in the menu and in the week
+            //Compare each date of the breakfast in the menu and the day of week
             foreach (Menu breakfast in menusBreakfast)
             {
                 int datei = 0;
@@ -119,14 +119,13 @@ namespace FeedMeDaddy.View
                 {
                     if (DateTime.Compare(breakfast.Date, GetDate(datei)) == 0)
                     {
-
                         combo.Text = breakfast.Recipe?.Name ?? breakfast.CustomRecipe;
 
                     }
                     datei++;
                 }
             }
-            //Compare each date of the Dinner in the menu and in the week
+            //Compare each date of the Dinner in the menu and the day of week
             foreach (Menu dinner in menusDinner)
             {
                 int datei = 0;
@@ -142,7 +141,7 @@ namespace FeedMeDaddy.View
                     datei++;
                 }
             }
-            //Compare each date of the Supper in the menu and in the week
+            //Compare each date of the Supper in the menu and the day of week
             foreach (Menu supper in menusSupper)
             {
                 int datei = 0;
@@ -233,11 +232,8 @@ namespace FeedMeDaddy.View
                     if (menusBreakfast.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))
                     {
                         //If they have the same date
-                        if (menusBreakfast.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0)))
-                        {
-                            //They are the same so we must not add the ingredients
-                        }
-                        else //They are the same meal but on a different day so we add the ingredients
+                        if (!(menusBreakfast.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0))))
+                        //They are the same meal but on a different day so we add the ingredients
                         {
                             GetIngredientFromMenu(recipes, combo);
                         }
@@ -261,11 +257,8 @@ namespace FeedMeDaddy.View
                     if (menusDinner.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))
                     {
                         //If they have the same date
-                        if (menusDinner.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0))) //Ils ont la meme date
-                        {
-                            //They are the same so we must not add the ingredients
-                        }
-                        else //They are the same meal but on a different day so we add the ingredients
+                        if (!(menusDinner.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0))))
+                        //They are the same meal but on a different day so we add the ingredients
                         {
                             GetIngredientFromMenu(recipes, combo);
                         }
@@ -286,12 +279,9 @@ namespace FeedMeDaddy.View
                     //If the menu already existe in the DB with the same name 
                     if (menusSupper.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))//deux ont le meme noms
                     {
-                        //If they have the same date
-                        if (menusSupper.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0)))
-                        {
-                            //They are the same so we must not add the ingredients
-                        }
-                        else //They are the same meal but on a different day so we add the ingredients
+                        //do they have the same date
+                        if (!(menusSupper.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0))))
+                        //They are the same meal but on a different day so we add the ingredients
                         {
                             GetIngredientFromMenu(recipes, combo);
                         }
