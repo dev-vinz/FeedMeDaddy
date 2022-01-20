@@ -9,7 +9,8 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+		Title="FeedMeDaddy">
 
 	<Window.DataContext>
         <viewModel:MainViewModel />

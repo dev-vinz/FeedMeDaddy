@@ -264,7 +264,7 @@
                     <Button IsEnabled="False"
                             Content="Remove Ingredient"
                             Name="btnRemoveIngredient"
-							Style="{StaticResource ButtonTheme}"
+							Style="{StaticResource RecipeCloseButtonTheme}"
 							Click="BtnRemoveIngredient_Click"
                             Height="30"
                             Margin="5" />
@@ -272,7 +272,7 @@
 					<Button Grid.Column="1"
                             Content="Remove All"
                             Name="btnRemoveAllIngredient"
-							Style="{StaticResource ButtonTheme}"
+							Style="{StaticResource RecipeCloseButtonTheme}"
 							Click="BtnRemoveAllIngredient_Click"
                             Height="30"
                             Margin="5" />
