@@ -43,7 +43,7 @@ namespace FeedMeDaddy.View
         }
         private void item_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string pattern = @"[^A-Za-zÀ-ÖØ-öø-ÿ ]";
+            string pattern = @"[^A-Za-zÀ-ÖØ-öø-ÿ-' ]";
             RegexOptions options = RegexOptions.IgnoreCase;
             item.Text = Regex.Replace(item.Text, pattern, "", options);
             item.SelectionStart = item.Text.Length;
@@ -90,6 +90,7 @@ namespace FeedMeDaddy.View
             Supper.Add(S4);
             Supper.Add(S5);
             Supper.Add(S6);
+
             //Set default values for the combobox units and Category
             units.SelectedIndex = 0;
             Category.SelectedIndex = 5;
@@ -130,12 +131,11 @@ namespace FeedMeDaddy.View
             {
                 int datei = 0;
 
-                foreach (var combo in Dinner)
+                foreach (ComboBox combo in Dinner)
                 {
 
                     if (DateTime.Compare(dinner.Date, GetDate(datei)) == 0)
                     {
-
                         combo.Text = dinner.Recipe?.Name ?? dinner.CustomRecipe;
                     }
                     datei++;
@@ -168,7 +168,7 @@ namespace FeedMeDaddy.View
 
         private void Concat_ComboBox()
         {
-            string pattern = @"[^A-Za-zÀ-ÖØ-öø-ÿ ]";
+            string pattern = @"[^A-Za-zÀ-ÖØ-öø-ÿ-' ]";
             RegexOptions options = RegexOptions.IgnoreCase;
             foreach (var item in Breakfast)
             {
@@ -232,8 +232,11 @@ namespace FeedMeDaddy.View
                     if (menusBreakfast.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))
                     {
                         //If they have the same date
-                        if (!(menusBreakfast.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0))))
-                        //They are the same meal but on a different day so we add the ingredients
+                        if (menusBreakfast.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0)))
+                        {
+                            //They are the same so we must not add the ingredients
+                        }
+                        else //They are the same meal but on a different day so we add the ingredients
                         {
                             GetIngredientFromMenu(recipes, combo);
                         }
@@ -257,8 +260,11 @@ namespace FeedMeDaddy.View
                     if (menusDinner.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))
                     {
                         //If they have the same date
-                        if (!(menusDinner.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0))))
-                        //They are the same meal but on a different day so we add the ingredients
+                        if (menusDinner.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0)))
+                        {
+                            //They are the same so we must not add the ingredients
+                        }
+                        else //They are the same meal but on a different day so we add the ingredients
                         {
                             GetIngredientFromMenu(recipes, combo);
                         }
@@ -277,11 +283,14 @@ namespace FeedMeDaddy.View
                 {
 
                     //If the menu already existe in the DB with the same name 
-                    if (menusSupper.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))//deux ont le meme noms
+                    if (menusSupper.Any(r => (r.Recipe?.Name ?? r.CustomRecipe).Equals(combo.Text)))
                     {
-                        //do they have the same date
-                        if (!(menusSupper.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0))))
-                        //They are the same meal but on a different day so we add the ingredients
+                        //If they have the same date
+                        if (menusSupper.Any(r => dates.Any(d => DateTime.Compare(r.Date, d) == 0)))
+                        {
+                            //They are the same so we must not add the ingredients
+                        }
+                        else //They are the same meal but on a different day so we add the ingredients
                         {
                             GetIngredientFromMenu(recipes, combo);
                         }
@@ -442,15 +451,13 @@ namespace FeedMeDaddy.View
         {
 
             Recipe[] recipes = GetRecipeSelection();
-            var menus = GetMenuSelection();
+            var menuSelection = GetMenuSelection();
+
             int b = 0;
             foreach (ComboBox combo in Breakfast)
             {
-
                 if (!string.IsNullOrWhiteSpace(combo.Text))
                 {
-
-
                     var menu = new Menu
                     {
                         User = new User
@@ -471,20 +478,26 @@ namespace FeedMeDaddy.View
                     }
 
 
-                    if ((menu.Recipe?.Name ?? menu.CustomRecipe).Equals(combo.Text))//same Name
+                    if (menuSelection.Any(da => DateTime.Compare(menu.Date, da.Date) == 0 && da.Type == menu.Type))
                     {
+                        // On récupère le menu avec la même date et le même type
+                        Menu dateMenu = menuSelection.FirstOrDefault(da => DateTime.Compare(menu.Date, da.Date) == 0 && da.Type == menu.Type);
 
-                        if (!(menus.Any(da => DateTime.Compare(menu.Date, da.Date) == 0))) //Same Date
+                        // On sait que les dates et les types sont exacts, donc on regarde si le nom est le même
+                        if ((dateMenu.Recipe?.Name ?? dateMenu.CustomRecipe) != (menu.Recipe?.Name ?? menu.CustomRecipe))
                         {
-
-                            addMenuToDB(menu);
-
+                            // Si les noms de recette sont pas pareils, alors on modifie
+                            UpdateMenuToDB(menu);
                         }
+
+                        // Sinon rien, donc pas besoin de else
                     }
                     else
                     {
+                        // Il n'y a pas 2 dates égales de même type donc on ajoute
                         addMenuToDB(menu);
                     }
+
 
                 }
 
@@ -518,17 +531,23 @@ namespace FeedMeDaddy.View
                     }
 
 
-                    if ((menu.Recipe?.Name ?? menu.CustomRecipe).Equals(combo.Text))
+                    if (menuSelection.Any(da => DateTime.Compare(menu.Date, da.Date) == 0 && da.Type == menu.Type))
                     {
+                        // On récupère le menu avec la même date et le même type
+                        Menu dateMenu = menuSelection.FirstOrDefault(da => DateTime.Compare(menu.Date, da.Date) == 0 && da.Type == menu.Type);
 
-                        if (!(menus.Any(da => DateTime.Compare(menu.Date, da.Date) == 0)))
+                        // On sait que les dates et les types sont exacts, donc on regarde si le nom est le même
+                        if ((dateMenu.Recipe?.Name ?? dateMenu.CustomRecipe) != (menu.Recipe?.Name ?? menu.CustomRecipe))
                         {
-                            addMenuToDB(menu);
+                            // Si les noms de recette sont pas pareils, alors on modifie
+                            UpdateMenuToDB(menu);
                         }
 
+                        // Sinon rien, donc pas besoin de else
                     }
                     else
                     {
+                        // Il n'y a pas 2 dates égales de même type donc on ajoute
                         addMenuToDB(menu);
                     }
 
@@ -562,19 +581,43 @@ namespace FeedMeDaddy.View
                         menu.CustomRecipe = combo.Text;
                     }
 
-                    if ((menu.Recipe?.Name ?? menu.CustomRecipe).Equals(combo.Text))
+                    if (menuSelection.Any(da => DateTime.Compare(menu.Date, da.Date) == 0 && da.Type == menu.Type))
                     {
+                        // On récupère le menu avec la même date et le même type
+                        Menu dateMenu = menuSelection.FirstOrDefault(da => DateTime.Compare(menu.Date, da.Date) == 0 && da.Type == menu.Type);
 
-                        if (!(menus.Any(da => DateTime.Compare(menu.Date, da.Date) == 0)))
+                        // On sait que les dates et les types sont exacts, donc on regarde si le nom est le même
+                        if ((dateMenu.Recipe?.Name ?? dateMenu.CustomRecipe) != (menu.Recipe?.Name ?? menu.CustomRecipe))
                         {
-                            addMenuToDB(menu);
+                            // Si les noms de recette sont pas pareils, alors on modifie
+                            UpdateMenuToDB(menu);
                         }
 
+                        // Sinon rien, donc pas besoin de else
                     }
                     else
                     {
+                        // Il n'y a pas 2 dates égales de même type donc on ajoute
                         addMenuToDB(menu);
+                    }/*
+                    if (menuSelection.Any(da => DateTime.Compare(menu.Date, da.Date) == 0 && da.Type == menu.Type))
+                    {
+                        // On récupère le menu avec la même date et le même type
+                        Menu dateMenu = menuSelection.FirstOrDefault(da => DateTime.Compare(menu.Date, da.Date) == 0 && da.Type == menu.Type);
+                        if ((dateMenu.Recipe?.Name ?? dateMenu.CustomRecipe) != (menu.Recipe?.Name ?? menu.CustomRecipe))
+                        {
+                            // On sait que les dates sont exactes, donc on regarde si le nom est le même
+                            // Si les noms de recette sont pas pareils, alors on modifie
+                            UpdateMenuToDB(menu);
+                        }
+
+                        // Sinon rien, donc pas besoin de else
                     }
+                    else
+                    {
+                        // Il n'y a pas 2 dates égales donc on ajoute
+                        addMenuToDB(menu);
+                    }*/
 
                 }
 
@@ -588,6 +631,13 @@ namespace FeedMeDaddy.View
         {
             FeedMeDaddyContext db = new FeedMeDaddyContext();
             db.Menu.Add(menu);
+            db.SaveChanges();
+            db.Dispose();
+        }
+        private void UpdateMenuToDB(Menu updateMenu)
+        {
+            FeedMeDaddyContext db = new FeedMeDaddyContext();
+            db.Menu.Update(updateMenu);
             db.SaveChanges();
             db.Dispose();
         }

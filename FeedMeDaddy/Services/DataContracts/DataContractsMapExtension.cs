@@ -54,7 +54,7 @@ namespace FeedMeDaddy.Services.DataContracts
 
         public static Database.Menu ToDatabase(this Menu menu, DbSet<Database.Menu> menus)
         {
-            return menus.FirstOrDefault(m => m.User == menu.User.Id);
+            return menus.FirstOrDefault(m => m.User == menu.User.Id && DateTime.Compare(m.Date, menu.Date) == 0 && m.Type == (int)menu.Type);
         }
 
         public static Recipe ToDataContract(this Database.Recipe recipe) => new Recipe

@@ -76,6 +76,25 @@ namespace FeedMeDaddy.Services
             return dbSet.Add(menu.ToDatabase());
         }
 
+        public static void UpdateMenu(this FeedMeDaddyContext db, DataContracts.Menu menu)
+        {
+            // First delete the old Menu
+            db.DeleteMenu(menu);
+            // Add the new updated menu
+            db.AddMenu(menu);
+
+        }
+
+        public static EntityEntry<Database.Menu> AddMenu(this FeedMeDaddyContext db, DataContracts.Menu menu)
+        {
+            EntityEntry<Database.Menu> menuAdded = db.Menu.Add(menu.ToDatabase());
+
+
+            db.SaveChanges();
+
+           
+            return menuAdded;
+        }
         public static EntityEntry<Database.Recipe> AddRecipe(this FeedMeDaddyContext db, DataContracts.Recipe recipe)
         {
             EntityEntry<Database.Recipe> recipeAdded = db.Recipe.Add(recipe.ToDatabase());
@@ -108,6 +127,7 @@ namespace FeedMeDaddy.Services
         public static EntityEntry<Database.User> Add(this DbSet<Database.User> dbSet, DataContracts.User user)
         {
             return dbSet.Add(user.ToDatabase());
+
         }
 
         #endregion
@@ -121,6 +141,15 @@ namespace FeedMeDaddy.Services
 
             // Add the new updated recipe
             db.AddRecipe(recipe);
+            
+        }
+        public static EntityEntry<Database.Menu> Update(this DbSet<Database.Menu> table, DataContracts.Menu entity)
+        {
+            Database.Menu menu = entity.ToDatabase(table);
+            menu.Recipe = entity.Recipe?.Id;
+            menu.CustomRecipe = entity.CustomRecipe;
+
+            return table.Update(menu);
         }
 
         public static void UpdateShoppingList(this FeedMeDaddyContext db, DataContracts.ShoppingList shoppingList)
@@ -174,7 +203,14 @@ namespace FeedMeDaddy.Services
                 db.Ingredient.Remove(entity);
             }
         }
+        public static void DeleteMenu(this FeedMeDaddyContext db, DataContracts.Menu menu)
+        {
+            Database.Menu oldmenu = db.Menu.FirstOrDefault(m => (m.Date == menu.Date && (m.Type.Equals(menu.Type))));
+            db.Menu.Remove(oldmenu);
 
+            db.SaveChanges();
+
+        }
         public static void RemoveRange(this DbSet<Database.Menu> menuSet, params DataContracts.Menu[] entities)
         {
             foreach (DataContracts.Menu menu in entities)

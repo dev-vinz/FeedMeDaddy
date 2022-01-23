@@ -26,7 +26,7 @@ namespace FeedMeDaddy.View
     /// Logique d'interaction pour ShoppingView.xaml
     /// </summary>
     public partial class ShoppingView : System.Windows.Controls.UserControl
-	{
+    {
         public ShoppingView()
         {
             InitializeComponent();
@@ -140,14 +140,14 @@ namespace FeedMeDaddy.View
 
             if (ingredient == null) return;
 
-			UnitType typeIng = converter.TypeFor(ingredient.Unit.Unit);
+            UnitType typeIng = converter.TypeFor(ingredient.Unit.Unit);
 
             FeedMeDaddyContext db = new FeedMeDaddyContext();
 
-			IEnumerable<Ingredient> allIngredients = db.Ingredient.Fetch().Where(i => i.Name == ingredient.Name && converter.TypeFor(i.Unit.Unit) == typeIng);
-			IEnumerable<Recipe> allRecipes = db.Recipe.Fetch().Where(r => r.User.Id == 1);
+            IEnumerable<Ingredient> allIngredients = db.Ingredient.Fetch().Where(i => i.Name == ingredient.Name && converter.TypeFor(i.Unit.Unit) == typeIng);
+            IEnumerable<Recipe> allRecipes = db.Recipe.Fetch().Where(r => r.User.Id == 1);
 
-			IEnumerable<Ingredient> ingredientToDelete = allIngredients.Where(i => !allRecipes.Any(r => r.Ingredients.Any(ri => ri.Id == i.Id)));
+            IEnumerable<Ingredient> ingredientToDelete = allIngredients.Where(i => !allRecipes.Any(r => r.Ingredients.Any(ri => ri.Id == i.Id)));
 
             db.Ingredient.RemoveRange(ingredientToDelete);
             db.SaveChanges();
@@ -162,11 +162,14 @@ namespace FeedMeDaddy.View
 
         private void BtnRemoveAllIngredient_Click(object sender, RoutedEventArgs e)
         {
-            for (int k = 0; k < shoppingList.Items.Count; k++)
-			{
-                shoppingList.SelectedIndex = k;
-                BtnRemoveIngredient_Click(sender, e);
-			}
+            int count = shoppingList.Items.Count;
+            for (int k = 0; k < count; k++)
+            {
+                 
+                    shoppingList.SelectedIndex = 0;
+                    BtnRemoveIngredient_Click(sender, e);
+                
+            }
         }
 
         private void ShoppingList_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -183,8 +186,8 @@ namespace FeedMeDaddy.View
             boxIngredientCategory.SelectedItem = null;
         }
 
-		private void BtnExport_Click(object sender, RoutedEventArgs e)
-		{
+        private void BtnExport_Click(object sender, RoutedEventArgs e)
+        {
             ShoppingViewModel viewModel = DataContext as ShoppingViewModel;
 
             IEnumerable<Ingredient> ingredients = viewModel.ShoppingModel.Ingredients;
@@ -198,9 +201,9 @@ namespace FeedMeDaddy.View
             dialog.ShowDialog();
 
             if (!string.IsNullOrWhiteSpace(dialog.FileName))
-			{
+            {
                 File.WriteAllLines(dialog.FileName, exportList);
-			}
+            }
         }
-	}
+    }
 }
