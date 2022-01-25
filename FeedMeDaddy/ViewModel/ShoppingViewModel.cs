@@ -73,7 +73,11 @@ namespace FeedMeDaddy.ViewModel
 
 		public void RemoveFromModel(Ingredient ingredient)
 		{
+			WeightConverter converter = new WeightConverter();
+
 			ShoppingModel.Ingredients = ShoppingModel.Ingredients.Where(i => i != ingredient);
+
+			ShoppingList.Ingredients = ShoppingList.Ingredients.Where(i => !(i.Name == ingredient.Name && converter.TypeFor(i.Unit.Unit) == converter.TypeFor(ingredient.Unit.Unit))).ToList();
 			ShoppingModel.UpdateExpirationToMenuDate();
 		}
 
